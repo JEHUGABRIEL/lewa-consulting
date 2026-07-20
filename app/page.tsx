@@ -194,7 +194,7 @@ function PartnerCarousel() {
 
 // ---- Carousel des chiffres clés (1 à la fois) ----
 
-function StatCarousel({ stats }: { stats: typeof aboutUs.stats }) {
+function StatCarousel({ stats }: { stats: { value: string; label: string }[] }) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
