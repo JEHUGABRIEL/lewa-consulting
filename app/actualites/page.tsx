@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import PostIllustration from "@/components/PostIllustration";
@@ -8,24 +9,24 @@ import { posts } from "@/lib/posts";
 
 export const metadata: Metadata = { title: "Actualités" };
 
-export default function ActualitesPage() {
-  // (réservé pour filtres futurs)
+export default async function ActualitesPage() {
+  const t = await getTranslations();
 
   return (
     <main>
       <PageHeader
         texts={[
           {
-            title: "Actualités du cabinet",
-            lead: "Suivez les dernières nouvelles, sessions de formation, événements et missions du Cabinet COSI Lewa-Consulting Group à Bangui.",
+            title: t('blog.pageTitle1'),
+            lead: t('blog.pageLead1'),
           },
           {
-            title: "Formations & événements",
-            lead: "Restez informé de nos prochaines sessions de formation et ateliers gratuits.",
+            title: t('blog.pageTitle2'),
+            lead: t('blog.pageLead2'),
           },
           {
-            title: "Notre expertise sur le terrain",
-            lead: "Découvrez nos missions d&rsquo;audit, d&rsquo;assistance comptable et nos partenariats avec les ONG en Centrafrique.",
+            title: t('blog.pageTitle3'),
+            lead: t('blog.pageLead3'),
           },
         ]}
         backgrounds={getHeroBackgrounds("formations")}
@@ -34,7 +35,7 @@ export default function ActualitesPage() {
       <Container className="py-14 sm:py-16">
         {/* Tous les articles */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {posts.map((post, i) => (
+          {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/actualites/${post.slug}`}
@@ -65,7 +66,7 @@ export default function ActualitesPage() {
 
               {/* Read more */}
               <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                <span>Lire l&rsquo;article</span>
+                <span>{t('common.readMore')}</span>
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
                   &rarr;
                 </span>
@@ -76,17 +77,17 @@ export default function ActualitesPage() {
 
         {/* Compteur total */}
         <p className="mt-8 text-xs text-muted">
-          {posts.length} article{posts.length > 1 ? "s" : ""} publié{posts.length > 1 ? "s" : ""}
+          {t('blog.articleCount', { count: posts.length })}
         </p>
 
         {/* À lire aussi — articles recommandés (ordre différent pour varier) */}
         {posts.length > 1 && (
           <section className="mt-14 border-t border-border pt-10">
             <h2 className="font-display text-xl text-navy">
-              &Agrave; lire aussi
+              {t('blog.alsoRead')}
             </h2>
             <p className="mt-1.5 text-sm text-muted">
-              D&rsquo;autres articles pour aller plus loin
+              {t('blog.alsoReadSubtitle')}
             </p>
 
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -110,7 +111,7 @@ export default function ActualitesPage() {
                     {post.excerpt}
                   </p>
                   <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                    <span>Lire</span>
+                    <span>{t('blog.readShort')}</span>
                     <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
                       &rarr;
                     </span>

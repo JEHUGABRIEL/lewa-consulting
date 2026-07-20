@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
 import PostIllustration from "@/components/PostIllustration";
@@ -18,7 +19,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
-  if (!post) return { title: "Article introuvable" };
+  if (!post) {
+    const t = await getTranslations();
+    return { title: t('blog.notFound') };
+  }
   return { title: post.title };
 }
 
@@ -43,11 +47,8 @@ export default async function ArticlePage({ params }: Props) {
   const suggested = sameCategory.length > 0
     ? sameCategory
     : posts.filter((p) => p.slug !== post.slug).slice(0, 4);
-  const suggestedLabel = sameCategory.length > 0
-    ? post.category.toLowerCase()
-    : "divers";
-
   const heroBgs = getHeroBackgrounds("formations");
+  const t = await getTranslations();
 
   return (
     <main>
@@ -149,7 +150,7 @@ export default async function ArticlePage({ params }: Props) {
             </article>
 
             {/* Navigation précédent/suivant */}
-            <nav className="mt-10 flex items-stretch gap-3" aria-label="Navigation entre articles">
+            <nav className="mt-10 flex items-stretch gap-3" aria-label={t('blog.alsoRead')}>
               {prevPost ? (
                 <Link
                   href={`/actualites/${prevPost.slug}`}
@@ -168,7 +169,7 @@ export default async function ArticlePage({ params }: Props) {
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
                   <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">Article précédent</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">{t('blog.prevArticle')}</p>
                     <p className="mt-0.5 truncate text-sm font-medium text-navy transition-colors duration-200 group-hover:text-red">
                       {prevPost.title}
                     </p>
@@ -184,7 +185,7 @@ export default async function ArticlePage({ params }: Props) {
                   className="group flex flex-1 items-center gap-2 rounded-lg border border-border bg-white p-3 text-right transition-all duration-200 hover:border-navy/20 hover:shadow-sm"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">Article suivant</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">{t('blog.nextArticle')}</p>
                     <p className="mt-0.5 truncate text-sm font-medium text-navy transition-colors duration-200 group-hover:text-red">
                       {nextPost.title}
                     </p>
@@ -216,7 +217,7 @@ export default async function ArticlePage({ params }: Props) {
                   {/* Titre en haut */}
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                     <span className="inline-block h-px flex-1 bg-gold/30" />
-                    <span>{sameCategory.length > 0 ? "Articles similaires" : "Articles récents"}</span>
+                    <span>{sameCategory.length > 0 ? t('blog.similarArticles') : t('blog.recentArticles')}</span>
                     <span className="inline-block h-px flex-1 bg-gold/30" />
                   </div>
 
@@ -263,7 +264,7 @@ export default async function ArticlePage({ params }: Props) {
                   <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
-                  <span>Retour à l&rsquo;accueil</span>
+                  <span>{t('common.backToHome')}</span>
                 </Link>
               </div>
             </div>
