@@ -422,21 +422,6 @@ export default function Header() {
           : "border-border bg-paper"
       }`}
     >
-      {/* Barre d'infos — rétrécit au scroll */}
-      <div
-        className={`hidden overflow-hidden border-border bg-navy-deep text-paper/70 transition-all duration-300 md:block ${
-          scrolled ? "max-h-0 border-b-0" : "max-h-12 border-b"
-        }`}
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-end gap-6 px-4 py-1.5 text-xs sm:px-8">
-          <a href="tel:+23672696700" className="transition hover:text-paper">+236 72 69 67 00</a>
-          <a href="mailto:cabinetcosi29@gmail.com" className="transition hover:text-paper">
-            cabinetcosi29@gmail.com
-          </a>
-          <span className="text-paper/50">Bangui, RCA</span>
-        </div>
-      </div>
-
       <div
         className={`mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8 transition-all duration-300 ${
           scrolled ? "py-3" : "py-4"
