@@ -174,9 +174,9 @@ function PartnerCarousel() {
     pausedRef.current = paused;
     const speed = 0.5;
 
-    const children = track.children;
-    const cardWidth = children[0] ? (children[0] as HTMLElement).offsetWidth + 8 : 200;
-    const totalWidth = cardWidth * partners.length;
+    // Utiliser scrollWidth du contenu dupliqué divisé par 2
+    // pour une largeur exacte (inclut padding, gap, etc.)
+    const totalWidth = track.scrollWidth / 2;
 
     function animate() {
       if (!pausedRef.current) {
