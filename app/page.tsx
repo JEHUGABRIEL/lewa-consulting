@@ -161,7 +161,9 @@ function PartnerCard({ p }: { p: (typeof partners)[number] }) {
 
 function PartnerCarousel() {
   const [paused, setPaused] = useState(false);
-  const duplicated = [...partners, ...partners];
+  // 4 copies pour que translateX(-50%) = 2 séries complètes
+  // = 2016px — aucun écran desktop ne voit le bord du contenu
+  const duplicated = [...partners, ...partners, ...partners, ...partners];
 
   return (
     <div
