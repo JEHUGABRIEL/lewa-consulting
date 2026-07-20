@@ -759,8 +759,8 @@ export default function Home() {
       {/* ================================================
            PARTENAIRES — carousel autodéfilant
            ================================================ */}
-      <section className="border-b border-border overflow-hidden">
-        <Container className="py-10 sm:py-12 pb-4 sm:pb-4">
+      <section className="border-b border-border">
+        <Container className="py-14 sm:py-16">
           <div>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               <span className="inline-block h-px w-4 bg-gold/50" />
@@ -773,9 +773,11 @@ export default function Home() {
               {t('partners.subtitle')}
             </p>
           </div>
-        </Container>
 
-        <PartnerCarousel />
+          <div className="mt-10">
+            <PartnerCarousel />
+          </div>
+        </Container>
       </section>
 
 
