@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Mark from "./Mark";
 import { servicesData } from "@/lib/services";
 import { formationCategories, comptaFinance, bureautiqueDev, featuredFormations } from "@/lib/formations";
@@ -17,72 +18,36 @@ const categoryFormations: Record<string, { name: string; slug: string; price: st
   bureautique: bureautiqueDev.map((f) => ({ name: f.name, slug: f.slug, price: f.price, image: f.image })),
 };
 
-// ---- Données pour le mega-menu Notre expertise ----
+// ---- Clés de traduction pour le mega-menu ----
 
 const expertiseItems = [
-  {
-    href: "/services/expertise-comptable",
-    label: "Expertise comptable",
-    desc: "Un accompagnement sur mesure au plus proche de vos enjeux",
-    tags: ["TPE", "PME", "ONG", "Institution"],
-    icon: "compta",
-  },
-  {
-    href: "/services/conseil-aux-entreprises",
-    label: "Conseil aux entreprises",
-    desc: "Des conseils avisés au moment opportun",
-    tags: ["PME", "ONG", "Institution"],
-    icon: "conseil",
-  },
-  {
-    href: "/services/gestion-sociale-rh",
-    label: "Gestion sociale et RH",
-    desc: "Sécurisez la gestion de vos ressources humaines",
-    tags: ["TPE", "PME", "ONG"],
-    icon: "rh",
-  },
-  {
-    href: "/services/formation-professionnelle",
-    label: "Formation professionnelle",
-    desc: "Certificat, attestation et CV professionnel à la clé",
-    tags: ["TPE", "PME", "ONG", "Institution"],
-    icon: "formation",
-  },
-  {
-    href: "/services/gestion-privee",
-    label: "Gestion privée",
-    desc: "Conseils en investissements et prévoyance",
-    tags: ["Dirigeants", "Particuliers"],
-    icon: "privee",
-  },
-  {
-    href: "/services/conseil-juridique-fiscal",
-    label: "Conseil juridique et fiscal",
-    desc: "Accompagnement juridique et fiscal personnalisé",
-    tags: ["PME", "ONG"],
-    icon: "juridique",
-  },
+  { href: "/services/expertise-comptable", key: "expertiseComptable", label: "Expertise comptable", tags: ["TPE", "PME", "ONG", "Institution"], icon: "compta" },
+  { href: "/services/conseil-aux-entreprises", key: "conseil", label: "Conseil aux entreprises", tags: ["PME", "ONG", "Institution"], icon: "conseil" },
+  { href: "/services/gestion-sociale-rh", key: "rh", label: "Gestion sociale et RH", tags: ["TPE", "PME", "ONG"], icon: "rh" },
+  { href: "/services/formation-professionnelle", key: "formation", label: "Formation professionnelle", tags: ["TPE", "PME", "ONG", "Institution"], icon: "formation" },
+  { href: "/services/gestion-privee", key: "gestionPrivee", label: "Gestion privée", tags: ["Dirigeants", "Particuliers"], icon: "privee" },
+  { href: "/services/conseil-juridique-fiscal", key: "juridique", label: "Conseil juridique et fiscal", tags: ["PME", "ONG"], icon: "juridique" },
 ];
 
 const sectorsItems = [
-  { label: "BTP & Construction", href: "/services", icon: "btp" },
-  { label: "ONG & Économie Sociale", href: "/services", icon: "ong" },
-  { label: "Commerce & Distribution", href: "/services", icon: "commerce" },
-  { label: "Banque & Microfinance", href: "/services", icon: "banque" },
-  { label: "Santé", href: "/services", icon: "sante" },
-  { label: "Éducation & Formation", href: "/formations/comptabilite-finance", icon: "education" },
-  { label: "Secteur Public", href: "/services", icon: "public" },
-  { label: "Transport & Mobilités", href: "/services", icon: "transport" },
-  { label: "Hôtellerie & Restauration", href: "/services", icon: "hotel" },
+  { key: "btpConstruction", href: "/services", icon: "btp" },
+  { key: "ongSocial", href: "/services", icon: "ong" },
+  { key: "commerceDist", href: "/services", icon: "commerce" },
+  { key: "banqueMicro", href: "/services", icon: "banque" },
+  { key: "sante", href: "/services", icon: "sante" },
+  { key: "education", href: "/formations/comptabilite-finance", icon: "education" },
+  { key: "secteurPublic", href: "/services", icon: "public" },
+  { key: "transport", href: "/services", icon: "transport" },
+  { key: "hotellerie", href: "/services", icon: "hotel" },
 ];
 
 const resourcesItems = [
-  { label: "Articles & analyses", href: "/actualites", icon: "articles" },
-  { label: "Guides & dossiers", href: "/actualites", icon: "guides" },
-  { label: "Nos formations", href: "/formations/comptabilite-finance", icon: "formations" },
-  { label: "FAQ", href: "/contact", icon: "faq" },
-  { label: "Contact expert", href: "/contact", icon: "contact" },
-  { label: "WhatsApp", href: "https://wa.me/23672696700", icon: "whatsapp", external: true },
+  { key: "articles", href: "/actualites", icon: "articles" },
+  { key: "guides", href: "/actualites", icon: "guides" },
+  { key: "ourFormations", href: "/formations/comptabilite-finance", icon: "formations" },
+  { key: "faq", href: "/contact", icon: "faq" },
+  { key: "contactExpert", href: "/contact", icon: "contact" },
+  { key: "whatsapp", href: "https://wa.me/23672696700", icon: "whatsapp", external: true },
 ];
 
 const expertiseIcon = (icon: string, size?: string) => {
@@ -315,20 +280,20 @@ function MobileAccordion({
 
 type NavLink = {
   href: string;
-  label: string;
+  key: string;
   submenu?: { href: string; label: string }[];
 };
 
 const links: NavLink[] = [
-  { href: "/", label: "Accueil" },
+  { href: "/", key: "home" },
   {
     href: "/services",
-    label: "Notre expertise",
-    submenu: expertiseItems.map((s) => ({ href: s.href, label: s.label })),
+    key: "expertise",
+    submenu: expertiseItems.map((s) => ({ href: s.href, label: "" })),
   },
   {
     href: "/formations/comptabilite-finance",
-    label: "Formations",
+    key: "formations",
     submenu: [
       ...formationCategories.map((c) => ({
         href: `/formations/${c.slug}`,
@@ -336,10 +301,11 @@ const links: NavLink[] = [
       })),
     ],
   },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", key: "contact" },
 ];
 
 export default function Header() {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
@@ -405,10 +371,9 @@ export default function Header() {
   // Helper pour savoir si un lien (ou un de ses sous-liens) est actif
   const isActive = (l: NavLink): boolean => {
     if (l.href === "/") return pathname === "/";
-    // Pour les liens avec sous-menu, matcher toute page sous leur préfixe
     if (l.submenu) {
-      if (l.label === "Formations") return pathname.startsWith("/formations");
-      if (l.label === "Notre expertise") return pathname.startsWith("/services");
+      if (l.key === "formations") return pathname.startsWith("/formations");
+      if (l.key === "expertise") return pathname.startsWith("/services");
       return pathname.startsWith(l.href);
     }
     return pathname.startsWith(l.href);
@@ -430,7 +395,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 group">
           <Mark className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
           <span className="font-display leading-tight">
-            <span className="block text-[0.62rem] tracking-[0.2em] text-muted uppercase">Cabinet</span>
+            <span className="block text-[0.62rem] tracking-[0.2em] text-muted uppercase">{t('common.cabinet')}</span>
             <span
               className={`block font-semibold text-navy transition-all duration-300 ${
                 scrolled ? "text-sm" : "text-base sm:text-lg"
@@ -451,12 +416,12 @@ export default function Header() {
                 <div
                   key={l.href}
                   className="relative"
-                  ref={l.label === "Formations" ? formationsRef : l.label === "Notre expertise" ? servicesRef : undefined}
+                  ref={l.key === "formations" ? formationsRef : l.key === "expertise" ? servicesRef : undefined}
                   onMouseEnter={() => {
                     if (dropdownTimer.current) clearTimeout(dropdownTimer.current);
                     setHoveredDropdown(l.href);
-                    if (l.label === "Notre expertise") setHoveredCategory(null);
-                    if (l.label === "Formations") setHoveredCategory(formationCategories[0]?.id ?? null);
+                    if (l.key === "expertise") setHoveredCategory(null);
+                    if (l.key === "formations") setHoveredCategory(formationCategories[0]?.id ?? null);
                   }}
                   onMouseLeave={() => {
                     dropdownTimer.current = setTimeout(() => setHoveredDropdown(null), 150);
@@ -470,7 +435,7 @@ export default function Header() {
                         : "border-transparent text-ink/70 hover:text-navy"
                     }`}
                   >
-                    {l.label}
+                    {t(`nav.${l.key}`)}
                     {/* Chevron */}
                     <svg
                       className={`h-3 w-3 transition-transform duration-200 ${
@@ -491,24 +456,24 @@ export default function Header() {
                   </Link>
 
                   {/* Dropdown — Notre expertise : méga-menu riche */}
-                  {hoveredDropdown === l.href && l.label === "Notre expertise" && (
+                  {hoveredDropdown === l.href && l.key === "expertise" && (
                     <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2 animate-slide-down">
                       <div className="w-[880px] overflow-hidden rounded-xl border border-border bg-paper shadow-lg">
                         {/* Section services */}
                         <div className="p-6 pb-3">
                           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                             <span className="inline-block h-px w-4 bg-gold/50" />
-                            Nos expertises
+                            {t('nav.ourExpertises')}
                           </div>
                           <p className="mt-1.5 text-xs text-muted/80 max-w-xl">
-                            Guider les entrepreneurs et éclairer leurs décisions pour tracer les chemins de la réussite.
+                            {t('nav.expertiseDesc')}
                           </p>
                         </div>
 
                         <div className="grid grid-cols-3 gap-px bg-border px-6">
                           {expertiseItems.map((s) => (
                             <Link
-                              key={s.label}
+                              key={s.key}
                               href={s.href}
                               onClick={() => setHoveredDropdown(null)}                            className="group flex flex-col gap-2.5 rounded-lg bg-paper p-4 transition hover:bg-navy/[0.02] -mx-1 px-4"
                           >
@@ -522,8 +487,8 @@ export default function Header() {
                                 />
                               </span>
                               <div>
-                                <p className="text-sm font-semibold text-navy leading-snug">{s.label}</p>
-                                <p className="mt-0.5 text-[11px] text-muted leading-snug">{s.desc}</p>
+                                <p className="text-sm font-semibold text-navy leading-snug">{t(`services.${s.key}`)}</p>
+                                <p className="mt-0.5 text-[11px] text-muted leading-snug">{t(`services.${s.key}Desc`)}</p>
                               </div>
                               <div className="flex flex-wrap gap-1.5">
                                 {s.tags.map((t) => (
@@ -549,12 +514,12 @@ export default function Header() {
                                 <line x1="2" y1="12" x2="22" y2="12" />
                                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                               </svg>
-                              Votre secteur
+                              {t('nav.yourSector')}
                             </p>
                             <div className="flex flex-wrap gap-1.5">
                               {sectorsItems.map((s) => (
                                 <Link
-                                  key={s.label}
+                                  key={s.key}
                                   href={s.href}
                                   onClick={() => setHoveredDropdown(null)}
                                   className="group inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-2.5 py-1.5 text-[11px] font-medium text-ink/70 transition hover:border-navy/30 hover:bg-navy/[0.02] hover:text-navy"
@@ -562,7 +527,7 @@ export default function Header() {
                                   <span className="text-navy/50 group-hover:text-navy/80 transition-colors">
                                     {expertiseIcon(s.icon, "sm")}
                                   </span>
-                                  {s.label}
+                                  {t(`nav.${s.key}`)}
                                 </Link>
                               ))}
                             </div>
@@ -574,7 +539,7 @@ export default function Header() {
                               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
                               </svg>
-                              Nos ressources
+                              {t('nav.ourResources')}
                             </p>
                             <div className="grid grid-cols-2 gap-1.5">
                               {resourcesItems.map((r) => {
@@ -584,14 +549,14 @@ export default function Header() {
                                   : { href: r.href, onClick: () => setHoveredDropdown(null) };
                                 return (
                                   <LinkComponent
-                                    key={r.label}
+                                    key={r.key}
                                     {...linkProps}
                                     className="group flex items-center gap-2 rounded-lg px-2.5 py-2 text-[11px] font-medium text-ink/70 transition hover:bg-navy/[0.04] hover:text-navy"
                                   >
                                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-gold/10 text-gold group-hover:bg-gold/20 transition-colors">
                                       {expertiseIcon(r.icon, "sm")}
                                     </span>
-                                    <span>{r.label}</span>
+                                    <span>{t(`nav.${r.key}`)}</span>
                                   </LinkComponent>
                                 );
                               })}
@@ -606,7 +571,7 @@ export default function Header() {
                             onClick={() => setHoveredDropdown(null)}
                             className="group inline-flex items-center gap-1 text-xs font-medium text-navy transition hover:text-red"
                           >
-                            <span>Découvrir toutes nos expertises</span>
+                            <span>{t('nav.discoverAll')}</span>
                             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                           </Link>
                         </div>
@@ -615,13 +580,13 @@ export default function Header() {
                   )}
 
                   {/* Dropdown — Formations : mega menu avec sidebar */}
-                  {hoveredDropdown === l.href && l.label === "Formations" && (
+                  {hoveredDropdown === l.href && l.key === "formations" && (
                     <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2 animate-slide-down">
                       <div className="flex w-[720px] overflow-hidden rounded-xl border border-border bg-paper shadow-lg">
                         {/* Sidebar — catégories */}
                         <div className="w-44 shrink-0 border-r border-border bg-navy/[0.02]">
                           <div className="px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
-                            Catégories
+                            {t('nav.categories')}
                           </div>
                           {formationCategories.map((c) => {
                             const count = categoryFormations[c.id]?.length ?? 0;
@@ -656,7 +621,7 @@ export default function Header() {
                           <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
                             {hoveredCategory
                               ? formationCategories.find((c) => c.id === hoveredCategory)?.label ?? ""
-                              : "Choisissez une catégorie"}
+                              : t('nav.chooseCategory')}
                           </div>
                           <div className="space-y-1">
                             {hoveredCategory && categoryFormations[hoveredCategory] ? (
@@ -684,7 +649,7 @@ export default function Header() {
                               ))
                             ) : (
                               <p className="py-6 text-center text-xs text-muted/50">
-                                Passez la souris sur une catégorie
+                                {t('nav.hoverCategory')}
                               </p>
                             )}
                           </div>
@@ -697,7 +662,7 @@ export default function Header() {
                             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                             </svg>
-                            Formations vedettes
+                            {t('nav.featuredFormations')}
                           </div>
                           <div className="space-y-1 px-2">
                             {featuredFormations.map((f) => (
@@ -746,7 +711,7 @@ export default function Header() {
                       : "border-navy/30 text-navy hover:border-navy hover:bg-navy/[0.04]"
                   }`}
                 >
-                  {l.label}
+                  {t(`nav.${l.key}`)}
                 </Link>
               );
             }
@@ -761,7 +726,7 @@ export default function Header() {
                     : "border-transparent text-ink/70 hover:text-navy"
                 }`}
               >
-                {l.label}
+                {t(`nav.${l.key}`)}
                 {!active && (
                   <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-0 bg-red/40 transition-all duration-300 group-hover:w-full" />
                 )}
@@ -779,7 +744,7 @@ export default function Header() {
                 ? "bg-navy text-paper"
                 : "text-muted hover:bg-navy/[0.06] hover:text-navy"
             }`}
-            aria-label="Français"
+            aria-label={t('common.french')}
           >
             FR
           </button>
@@ -791,7 +756,7 @@ export default function Header() {
                 ? "bg-navy text-paper"
                 : "text-muted hover:bg-navy/[0.06] hover:text-navy"
             }`}
-            aria-label="English"
+            aria-label={t('common.english')}
           >
             EN
           </button>
@@ -801,7 +766,7 @@ export default function Header() {
         <button
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
           onClick={() => setOpen((o) => !o)}
-          aria-label="Ouvrir le menu"
+          aria-label={t('nav.openMenu')}
           aria-expanded={open}
         >
           <span
@@ -837,21 +802,21 @@ export default function Header() {
         }`}
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation principale"
+        aria-label={t('nav.mainNav')}
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
             <Mark className="h-8 w-8 shrink-0" />
             <div>
-              <span className="block text-[0.55rem] tracking-[0.2em] text-muted uppercase">Cabinet</span>
-              <span className="block text-sm font-semibold text-navy">COSI Lewa-Consulting</span>
+              <span className="block text-[0.55rem] tracking-[0.2em] text-muted uppercase">{t('common.cabinet')}</span>
+              <span className="block text-sm font-semibold text-navy">COSI LEWA</span>
             </div>
           </Link>
           <button
             onClick={() => setOpen(false)}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-navy/[0.06] text-navy transition hover:bg-navy/[0.12]"
-            aria-label="Fermer le menu"
+            aria-label={t('nav.closeMenu')}
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -877,12 +842,12 @@ export default function Header() {
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
-              <span>Accueil</span>
+              <span>{t('nav.home')}</span>
             </Link>
 
             {/* Notre expertise */}
             <MobileAccordion
-              label="Notre expertise"
+              label={t('nav.expertise')}
               icon={
                 <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <rect x="2" y="3" width="20" height="18" rx="2" />
@@ -897,7 +862,7 @@ export default function Header() {
             >
               {expertiseItems.map((s) => (
                 <Link
-                  key={s.label}
+                  key={s.key}
                   href={s.href}
                   onClick={() => { setOpen(false); setMobileAccordion(null); }}
                   className="flex items-start gap-3 rounded-lg px-3 py-3 transition hover:bg-navy/[0.04]"
@@ -912,8 +877,8 @@ export default function Header() {
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-navy">{s.label}</p>
-                    <p className="mt-0.5 text-[11px] text-muted leading-snug line-clamp-1">{s.desc}</p>
+                    <p className="text-sm font-semibold text-navy">{t(`services.${s.key}`)}</p>
+                    <p className="mt-0.5 text-[11px] text-muted leading-snug line-clamp-1">{t(`services.${s.key}Desc`)}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {s.tags.map((t) => (
                         <span
@@ -931,7 +896,7 @@ export default function Header() {
 
             {/* Formations */}
             <MobileAccordion
-              label="Formations"
+              label={t('nav.formations')}
               icon={
                 <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -988,7 +953,7 @@ export default function Header() {
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-              <span>Contact</span>
+              <span>{t('nav.contact')}</span>
             </Link>
           </nav>
         </div>

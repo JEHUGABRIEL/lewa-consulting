@@ -90,9 +90,7 @@
     "securityText": "Le Cabinet COSI Lewa-Consulting Group met en œuvre toutes les mesures techniques et organisationnelles appropriées pour garantir la sécurité et la confidentialité de vos données personnelles.",
     "contactTitle": "Contact",
     "contactText": "Pour toute question relative aux mentions légales ou à la protection des données, vous pouvez nous contacter :",
-    "lastUpdate": "Dernière mise à jour : juillet 2026"
-  },
-  "about": {
+    "lastUpdate": "Dernière mise à jour : juillet 2026",
     "eyebrow": "Le cabinet",
     "title": "Qui sommes-nous\u00a0?",
     "lead": "Un cabinet centrafricain d'audit, d'expertise comptable et de formation professionnelle.",
@@ -206,7 +204,12 @@
     "levelInfoTitle": "Niveau {level}",
     "levelInfoDebutant": "Aucun prérequis nécessaire. Cette formation est accessible à tous, quel que soit votre parcours.",
     "levelInfoIntermediaire": "Une connaissance de base dans le domaine est recommandée pour tirer le meilleur parti de cette formation.",
-    "levelInfoAvance": "Cette formation nécessite des connaissances solides en comptabilité ou dans le domaine concerné. Elle est destinée aux professionnels souhaitant se spécialiser."
+    "levelInfoAvance": "Cette formation nécessite des connaissances solides en comptabilité ou dans le domaine concerné. Elle est destinée aux professionnels souhaitant se spécialiser.",
+    "category": "Catégorie",
+    "all": "Toutes",
+    "level": "Niveau",
+    "allLevels": "Tous",
+    "resultsCount": "{count} résultat(s)"
   },
   "testimonials": {
     "eyebrow": "Ils nous font confiance",
@@ -256,13 +259,30 @@
     "title": "Prêt à démarrer\u00a0?",
     "subtitle": "Que vous soyez une entreprise, une organisation non gouvernementale ou un professionnel en quête de compétences, le Cabinet COSI Lewa-Consulting Group est à votre écoute pour vous accompagner.",
     "contact": "Nous contacter",
-    "services": "Nos services"
+    "services": "Nos services",
+    "servicesTitle": "Prêt à concrétiser votre projet ?",
+    "servicesText": "Confiez-nous votre audit, votre comptabilité ou vos besoins en formation. Une équipe d'experts vous accompagne pour des solutions sur mesure.",
+    "servicesPrimary": "Demander un devis",
+    "servicesSecondary": "Voir nos formations",
+    "formationsTitle": "Prêt à booster vos compétences ?",
+    "formationsText": "Inscrivez-vous dès maintenant à l'une de nos formations professionnelles. Certificat, attestation et CV professionnel à la clé.",
+    "formationsPrimary": "S'inscrire",
+    "formationsSecondary": "Voir les services",
+    "aProposTitle": "Envie d'en savoir plus ?",
+    "aProposText": "Le Cabinet COSI Lewa-Consulting Group est votre partenaire de confiance à Bangui. Contactez-nous pour discuter de vos besoins.",
+    "aProposPrimary": "Nous contacter",
+    "aProposSecondary": "Nos services",
+    "contactTitle": "Une question ?",
+    "contactText": "Nos experts sont à votre disposition pour vous répondre dans les meilleurs délais. Envoyez-nous un message ou appelez-nous directement.",
+    "contactPrimary": "Nous appeler",
+    "contactSecondary": "Voir les formations"
   },
   "contact": {
     "eyebrow": "Nous contacter",
     "title": "Parlons de votre projet",
     "subtitle": "Une question, un besoin d\u2019accompagnement\u00a0? Notre équipe est à votre écoute.",
     "address": "Adresse",
+    "navigation": "Navigation",
     "addressLine1": "Avenue des Martyrs — SOCATEL",
     "addressLine2": "En face du Stade 20 000 Places",
     "addressLine3": "Bangui, République Centrafricaine",
@@ -306,15 +326,20 @@
   "footer": {
     "aboutTitle": "À propos",
     "aboutText": "Cabinet d'audit, d'expertise comptable et de formation professionnelle basé à Bangui, en République Centrafricaine.",
-    "services": "Nos services",
     "quickLinks": "Liens rapides",
     "formations": "Formations",
     "actualites": "Actualités",
     "legal": "Mentions légales",
     "newsletter": "Newsletter",
-    "newsletterPlaceholder": "Votre adresse email",
+    "newsletterText": "Recevez nos actualités, sessions de formation et conseils.",
+    "newsletterSuccess": "Merci de votre inscription\u00a0!",
+    "newsletterRequired": "Veuillez entrer votre adresse email",
+    "newsletterInvalid": "Adresse email invalide",
+    "newsletterPlaceholder": "votre@email.com",
+    "newsletterLabel": "Adresse email",
     "newsletterBtn": "S'abonner",
-    "copyright": "© {year} Cabinet COSI Lewa-Consulting Group. Tous droits réservés.",
+    "backToTop": "Retour en haut",
+    "copyright": "\u00a9 {year} Cabinet COSI Lewa-Consulting Group. Tous droits r\u00e9serv\u00e9s.",
     "followUs": "Suivez-nous"
   },
   "legal": {
@@ -348,7 +373,10 @@
     "placeholder": "Posez votre question...",
     "send": "Envoyer",
     "thinking": "Réflexion en cours...",
-    "greeting": "Bonjour ! Je suis l'assistant virtuel du Cabinet COSI Lewa-Consulting Group. Comment puis-je vous aider aujourd'hui ?"
+    "greeting": "Bonjour ! Je suis l'assistant virtuel du Cabinet COSI Lewa-Consulting Group. Comment puis-je vous aider aujourd'hui ?",
+    "open": "Ouvrir le chat",
+    "close": "Fermer le chat",
+    "chooseTopic": "Choisissez un sujet ci-dessous"
   },
   "faq": {
     "title": "Foire aux questions",

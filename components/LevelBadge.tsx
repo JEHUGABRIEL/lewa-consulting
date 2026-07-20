@@ -1,33 +1,37 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import type { Level } from "@/lib/formations";
 
 const config: Record<
   Level,
-  { label: string; circleColor: string; bg: string; text: string; tooltip: string }
+  { labelKey: string; circleColor: string; bg: string; text: string; tooltipKey: string }
 > = {
   debutant: {
-    label: "Débutant",
+    labelKey: "formations.debutant",
     circleColor: "text-green",
     bg: "bg-green/[0.08]",
     text: "text-green",
-    tooltip: "Aucun prérequis nécessaire — accessible à tous",
+    tooltipKey: "formations.levelInfoDebutant",
   },
   intermediaire: {
-    label: "Intermédiaire",
+    labelKey: "formations.intermediaire",
     circleColor: "text-yellow",
     bg: "bg-yellow/[0.08]",
     text: "text-yellow",
-    tooltip: "Connaissances de base recommandées",
+    tooltipKey: "formations.levelInfoIntermediaire",
   },
   avance: {
-    label: "Avancé",
+    labelKey: "formations.avance",
     circleColor: "text-red",
     bg: "bg-red/[0.08]",
     text: "text-red",
-    tooltip: "Nécessite des connaissances solides dans le domaine",
+    tooltipKey: "formations.levelInfoAvance",
   },
 };
 
 export default function LevelBadge({ level }: { level: Level }) {
+  const t = useTranslations();
   const c = config[level];
   return (
     <span className="group relative inline-flex">
@@ -43,7 +47,7 @@ export default function LevelBadge({ level }: { level: Level }) {
         >
           <circle cx="8" cy="8" r="6.5" />
         </svg>
-        {c.label}
+        {t(c.labelKey)}
       </span>
 
       {/* Tooltip */}
@@ -52,7 +56,7 @@ export default function LevelBadge({ level }: { level: Level }) {
         role="tooltip"
       >
         <span className="block whitespace-nowrap rounded-lg bg-navy-deep px-3 py-1.5 text-[11px] font-normal leading-snug text-paper shadow-lg normal-case tracking-normal">
-          {c.tooltip}
+          {t(c.tooltipKey)}
         </span>
         {/* Flèche */}
         <span
@@ -64,6 +68,4 @@ export default function LevelBadge({ level }: { level: Level }) {
   );
 }
 
-export function getLevelLabel(level: Level): string {
-  return config[level].label;
-}
+

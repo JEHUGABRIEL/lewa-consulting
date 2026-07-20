@@ -1,54 +1,30 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import Container from "./Container";
 import Reveal from "./Reveal";
 
 type PageKey = "home" | "services" | "formations" | "aPropos" | "contact";
 
-const configs: Record<PageKey, { title: string; text: string; primaryLabel: string; primaryHref: string; secondaryLabel: string; secondaryHref: string }> = {
-  home: {
-    title: "Prêt à démarrer ?",
-    text: "Que vous soyez une entreprise, une organisation non gouvernementale ou un professionnel en quête de compétences, le Cabinet COSI Lewa-Consulting Group est à votre écoute pour vous accompagner.",
-    primaryLabel: "Nous contacter",
-    primaryHref: "/contact",
-    secondaryLabel: "Nos services",
-    secondaryHref: "/services",
-  },
-  services: {
-    title: "Prêt à concrétiser votre projet ?",
-    text: "Confiez-nous votre audit, votre comptabilité ou vos besoins en formation. Une équipe d'experts vous accompagne pour des solutions sur mesure.",
-    primaryLabel: "Demander un devis",
-    primaryHref: "/contact",
-    secondaryLabel: "Voir nos formations",
-    secondaryHref: "/formations",
-  },
-  formations: {
-    title: "Prêt à booster vos compétences ?",
-    text: "Inscrivez-vous dès maintenant à l'une de nos formations professionnelles. Certificat, attestation et CV professionnel à la clé.",
-    primaryLabel: "S'inscrire",
-    primaryHref: "/contact",
-    secondaryLabel: "Voir les services",
-    secondaryHref: "/services",
-  },
-  aPropos: {
-    title: "Envie d'en savoir plus ?",
-    text: "Le Cabinet COSI Lewa-Consulting Group est votre partenaire de confiance à Bangui. Contactez-nous pour discuter de vos besoins.",
-    primaryLabel: "Nous contacter",
-    primaryHref: "/contact",
-    secondaryLabel: "Nos services",
-    secondaryHref: "/services",
-  },
-  contact: {
-    title: "Une question ?",
-    text: "Nos experts sont à votre disposition pour vous répondre dans les meilleurs délais. Envoyez-nous un message ou appelez-nous directement.",
-    primaryLabel: "Nous appeler",
-    primaryHref: "tel:+23672696700",
-    secondaryLabel: "Voir les formations",
-    secondaryHref: "/formations",
-  },
+const pageKeyMap: Record<PageKey, string> = {
+  home: "",
+  services: "services",
+  formations: "formations",
+  aPropos: "aPropos",
+  contact: "contact",
 };
 
 export default function CTASection({ page }: { page: PageKey }) {
-  const { title, text, primaryLabel, primaryHref, secondaryLabel, secondaryHref } = configs[page];
+  const t = useTranslations();
+  const prefix = pageKeyMap[page];
+  const title = prefix ? t(`cta.${prefix}Title`) : t('cta.title');
+  const text = prefix ? t(`cta.${prefix}Text`) : t('cta.subtitle');
+  const primaryLabel = prefix ? t(`cta.${prefix}Primary`) : t('cta.contact');
+  const secondaryLabel = prefix ? t(`cta.${prefix}Secondary`) : t('cta.services');
+
+  const primaryHref = page === "contact" ? "tel:+23672696700" : "/contact";
+  const secondaryHref = page === "formations" ? "/services" : "/formations/comptabilite-finance";
 
   return (
     <Container className="my-10">

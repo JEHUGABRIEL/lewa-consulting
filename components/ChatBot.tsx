@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { knowledge, fallback, findAnswer } from "@/lib/chatbot";
 
 type Message = {
@@ -11,6 +12,7 @@ type Message = {
 // ---- Composant ChatBot ----
 
 export default function ChatBot() {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -28,14 +30,14 @@ export default function ChatBot() {
       setMessages([
         {
           role: "bot",
-          text: "Bonjour ! Je suis l'assistant virtuel du Cabinet COSI Lewa-Consulting Group. Posez-moi une question ou choisissez un sujet ci-dessous.",
+          text: t('chatbot.greeting'),
         },
       ]);
     }
     if (open && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
-  }, [open, welcomeShown]);
+  }, [open, welcomeShown, t]);
 
   // Scroll en bas à chaque nouveau message ou changement de statut typing
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function ChatBot() {
         className={`fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
           open ? "bg-navy-deep rotate-45" : "bg-gold-bright"
         }`}
-        aria-label={open ? "Fermer le chat" : "Ouvrir le chat"}
+        aria-label={open ? t('chatbot.close') || "Fermer le chat" : t('chatbot.open') || "Ouvrir le chat"}
       >
         {open ? (
           <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -98,7 +100,7 @@ export default function ChatBot() {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Assistant virtuel du cabinet"
+        aria-label={t('chatbot.title')}
         className={`fixed bottom-24 right-5 z-50 w-[calc(100vw-2rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-white shadow-2xl transition-all duration-300 ${
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
@@ -110,19 +112,19 @@ export default function ChatBot() {
               C
             </span>
             <div>
-              <p className="text-sm font-semibold text-white">Cabinet COSI</p>
-              <p className="text-[10px] text-white/55">Assistant virtuel</p>
+              <p className="text-sm font-semibold text-white">{t('chatbot.title')}</p>
+              <p className="text-[10px] text-white/55">{t('chatbot.subtitle')}</p>
             </div>
           </div>
         </div>
 
         {/* Messages */}
-        <div ref={listRef} className="flex h-80 flex-col gap-3 overflow-y-auto px-5 py-4" role="log" aria-live="polite" aria-label="Messages">
+        <div ref={listRef} className="flex h-80 flex-col gap-3 overflow-y-auto px-5 py-4" role="log" aria-live="polite" aria-label={t('chatbot.title')}>
           {messages.length === 0 && (
             <div className="flex items-center justify-center h-full">
               <div className="flex items-center gap-2 text-xs text-muted">
                 <span className="inline-block h-2 w-2 rounded-full bg-gold animate-pulse-glow" />
-                Choisissez un sujet ci-dessous
+                {t('chatbot.chooseTopic') || "Choisissez un sujet ci-dessous"}
               </div>
             </div>
           )}
@@ -174,15 +176,15 @@ export default function ChatBot() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Posez votre question..."
+            placeholder={t('chatbot.placeholder')}
             className="min-w-0 flex-1 rounded-full border border-border bg-paper px-4 py-2 text-sm text-ink placeholder:text-muted/60 outline-none transition-colors duration-200 focus:border-navy/40"
-            aria-label="Votre question"
+            aria-label={t('chatbot.placeholder')}
           />
           <button
             type="submit"
             disabled={!input.trim()}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-white transition-all duration-200 hover:bg-navy-deep disabled:opacity-40"
-            aria-label="Envoyer"
+            aria-label={t('chatbot.send')}
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="22" y1="2" x2="11" y2="13" />

@@ -90,9 +90,7 @@
     "securityText": "COSI Lewa-Consulting Group implements all appropriate technical and organizational measures to ensure the security and confidentiality of your personal data.",
     "contactTitle": "Contact",
     "contactText": "For any questions regarding legal notices or data protection, you can contact us:",
-    "lastUpdate": "Last updated: July 2026"
-  },
-  "about": {
+    "lastUpdate": "Last updated: July 2026",
     "eyebrow": "The firm",
     "title": "Who we are",
     "lead": "A Central African firm of audit, accounting expertise and professional training.",
@@ -206,7 +204,12 @@
     "levelInfoTitle": "Level {level}",
     "levelInfoDebutant": "No prerequisites needed. This training is accessible to everyone, regardless of background.",
     "levelInfoIntermediaire": "Basic knowledge in the field is recommended to get the most out of this training.",
-    "levelInfoAvance": "This training requires solid knowledge in accounting or the relevant field. It is intended for professionals wishing to specialize."
+    "levelInfoAvance": "This training requires solid knowledge in accounting or the relevant field. It is intended for professionals wishing to specialize.",
+    "category": "Category",
+    "all": "All",
+    "level": "Level",
+    "allLevels": "All levels",
+    "resultsCount": "{count} result(s)"
   },
   "testimonials": {
     "eyebrow": "Trusted by",
@@ -256,13 +259,30 @@
     "title": "Ready to get started?",
     "subtitle": "Whether you are a business, a non-governmental organization or a professional seeking skills, COSI Lewa-Consulting Group is here to support you.",
     "contact": "Contact us",
-    "services": "Our services"
+    "services": "Our services",
+    "servicesTitle": "Ready to make your project happen?",
+    "servicesText": "Entrust us with your audit, accounting or training needs. A team of experts supports you with tailored solutions.",
+    "servicesPrimary": "Request a quote",
+    "servicesSecondary": "See our training",
+    "formationsTitle": "Ready to boost your skills?",
+    "formationsText": "Register now for one of our professional training programs. Certificate, attestation and professional CV included.",
+    "formationsPrimary": "Register",
+    "formationsSecondary": "View our services",
+    "aProposTitle": "Want to know more?",
+    "aProposText": "COSI Lewa-Consulting Group is your trusted partner in Bangui. Contact us to discuss your needs.",
+    "aProposPrimary": "Contact us",
+    "aProposSecondary": "Our services",
+    "contactTitle": "A question?",
+    "contactText": "Our experts are available to answer you promptly. Send us a message or call us directly.",
+    "contactPrimary": "Call us",
+    "contactSecondary": "View our training"
   },
   "contact": {
     "eyebrow": "Contact us",
     "title": "Let's talk about your project",
     "subtitle": "A question, a need for support? Our team is here to help.",
     "address": "Address",
+    "navigation": "Navigation",
     "addressLine1": "Avenue des Martyrs — SOCATEL",
     "addressLine2": "Across from Stade 20 000 Places",
     "addressLine3": "Bangui, Central African Republic",
@@ -306,15 +326,20 @@
   "footer": {
     "aboutTitle": "About",
     "aboutText": "Audit, accounting expertise and professional training firm based in Bangui, Central African Republic.",
-    "services": "Our services",
     "quickLinks": "Quick links",
     "formations": "Training",
     "actualites": "News",
     "legal": "Legal notice",
     "newsletter": "Newsletter",
-    "newsletterPlaceholder": "Your email address",
+    "newsletterText": "Receive our news, training sessions and advice.",
+    "newsletterSuccess": "Thank you for subscribing!",
+    "newsletterRequired": "Please enter your email address",
+    "newsletterInvalid": "Invalid email address",
+    "newsletterPlaceholder": "your@email.com",
+    "newsletterLabel": "Email address",
     "newsletterBtn": "Subscribe",
-    "copyright": "© {year} COSI Lewa-Consulting Group. All rights reserved.",
+    "backToTop": "Back to top",
+    "copyright": "\u00a9 {year} COSI Lewa-Consulting Group. All rights reserved.",
     "followUs": "Follow us"
   },
   "legal": {
@@ -325,7 +350,7 @@
     "companyLegal": "SARL with capital of 10,000,000 FCFA",
     "companyRccm": "RCCM: RC BGI 2023 B 12345",
     "companyNiu": "NIU: M0123456789P",
-    "companyAddress": "Avenue des Martyrs — SOCATEL, across from Stade 20 000 Places",
+    "companyAddress": "Avenue des Martyrs \u2014 SOCATEL, across from Stade 20 000 Places",
     "companyCity": "Bangui, Central African Republic",
     "companyPhone": "Tel: +236 72 69 67 00",
     "companyEmail": "Email: cabinetcosi29@gmail.com",
@@ -348,7 +373,10 @@
     "placeholder": "Ask your question...",
     "send": "Send",
     "thinking": "Thinking...",
-    "greeting": "Hello! I am the virtual assistant of COSI Lewa-Consulting Group. How can I help you today?"
+    "greeting": "Hello! I am the virtual assistant of COSI Lewa-Consulting Group. How can I help you today?",
+    "open": "Open chat",
+    "close": "Close chat",
+    "chooseTopic": "Choose a topic below"
   },
   "faq": {
     "title": "Frequently asked questions",

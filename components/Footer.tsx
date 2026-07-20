@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import Mark from "./Mark";
 
 export default function Footer() {
+  const t = useTranslations();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState("");
@@ -15,11 +17,11 @@ export default function Footer() {
 
     const trimmed = email.trim();
     if (!trimmed) {
-      setError("Veuillez entrer votre adresse email");
+      setError(t('footer.newsletterRequired'));
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setError("Adresse email invalide");
+      setError(t('footer.newsletterInvalid'));
       return;
     }
 
@@ -39,7 +41,7 @@ export default function Footer() {
             <Mark className="h-9 w-9 shrink-0" />
             <div>
               <span className="block text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-gold-bright/70">
-                Cabinet
+                {t('common.cabinet')}
               </span>
               <span className="block font-display text-base leading-tight text-paper">
                 COSI LEWA
@@ -49,7 +51,7 @@ export default function Footer() {
           {/* Réseaux sociaux stylisés */}
           <div className="mt-5 flex items-center gap-3">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-paper/40">
-              Suivez-nous
+              {t('footer.followUs')}
             </span>
             <div className="flex items-center gap-2">
               <a
@@ -87,10 +89,10 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="mt-6 border-t border-paper/10 pt-5">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-gold-bright/70">
-              Newsletter
+              {t('footer.newsletter')}
             </p>
             <p className="mt-1.5 text-xs leading-relaxed text-paper/50">
-              Recevez nos actualités, sessions de formation et conseils.
+              {t('footer.newsletterText')}
             </p>
 
             {subscribed ? (
@@ -99,13 +101,13 @@ export default function Footer() {
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
-                <span>Merci de votre inscription&nbsp;!</span>
+                <span dangerouslySetInnerHTML={{ __html: t('footer.newsletterSuccess') }} />
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="mt-3">
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <label htmlFor="footer-email" className="sr-only">
-                    Adresse email
+                    {t('footer.newsletterLabel')}
                   </label>
                   <input
                     id="footer-email"
@@ -115,7 +117,7 @@ export default function Footer() {
                       setEmail(e.target.value);
                       if (error) setError("");
                     }}
-                    placeholder="votre@email.com"
+                    placeholder={t('footer.newsletterPlaceholder')}
                     className="w-full rounded-lg border border-paper/15 bg-white/5 px-3 py-2 text-xs text-paper placeholder-paper/30 outline-none transition focus:border-gold-bright/50 focus:bg-white/10"
                     aria-invalid={!!error}
                     aria-describedby={error ? "footer-email-error" : undefined}
@@ -129,7 +131,7 @@ export default function Footer() {
                         <line x1="22" y1="2" x2="11" y2="13" />
                         <polygon points="22 2 15 22 11 13 2 9 22 2" />
                       </svg>
-                      <span className="hidden sm:inline">S&rsquo;abonner</span>
+                      <span className="hidden sm:inline">{t('footer.newsletterBtn')}</span>
                     </span>
                   </button>
                 </div>
@@ -145,36 +147,36 @@ export default function Footer() {
 
         {/* Colonne 2 — Navigation */}
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">Navigation</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('contact.navigation')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />Accueil</Link></li>
-            <li><Link href="/services" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />Notre expertise</Link></li>
-            <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />Formations</Link></li>
-            <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />Comptabilité &amp; finance</Link></li>
-            <li><Link href="/formations/bureautique-developpement" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />Bureautique &amp; dév.</Link></li>
+            <li><Link href="/" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.home')}</Link></li>
+            <li><Link href="/services" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.expertise')}</Link></li>
+            <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.formations')}</Link></li>
+            <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catComptaTitle')}</Link></li>
+            <li><Link href="/formations/bureautique-developpement" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catBureautiqueTitle')}</Link></li>
           </ul>
         </div>
 
         {/* Colonne 3 — Services */}
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">Domaines</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('footer.services')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/services" className="transition hover:text-gold-bright">Audit</Link></li>
-            <li><Link href="/services" className="transition hover:text-gold-bright">Assistance comptable &amp; fiscale</Link></li>
-            <li><Link href="/formations/comptabilite-finance" className="transition hover:text-gold-bright">Formations</Link></li>
+            <li><Link href="/services" className="transition hover:text-gold-bright">{t('services.expertiseComptable')}</Link></li>
+            <li><Link href="/services" className="transition hover:text-gold-bright">{t('services.conseil')}</Link></li>
+            <li><Link href="/formations/comptabilite-finance" className="transition hover:text-gold-bright">{t('nav.formations')}</Link></li>
           </ul>
         </div>
 
         {/* Colonne 4 — Contact */}
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">Contact</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('contact.phone')}</p>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex items-start gap-3">
               <svg className="mt-0.5 h-4 w-4 shrink-0 text-gold-bright/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span className="leading-snug">Avenue des Martyrs — SOCATEL<br />Bangui, République Centrafricaine</span>
+              <span className="leading-snug">{t('contact.addressLine1')}<br />{t('contact.addressLine3')}</span>
             </li>
             <li className="flex items-start gap-3">
               <svg className="mt-0.5 h-4 w-4 shrink-0 text-gold-bright/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -207,10 +209,10 @@ export default function Footer() {
               <span className="text-paper/60">COSI LEWA</span>
             </p>
             <span className="hidden sm:inline text-paper/20">|</span>
-            <p>Tous droits réservés</p>
+            <p>{t('footer.rightsReserved')}</p>
             <span className="hidden sm:inline text-paper/20">|</span>
             <Link href="/mentions-legales" className="transition hover:text-gold-bright">
-              Mentions légales
+              {t('footer.legal')}
             </Link>
           </div>
 
@@ -219,7 +221,7 @@ export default function Footer() {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="flex h-8 w-8 items-center justify-center rounded-lg border border-paper/15 text-paper/40 transition hover:border-gold-bright/40 hover:text-gold-bright hover:-translate-y-0.5"
-              aria-label="Retour en haut"
+              aria-label={t('footer.backToTop')}
             >
               <svg className="h-3.5 w-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 10V2M2 6l4-4 4 4" />

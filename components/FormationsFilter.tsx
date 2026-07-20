@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
@@ -14,10 +15,10 @@ type Category = {
   rows: FormationRow[];
 };
 
-const levelOptions: { value: Level; label: string; circle: string }[] = [
-  { value: "debutant", label: "Débutant", circle: "text-green" },
-  { value: "intermediaire", label: "Intermédiaire", circle: "text-yellow" },
-  { value: "avance", label: "Avancé", circle: "text-red" },
+const levelOptions: { value: Level; labelKey: string; circle: string }[] = [
+  { value: "debutant", labelKey: "formations.debutant", circle: "text-green" },
+  { value: "intermediaire", labelKey: "formations.intermediaire", circle: "text-yellow" },
+  { value: "avance", labelKey: "formations.avance", circle: "text-red" },
 ];
 
 export default function FormationsFilter({
@@ -27,6 +28,7 @@ export default function FormationsFilter({
   categories: Category[];
   initialActive?: string;
 }) {
+  const t = useTranslations();
   const defaultCat = categories.some((c) => c.id === initialActive) ? initialActive : "all";
   const [activeCat, setActiveCat] = useState(defaultCat);
   const [activeLevel, setActiveLevel] = useState<string>("all");
@@ -49,12 +51,17 @@ export default function FormationsFilter({
   const inactiveBtn =
     "bg-white text-ink/70 border-border hover:border-navy/30 hover:text-navy";
 
+  const levelLabel = (level: string) => {
+    const opt = levelOptions.find((l) => l.value === level);
+    return opt ? t(opt.labelKey) : "";
+  };
+
   return (
     <div>
       {/* Filtres par catégorie */}
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
-          Catégorie
+          {t('formations.category') || "Catégorie"}
         </span>
         <button
           onClick={() => setActiveCat("all")}
@@ -62,7 +69,7 @@ export default function FormationsFilter({
             activeCat === "all" ? activeBtn : inactiveBtn
           }`}
         >
-          Toutes
+          {t('formations.all') || "Toutes"}
         </button>
         {categories.map((c) => (
           <button
@@ -80,7 +87,7 @@ export default function FormationsFilter({
       {/* Filtres par niveau */}
       <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border pt-3">
         <span className="mr-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
-          Niveau
+          {t('formations.level') || "Niveau"}
         </span>
         <button
           onClick={() => setActiveLevel("all")}
@@ -88,7 +95,7 @@ export default function FormationsFilter({
             activeLevel === "all" ? activeBtn : inactiveBtn
           }`}
         >
-          Tous
+          {t('formations.allLevels') || "Tous"}
         </button>
         {levelOptions.map((l) => (
           <button
@@ -106,7 +113,7 @@ export default function FormationsFilter({
             >
               <circle cx="8" cy="8" r="7" />
             </svg>
-            {l.label}
+            {t(l.labelKey)}
           </button>
         ))}
       </div>
@@ -154,7 +161,7 @@ export default function FormationsFilter({
                       {r.price} FCFA
                     </span>
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold">
-                      S&rsquo;inscrire &rarr;
+                      {t('formations.btnInscrire')} &rarr;
                     </span>
                   </div>
                 </div>
@@ -166,9 +173,9 @@ export default function FormationsFilter({
 
       {/* Results count */}
       <p className="mt-6 text-center text-xs text-muted">
-        {displayed.length} formation{displayed.length > 1 ? "s" : ""}
+        {t('formations.resultsCount', { count: displayed.length })}
         {activeCat !== "all" &&
-          ` en ${categories.find((c) => c.id === activeCat)?.label.toLowerCase()}`}
+          ` · ${categories.find((c) => c.id === activeCat)?.label.toLowerCase()}`}
         {activeLevel !== "all" && (
           <>
             {" · "}
@@ -187,7 +194,7 @@ export default function FormationsFilter({
               >
                 <circle cx="8" cy="8" r="7" />
               </svg>
-              {levelOptions.find((l) => l.value === activeLevel)?.label}
+              {levelLabel(activeLevel)}
             </span>
           </>
         )}

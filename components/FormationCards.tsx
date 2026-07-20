@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
@@ -6,6 +9,8 @@ import BlurImage from "./BlurImage";
 import type { FormationRow } from "@/lib/formations";
 
 export default function FormationCards({ rows }: { rows: FormationRow[] }) {
+  const t = useTranslations();
+
   return (
     <>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -47,7 +52,7 @@ export default function FormationCards({ rows }: { rows: FormationRow[] }) {
                       {r.price} FCFA
                     </span>
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold">
-                      S&rsquo;inscrire &rarr;
+                      {t('formations.btnInscrire')} &rarr;
                     </span>
                   </div>
                 </div>
