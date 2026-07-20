@@ -8,6 +8,7 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import { servicesData } from "@/lib/services";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = { title: "Services" };
 
@@ -65,22 +66,23 @@ const expertiseIcon = (icon: string) => {
   }
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const t = await getTranslations();
   return (
     <main>
       <PageHeader
         texts={[
           {
-            title: "Audit, assistance, formation",
-            lead: "Deux métiers, une même exigence : la rigueur du chiffre et la transmission du savoir-faire.",
+            title: t('services.servicesPageTitle1'),
+            lead: t('services.servicesPageLead1'),
           },
           {
-            title: "Audit et contrôle interne",
-            lead: "Une évaluation indépendante de vos comptes et de vos processus.",
+            title: t('services.servicesPageTitle2'),
+            lead: t('services.servicesPageLead2'),
           },
           {
-            title: "Formations professionnelles",
-            lead: "Des modules pratiques avec certificat, attestation et CV professionnel.",
+            title: t('services.servicesPageTitle3'),
+            lead: t('services.servicesPageLead3'),
           },
         ]}
         backgrounds={getHeroBackgrounds("services")}
@@ -132,7 +134,7 @@ export default function ServicesPage() {
 
                     {/* CTA */}
                     <div className="mt-4 flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold">
-                      <span>En savoir plus</span>
+                      <span>{t('common.learnMore')}</span>
                       <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                     </div>
                   </div>
@@ -144,36 +146,24 @@ export default function ServicesPage() {
 
         <div className="mt-8 flex flex-col gap-3 border-t border-border pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="text-ink/70">
-            Voir le détail des modules de formation et leurs tarifs.
+            {t('services.servicesPageSeeDetail')}
           </p>
           <Link href="/formations/comptabilite-finance" className="group font-medium text-navy transition hover:text-red">
-            <span>Consulter la grille tarifaire des formations</span>
+            <span>{t('services.servicesPagePricing')}</span>
             <span className="block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full" />
           </Link>
         </div>
 
         {/* FAQ Services */}
         <FAQSection
-          title="Questions sur nos services"
+          title={t('services.servicesPageFaqTitle')}
           image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"
           imageAlt="Consultation et conseil aux entreprises"
           items={[
-            {
-              q: "En quoi consiste une mission d'audit ?",
-              r: "Une mission d'audit comptable et financier consiste à examiner les comptes et les processus internes d'une organisation pour s'assurer de leur fiabilité, de leur conformité et de leur efficacité. Nous remettons un rapport détaillé avec nos recommandations.",
-            },
-            {
-              q: "Quelles sont les obligations fiscales pour une ONG en RCA ?",
-              r: "Les ONG en RCA doivent tenir une comptabilité conforme au référentiel SYCEBNL, effectuer des déclarations fiscales (TVA, IRPP) et sociales (CNSS). Nous accompagnons les organisations dans toutes ces démarches.",
-            },
-            {
-              q: "Proposez-vous un accompagnement ponctuel ou régulier ?",
-              r: "Les deux formules sont possibles. Nous proposons des missions ponctuelles (audit, révision de comptes) ainsi qu'un accompagnement régulier (tenue de comptabilité mensuelle, déclarations périodiques).",
-            },
-            {
-              q: "Quels sont les délais pour une mission d'audit ?",
-              r: "La durée d'une mission d'audit dépend de la taille de l'organisation et de la complexité de ses opérations. En moyenne, une mission d'audit dure entre une et trois semaines.",
-            },
+            { q: t('services.faqQ1'), r: t('services.faqR1') },
+            { q: t('services.faqQ2'), r: t('services.faqR2') },
+            { q: t('services.faqQ3'), r: t('services.faqR3') },
+            { q: t('services.faqQ4'), r: t('services.faqR4') },
           ]}
         />
       </Container>

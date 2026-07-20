@@ -8,6 +8,7 @@ import Mark from "@/components/Mark";
 import HeroSlider from "@/components/HeroSlider";
 import BlurImage from "@/components/BlurImage";
 import CTASection from "@/components/CTASection";
+import { getTranslations } from "next-intl/server";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import {
   getFormationBySlug,
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function FormationDetailPage({ params }: Props) {
+  const t = await getTranslations();
   const { slug } = await params;
   const formation = getFormationBySlug(slug);
   if (!formation) notFound();
@@ -48,12 +50,12 @@ export default async function FormationDetailPage({ params }: Props) {
   // Helper pour le titre de la page d'en-tête
   const levelLabel =
     formation.level === "debutant"
-      ? "Débutant"
+      ? t('formations.debutant')
       : formation.level === "intermediaire"
-        ? "Intermédiaire"
+        ? t('formations.intermediaire')
         : formation.level === "avance"
-          ? "Avancé"
-          : null;
+          ? t('formations.avance')
+          : "";
 
   const heroBgs = getHeroBackgrounds("formations");
 
@@ -90,7 +92,7 @@ export default async function FormationDetailPage({ params }: Props) {
               >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
-              <span>Retour aux formations</span>
+              <span>{t('formations.backLink')}</span>
             </Link>
           </Reveal>
 
@@ -123,12 +125,12 @@ export default async function FormationDetailPage({ params }: Props) {
                 </span>
                 <div>
                   <p>
-                    <strong className="text-white">Niveau {levelLabel}.</strong>{" "}
+                    <strong className="text-white">{t('formations.levelInfoTitle', {level: levelLabel})}.</strong>{" "}
                     {formation.level === "debutant"
-                      ? "Aucun prérequis nécessaire. Cette formation est accessible à tous, quel que soit votre parcours."
+                      ? t('formations.levelInfoDebutant')
                       : formation.level === "intermediaire"
-                        ? "Une connaissance de base dans le domaine est recommandée pour tirer le meilleur parti de cette formation."
-                        : "Cette formation nécessite des connaissances solides en comptabilité ou dans le domaine concerné. Elle est destinée aux professionnels souhaitant se spécialiser."}
+                        ? t('formations.levelInfoIntermediaire')
+                        : t('formations.levelInfoAvance')}
                   </p>
                 </div>
               </div>
@@ -144,28 +146,12 @@ export default async function FormationDetailPage({ params }: Props) {
           <div>
             <Reveal as="div">
               <h2 className="font-display text-xl text-navy">
-                À propos de cette formation
+                {t('formations.aboutTitle')}
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink/75">
-                <p>
-                  Le <strong>Cabinet COSI Lewa-Consulting Group</strong> propose
-                  des formations professionnelles de qualité, animées par des
-                  formateurs expérimentés issus du monde de l&rsquo;entreprise et
-                  de l&rsquo;expertise comptable.
-                </p>
-                <p>
-                  Chaque module est conçu pour être <strong>pratique et
-                  opérationnel</strong>, avec des études de cas réels, des
-                  exercices appliqués et un accompagnement personnalisé tout au
-                  long de la formation.
-                </p>
-                <p>
-                  À l&rsquo;issue de la formation, vous recevrez un{" "}
-                  <strong>certificat de participation</strong>, une{" "}
-                  <strong>attestation</strong> détaillant les compétences
-                  acquises, ainsi qu&rsquo;un <strong>CV professionnel</strong>{" "}
-                  valorisant votre nouvelle compétence.
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara1') }} />
+                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara2') }} />
+                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara3') }} />
               </div>
             </Reveal>
 
@@ -186,12 +172,10 @@ export default async function FormationDetailPage({ params }: Props) {
                 </svg>
                 <div>
                   <p className="font-medium text-navy">
-                    Formation flexible
+                    {t('formations.flexibleTitle')}
                   </p>
                   <p className="mt-1 text-muted leading-relaxed">
-                    Sessions disponibles en semaine, en soirée ou le week-end.
-                    Paiement possible par tranches hebdomadaires. Contactez-nous
-                    pour discuter de vos disponibilités.
+                    {t('formations.flexibleDesc')}
                   </p>
                 </div>
               </div>
@@ -206,7 +190,7 @@ export default async function FormationDetailPage({ params }: Props) {
                   {/* Titre avec séparateurs dorés */}
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                     <span className="inline-block h-px flex-1 bg-gold/30" />
-                    <span>Autres formations en <span className="lowercase">{categoryLabel}</span></span>
+                    <span>{t('formations.otherTitle')} <span className="lowercase">{categoryLabel}</span></span>
                     <span className="inline-block h-px flex-1 bg-gold/30" />
                   </div>
 
@@ -236,7 +220,7 @@ export default async function FormationDetailPage({ params }: Props) {
                                   {r.level === "debutant" && <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-500" />}
                                   {r.level === "intermediaire" && <span className="inline-block h-1.5 w-1.5 rounded-full bg-yellow-500" />}
                                   {r.level === "avance" && <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" />}
-                                  {r.level === "debutant" ? "Débutant" : r.level === "intermediaire" ? "Intermédiaire" : "Avancé"}
+                                  {r.level === "debutant" ? t('formations.debutant') : r.level === "intermediaire" ? t('formations.intermediaire') : t('formations.avance')}
                                 </span>
                               )}
                               <span className="font-mono text-[9px] text-muted/60 tabular">
@@ -268,7 +252,7 @@ export default async function FormationDetailPage({ params }: Props) {
                   <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
-                  <span>Toutes les formations</span>
+                  <span>{t('common.allFormations')}</span>
                 </Link>
               </div>
             </div>

@@ -7,25 +7,27 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { bureautiqueDev } from "@/lib/formations";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = { title: "Bureautique & développement professionnel" };
 
-export default function BureautiqueDeveloppementPage() {
+export default async function BureautiqueDeveloppementPage() {
+  const t = await getTranslations();
   return (
     <main>
       <PageHeader
         texts={[
           {
-            title: "Bureautique & développement professionnel",
-            lead: "Assistant de direction, informatique bureautique, art oratoire — des compétences clés pour booster votre carrière.",
+            title: t('formations.catBureautiqueTitle'),
+            lead: t('formations.catBureautiqueLead'),
           },
           {
-            title: "Formation pratique et accessible",
-            lead: "Des modules conçus pour être opérationnel immédiatement, avec un accompagnement personnalisé.",
+            title: t('formations.catBureautiqueTitle2'),
+            lead: t('formations.catBureautiqueLead2'),
           },
           {
-            title: "Certificat, attestation, CV",
-            lead: "Chaque formation conclue par un certificat et un CV professionnel pour valoriser vos acquis.",
+            title: t('formations.catBureautiqueTitle3'),
+            lead: t('formations.catBureautiqueLead3'),
           },
         ]}
         backgrounds={getHeroBackgrounds("formations")}
@@ -34,11 +36,10 @@ export default function BureautiqueDeveloppementPage() {
       <Container className="py-14 sm:py-16">
         <div className="mb-8">
           <h2 className="font-display text-2xl text-navy">
-            Formations en bureautique &amp; développement pro.
+            {t('formations.catBureautiqueSectionTitle')}
           </h2>
           <p className="mt-2 text-sm text-muted max-w-lg">
-            {bureautiqueDev.length} formation{bureautiqueDev.length > 1 ? "s" : ""} disponible
-            {bureautiqueDev.length > 1 ? "s" : ""} pour renforcer vos compétences en entreprise.
+            {t('formations.catBureautiqueCount', { count: bureautiqueDev.length })}
           </p>
         </div>
 

@@ -8,6 +8,7 @@ import HeroSlider from "@/components/HeroSlider";
 import Mark from "@/components/Mark";
 import { servicesData, getServiceBySlug } from "@/lib/services";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
+import { getTranslations } from "next-intl/server";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -77,6 +78,7 @@ const expertiseIcon = (icon: string) => {
 };
 
 export default async function ServiceDetailPage({ params }: Props) {
+  const t = await getTranslations();
   const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) notFound();
@@ -133,7 +135,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           <div>
             <Reveal as="div">
               <h2 className="font-display text-xl text-navy">
-                À propos de ce service
+                {t('services.aboutTitle')}
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink/75">
                 {service.details.map((p, i) => (
@@ -146,7 +148,7 @@ export default async function ServiceDetailPage({ params }: Props) {
             <Reveal as="div" delay={100}>
               <div className="mt-8 rounded-xl border border-border bg-white p-6">
                 <h3 className="font-display text-base font-semibold text-navy mb-4">
-                  Nos prestations
+                  {t('services.servicesList')}
                 </h3>
                 <ul className="space-y-3">
                   {service.points.map((p) => (
@@ -182,7 +184,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   {/* Titre avec séparateurs dorés */}
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                     <span className="inline-block h-px flex-1 bg-gold/30" />
-                    <span>Découvrez aussi</span>
+                    <span>{t('services.discoverAlso')}</span>
                     <span className="inline-block h-px flex-1 bg-gold/30" />
                   </div>
 
@@ -233,7 +235,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
-                  <span>Toutes nos expertises</span>
+                  <span>{t('services.allExpertises')}</span>
                 </Link>
               </div>
             </div>
