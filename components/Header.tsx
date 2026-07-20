@@ -436,7 +436,7 @@ export default function Header() {
                 scrolled ? "text-sm" : "text-base sm:text-lg"
               }`}
             >
-              COSI Lewa-Consulting Group
+              COSI LEWA
             </span>
           </span>
         </Link>

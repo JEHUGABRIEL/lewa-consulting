@@ -42,7 +42,7 @@ export default function Footer() {
                 Cabinet
               </span>
               <span className="block font-display text-base leading-tight text-paper">
-                COSI Lewa-Consulting Group
+                COSI LEWA
               </span>
             </div>
           </div>
@@ -204,7 +204,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <p>
               &copy; {new Date().getFullYear()}{" "}
-              <span className="text-paper/60">Cabinet COSI Lewa-Consulting Group</span>
+              <span className="text-paper/60">COSI LEWA</span>
             </p>
             <span className="hidden sm:inline text-paper/20">|</span>
             <p>Tous droits réservés</p>
