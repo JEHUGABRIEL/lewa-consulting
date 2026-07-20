@@ -160,8 +160,38 @@ function PartnerCard({ p }: { p: (typeof partners)[number] }) {
 }
 
 function PartnerCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const posRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const pausedRef = useRef(false);
   const [paused, setPaused] = useState(false);
   const duplicated = [...partners, ...partners];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    pausedRef.current = paused;
+    const speed = 0.5;
+
+    const children = track.children;
+    const cardWidth = children[0] ? (children[0] as HTMLElement).offsetWidth + 8 : 200;
+    const totalWidth = cardWidth * partners.length;
+
+    function animate() {
+      if (!pausedRef.current) {
+        posRef.current -= speed;
+        if (posRef.current <= -totalWidth) {
+          posRef.current = 0;
+        }
+        track!.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    }
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [paused, partners.length]);
 
   return (
     <div
@@ -173,12 +203,9 @@ function PartnerCarousel() {
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-paper to-transparent" />
 
       <div
-        className="flex"
-        style={{
-          animation: `marquee ${partners.length * 8}s linear infinite`,
-          animationPlayState: paused ? "paused" : "running",
-          width: "fit-content",
-        }}
+        ref={trackRef}
+        className="flex will-change-transform"
+        style={{ transform: "translate3d(0, 0, 0)" }}
       >
         {duplicated.map((p, i) => (
           <div key={`${p.name}-${i}`} className="px-2">
