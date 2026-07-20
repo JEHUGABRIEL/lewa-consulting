@@ -11,7 +11,7 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import LevelBadge from "@/components/LevelBadge";
 import { featuredFormations } from "@/lib/formations";
 import { servicesData } from "@/lib/services";
-import { heroTexts, aboutUs, ourMission } from "@/lib/content";
+import { ourMission } from "@/lib/content";
 import { testimonials } from "@/lib/testimonials";
 import { partners } from "@/lib/partners";
 import PostIllustration from "@/components/PostIllustration";
@@ -76,7 +76,7 @@ const expertiseIcon = (icon: string) => {
 
 // ---- Composant carousel de témoignages ----
 
-function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
+function TestimonialCard({ testimonial, idx, tr }: { testimonial: (typeof testimonials)[number]; idx: number; tr: (key: string) => string }) {
   return (
     <div className="relative flex h-full flex-col rounded-xl border border-border bg-white p-6">
       <div className="absolute -top-3 -left-2 text-5xl leading-none text-gold/15 select-none pointer-events-none" aria-hidden="true">
@@ -90,24 +90,24 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
         ))}
       </div>
       <blockquote className="text-sm leading-relaxed text-ink/80 flex-1">
-        &ldquo;{t.quote}&rdquo;
+        &ldquo;{tr(`testimonials.quote${idx}`)}&rdquo;
       </blockquote>
       <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
         <BlurImage
-          src={t.image}
-          alt={t.imageAlt}
+          src={testimonial.image}
+          alt={testimonial.imageAlt}
           className="h-9 w-9 shrink-0 rounded-full object-cover"
         />
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-navy">{t.name}</p>
-          <p className="truncate text-xs text-muted">{t.role}, {t.org}</p>
+          <p className="truncate text-sm font-semibold text-navy">{tr(`testimonials.name${idx}`)}</p>
+          <p className="truncate text-xs text-muted">{tr(`testimonials.role${idx}`)}, {tr(`testimonials.org${idx}`)}</p>
         </div>
       </div>
     </div>
   );
 }
 
-function TestimonialCarousel() {
+function TestimonialCarousel({ tr }: { tr: (key: string) => string }) {
   const [paused, setPaused] = useState(false);
   const duplicated = [...testimonials, ...testimonials];
 
@@ -129,9 +129,9 @@ function TestimonialCarousel() {
           width: "fit-content",
         }}
       >
-        {duplicated.map((t, i) => (
-          <div key={`${t.name}-${i}`} className="w-[90vw] max-w-[420px] shrink-0 px-3">
-            <TestimonialCard t={t} />
+        {duplicated.map((tm, i) => (
+          <div key={`${tm.name}-${i}`} className="w-[90vw] max-w-[420px] shrink-0 px-3">
+            <TestimonialCard testimonial={tm} idx={i % testimonials.length} tr={tr} />
           </div>
         ))}
       </div>
@@ -312,6 +312,32 @@ export default function Home() {
   const backgrounds = getHeroBackgrounds("home");
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const heroTitleKeys = ['hero.slide1Title', 'hero.slide2Title', 'hero.slide3Title'];
+  const heroLeadKeys = ['hero.slide1Lead', 'hero.slide2Lead', 'hero.slide3Lead'];
+
+  const missionTitleKeys = ['mission.item1Title', 'mission.item2Title', 'mission.item3Title', 'mission.item4Title'];
+  const missionDescKeys = ['mission.item1Desc', 'mission.item2Desc', 'mission.item3Desc', 'mission.item4Desc'];
+
+  const serviceTitleKey: Record<string, string> = {
+    'expertise-comptable': 'services.expertiseComptable',
+    'conseil-aux-entreprises': 'services.conseil',
+    'gestion-sociale-rh': 'services.rh',
+    'formation-professionnelle': 'services.formation',
+    'gestion-privee': 'services.gestionPrivee',
+    'conseil-juridique-fiscal': 'services.juridique',
+  };
+  const serviceDescKey: Record<string, string> = {
+    'expertise-comptable': 'services.cardDesc1',
+    'conseil-aux-entreprises': 'services.cardDesc2',
+    'gestion-sociale-rh': 'services.cardDesc3',
+    'formation-professionnelle': 'services.cardDesc4',
+    'gestion-privee': 'services.cardDesc5',
+    'conseil-juridique-fiscal': 'services.cardDesc6',
+  };
+
+  const formationNames = ['formations.featured1Name', 'formations.featured2Name', 'formations.featured3Name', 'formations.featured4Name'];
+  const formationDescs = ['formations.featured1Desc', 'formations.featured2Desc', 'formations.featured3Desc', 'formations.featured4Desc'];
+
   return (
     <main>
       {/* ================================================
@@ -339,13 +365,13 @@ export default function Home() {
 
           <div key={currentSlide} className="animate-fade-in">
             <h1 className="mt-4 max-w-3xl font-display text-4xl leading-tight sm:text-5xl text-white animate-scale-in delay-100">
-              {heroTexts[currentSlide].title}
+              {t(heroTitleKeys[currentSlide])}
             </h1>
 
             <div className="mt-6 h-px w-16 bg-gold-bright/50 animate-draw-line delay-200" />
 
             <p className="mt-5 max-w-2xl leading-relaxed text-white/80 animate-slide-up delay-300">
-              {heroTexts[currentSlide].lead}
+              {t(heroLeadKeys[currentSlide])}
             </p>
           </div>
 
@@ -390,10 +416,10 @@ export default function Home() {
                 {t('about.title')}
               </h2>
               <p className="mt-2 text-sm text-muted max-w-lg">
-                {aboutUs.lead}
+                {t('about.lead')}
               </p>
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink/75">
-                {aboutUs.paragraphs.map((p, i) => (
+                {[t('about.paragraph1'), t('about.paragraph2'), t('about.paragraph3')].map((p, i) => (
                   <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
                 ))}
               </div>
@@ -428,7 +454,11 @@ export default function Home() {
                   {/* Chiffres clés superposés en bas à droite */}
                   <div className="absolute bottom-0 right-0 z-10 p-4">
                     <div className="max-w-[180px]">
-                      <StatCarousel stats={aboutUs.stats} />
+                      <StatCarousel stats={[
+                        { value: t('about.stat1Value'), label: t('about.stat1Label') },
+                        { value: t('about.stat2Value'), label: t('about.stat2Label') },
+                        { value: t('about.stat3Value'), label: t('about.stat3Label') },
+                      ]} />
                     </div>
                   </div>
                 </div>
@@ -467,10 +497,10 @@ export default function Home() {
                     {/* Contenu */}
                     <div className="flex flex-1 flex-col p-5 lg:p-7 pt-4 lg:pt-5">
                       <h3 className="font-display text-lg font-semibold text-navy transition-colors duration-200 group-hover:text-red">
-                        {s.title}
+                        {t(serviceTitleKey[s.slug])}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-ink/75 flex-1">
-                        {s.desc}
+                        {t(serviceDescKey[s.slug])}
                       </p>
                       {/* Tags */}
                       <div className="mt-4 flex flex-wrap gap-1.5 border-t border-border pt-3">
@@ -517,9 +547,8 @@ export default function Home() {
             </div>
             <h2 className="mt-4 font-display text-2xl leading-tight text-paper sm:text-3xl">
               {t('mission.title')}
-            </h2>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-paper/65">
-              {ourMission.lead}
+            </h2>              <p className="mt-2 max-w-xl text-sm leading-relaxed text-paper/65">
+                {t('mission.lead')}
             </p>
           </Reveal>
 
@@ -557,10 +586,10 @@ export default function Home() {
                     )}
                   </span>
                   <h3 className="font-display text-base font-semibold text-paper">
-                    {item.title}
+                    {t(missionTitleKeys[i])}
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-paper/60">
-                    {item.desc}
+                    {t(missionDescKeys[i])}
                   </p>
                 </div>
               </Reveal>
@@ -597,7 +626,7 @@ export default function Home() {
           </div>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 stagger-children">
-            {featuredFormations.map((f) => (
+            {featuredFormations.map((f, idx) => (
               <Reveal key={f.name} as="div">
                 <Link href={`/formations/${f.slug}`}>
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
@@ -622,11 +651,11 @@ export default function Home() {
                       <span className="inline-block h-1 w-8 shrink-0 rounded-full bg-gradient-to-r from-gold to-gold-bright" />
 
                       <h3 className="mt-3 font-display text-base font-semibold text-navy transition-colors duration-200 group-hover:text-red">
-                        {f.name}
+                        {t(formationNames[idx])}
                       </h3>
 
                       <p className="mt-1.5 text-xs leading-relaxed text-muted flex-1">
-                        {f.desc}
+                        {t(formationDescs[idx])}
                       </p>
 
                       {/* Price + CTA */}
@@ -679,7 +708,7 @@ export default function Home() {
             </p>
           </div>
 
-          <TestimonialCarousel />
+          <TestimonialCarousel tr={t} />
         </Container>
       </section>
 
