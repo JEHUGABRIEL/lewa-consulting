@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Container from "@/components/Container";
-import Mark from "@/components/Mark";
 import Reveal from "@/components/Reveal";
 import HeroSlider from "@/components/HeroSlider";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
@@ -145,12 +145,12 @@ function PartnerCard({ p }: { p: (typeof partners)[number] }) {
   return (
     <div className="flex flex-col items-center rounded-xl border border-border bg-white p-4 text-center w-40 shrink-0">
       <div className="relative mb-3 flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-navy/[0.03] to-navy/[0.06]">
-        <img
-          src={p.image.replace("w=100&q=80", "w=112&h=112&fit=crop&q=60")}
+        <Image
+          src={p.image.split("?")[0]}
           alt={p.imageAlt}
-          className="h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
+          fill
+          sizes="56px"
+          className="object-cover"
         />
       </div>
       <h3 className="text-[11px] font-semibold text-navy leading-snug">{p.name}</h3>
@@ -245,68 +245,6 @@ function StatCarousel({ stats }: { stats: { value: string; label: string }[] }) 
   );
 }
 
-// ---- Composant compteur animé ----
-
-function AnimatedCounter({
-  target,
-  suffix = "",
-  label,
-  duration = 2000,
-}: {
-  target: number;
-  suffix?: string;
-  label: string;
-  duration?: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [count, setCount] = useState(0);
-  const hasAnimatedRef = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimatedRef.current) {
-          hasAnimatedRef.current = true;
-          observer.unobserve(el);
-
-          const start = performance.now();
-
-          function step(now: number) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease-out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * target));
-
-            if (progress < 1) {
-              requestAnimationFrame(step);
-            }
-          }
-
-          requestAnimationFrame(step);
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target, duration]);
-
-  return (
-    <div ref={ref} className="text-center">
-      <span className="font-display text-4xl font-bold text-white sm:text-5xl tabular">
-        {count}
-        {suffix}
-      </span>
-      <p className="mt-2 text-sm text-white/65 leading-snug">{label}</p>
-    </div>
-  );
-}
-
 export default function Home() {
   const t = useTranslations();
   const backgrounds = getHeroBackgrounds("home");
@@ -318,23 +256,6 @@ export default function Home() {
   const missionTitleKeys = ['mission.item1Title', 'mission.item2Title', 'mission.item3Title', 'mission.item4Title'];
   const missionDescKeys = ['mission.item1Desc', 'mission.item2Desc', 'mission.item3Desc', 'mission.item4Desc'];
 
-  const serviceTitleKey: Record<string, string> = {
-    'expertise-comptable': 'services.expertiseComptable',
-    'conseil-aux-entreprises': 'services.conseil',
-    'gestion-sociale-rh': 'services.rh',
-    'formation-professionnelle': 'services.formation',
-    'gestion-privee': 'services.gestionPrivee',
-    'conseil-juridique-fiscal': 'services.juridique',
-  };
-  const serviceDescKey: Record<string, string> = {
-    'expertise-comptable': 'services.cardDesc1',
-    'conseil-aux-entreprises': 'services.cardDesc2',
-    'gestion-sociale-rh': 'services.cardDesc3',
-    'formation-professionnelle': 'services.cardDesc4',
-    'gestion-privee': 'services.cardDesc5',
-    'conseil-juridique-fiscal': 'services.cardDesc6',
-  };
-
   const formationNames = ['formations.featured1Name', 'formations.featured2Name', 'formations.featured3Name', 'formations.featured4Name'];
   const formationDescs = ['formations.featured1Desc', 'formations.featured2Desc', 'formations.featured3Desc', 'formations.featured4Desc'];
 
@@ -344,26 +265,18 @@ export default function Home() {
            HERO — section principale avec slider
            ================================================ */}
       <section className="relative overflow-hidden border-b border-navy-deep">
-        {/* Top accent bar */}
-        <div className="relative z-20 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
-
         {/* Slider d'arrière-plans */}
         <HeroSlider slides={backgrounds} interval={5000} onSlideChange={setCurrentSlide} />
 
-        {/* Décor géométrique subtil */}
-        <div className="pointer-events-none absolute -right-20 -top-16 z-10 select-none text-white/[0.06]" aria-hidden="true">
-          <Mark className="h-48 w-48" />
-        </div>
-
         <Container className="relative z-10 py-[7.5rem] sm:py-[10.5rem]">
-          <div className="flex items-center gap-3 animate-fade-in">
-            <span className="inline-block h-px w-6 bg-gold" />
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-bright">
-              {t('common.tagline')}
-            </p>
-          </div>
-
           <div key={currentSlide} className="animate-fade-in">
+            <div className="flex items-center gap-3 animate-fade-in">
+              <span className="inline-block h-px w-6 bg-gold" />
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-bright">
+                {t('common.tagline')}
+              </p>
+            </div>
+
             <h1 className="mt-4 max-w-3xl font-display text-4xl leading-tight sm:text-5xl text-white animate-scale-in delay-100">
               {t(heroTitleKeys[currentSlide])}
             </h1>
@@ -419,7 +332,7 @@ export default function Home() {
                 {t('about.lead')}
               </p>
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink/75">
-                {[t('about.paragraph1'), t('about.paragraph2'), t('about.paragraph3')].map((p, i) => (
+                {[t.raw('about.paragraph1'), t.raw('about.paragraph2'), t.raw('about.paragraph3')].map((p, i) => (
                   <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
                 ))}
               </div>
@@ -485,7 +398,7 @@ export default function Home() {
                     <div className="relative h-44 w-full overflow-hidden rounded-t-xl">
                       <BlurImage
                         src={s.image}
-                        alt={s.imageAlt}
+                        alt={t(`services.items.${s.slug}.imageAlt`)}
                         className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -497,16 +410,16 @@ export default function Home() {
                     {/* Contenu */}
                     <div className="flex flex-1 flex-col p-5 lg:p-7 pt-4 lg:pt-5">
                       <h3 className="font-display text-lg font-semibold text-navy transition-colors duration-200 group-hover:text-red">
-                        {t(serviceTitleKey[s.slug])}
+                        {t(`services.items.${s.slug}.title`)}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-ink/75 flex-1">
-                        {t(serviceDescKey[s.slug])}
+                        {t(`services.items.${s.slug}.desc`)}
                       </p>
                       {/* Tags */}
                       <div className="mt-4 flex flex-wrap gap-1.5 border-t border-border pt-3">
-                        {s.tags.map((t) => (
-                          <span key={t} className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/60">
-                            {t}
+                        {t(`services.items.${s.slug}.tags`).split("\n").map((tag) => (
+                          <span key={tag} className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/60">
+                            {tag}
                           </span>
                         ))}
                       </div>
@@ -530,12 +443,12 @@ export default function Home() {
       <section className="relative border-b border-border bg-gradient-to-br from-navy to-navy-deep text-paper">
         {/* Fond image subtile */}
         <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=60&fit=crop"
+          <Image
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
             alt=""
-            className="h-full w-full object-cover opacity-[0.06]"
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-[0.06]"
           />
         </div>
 
@@ -627,14 +540,14 @@ export default function Home() {
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 stagger-children">
             {featuredFormations.map((f, idx) => (
-              <Reveal key={f.name} as="div">
+              <Reveal key={f.slug} as="div">
                 <Link href={`/formations/${f.slug}`}>
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
                     {/* Image Unsplash en haut */}
                     <div className="relative h-40 w-full overflow-hidden">
                       <BlurImage
                         src={f.image}
-                        alt={f.imageAlt}
+                        alt={t(`formations.items.${f.slug}.imageAlt`)}
                         className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -691,28 +604,6 @@ export default function Home() {
       </section>
 
       {/* ================================================
-           TÉMOIGNAGES — carousel 3/2/1
-           ================================================ */}
-      <section className="border-b border-border bg-navy/[0.02]">
-        <Container className="py-14 sm:py-16">
-          <div>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              <span className="inline-block h-px w-4 bg-gold/50" />
-              {t('testimonials.eyebrow')}
-            </span>
-            <h2 className="mt-4 font-display text-2xl text-navy animate-fade-in">
-              {t('testimonials.title')}
-            </h2>
-            <p className="mt-2 text-sm text-muted max-w-md animate-slide-up delay-100">
-              {t('testimonials.subtitle')}
-            </p>
-          </div>
-
-          <TestimonialCarousel tr={t} />
-        </Container>
-      </section>
-
-      {/* ================================================
            ACTUALITÉS / BLOG
            ================================================ */}
       <section className="border-b border-border">
@@ -739,25 +630,25 @@ export default function Home() {
                 <div className="group relative flex h-full flex-col rounded-xl border border-border bg-white p-5 hover-lift lg:p-7">
                   {/* Illustration */}
                   <div className="mb-3 h-40 w-full overflow-hidden rounded-lg">
-                    <PostIllustration category={post.category} src={post.image} alt={post.imageAlt} />
+                    <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
                   </div>
 
                   {/* Category badge */}
                   <span className="mb-3 inline-flex items-center rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
-                    {post.category}
+                    {t(`posts.${post.slug}.category`)}
                   </span>
 
                   {/* Date */}
-                  <p className="text-[11px] text-muted">{post.date}</p>
+                  <p className="text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
 
                   {/* Title */}
                   <h3 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug">
-                    {post.title}
+                    {t(`posts.${post.slug}.title`)}
                   </h3>
 
                   {/* Excerpt */}
                   <p className="mt-2 text-xs leading-relaxed text-muted flex-1">
-                    {post.excerpt}
+                    {t(`posts.${post.slug}.excerpt`)}
                   </p>
 
                   {/* Read more */}
@@ -790,14 +681,13 @@ export default function Home() {
            ================================================ */}
       <section className="border-b border-border">
         <Container className="py-14 sm:py-16">
-          <div>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              <span className="inline-block h-px w-4 bg-gold/50" />
-              {t('partners.eyebrow')}
-            </span>
-            <h2 className="mt-4 font-display text-2xl text-navy animate-fade-in">
-              {t('partners.title')}
-            </h2>
+          <div>              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                <span className="inline-block h-px w-4 bg-gold/50" />
+                {t('partners.eyebrow')}
+              </span>
+              <h2 className="mt-4 font-display text-2xl text-navy animate-fade-in">
+                {t('partners.title')}
+              </h2>
             <p className="mt-2 text-sm text-muted max-w-md animate-slide-up delay-100">
               {t('partners.subtitle')}
             </p>
@@ -806,6 +696,27 @@ export default function Home() {
           <div className="mt-10">
             <PartnerCarousel />
           </div>
+        </Container>
+      </section>
+
+      {/* ================================================
+           TÉMOIGNAGES — carousel 3/2/1
+           ================================================ */}
+      <section className="border-b border-border bg-navy/[0.02]">
+        <Container className="py-14 sm:py-16">
+          <div>              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                <span className="inline-block h-px w-4 bg-gold/50" />
+                {t('testimonials.eyebrow')}
+              </span>
+              <h2 className="mt-4 font-display text-2xl text-navy animate-fade-in">
+                {t('testimonials.title')}
+              </h2>
+            <p className="mt-2 text-sm text-muted max-w-md animate-slide-up delay-100">
+              {t('testimonials.subtitle')}
+            </p>
+          </div>
+
+          <TestimonialCarousel tr={t} />
         </Container>
       </section>
 
@@ -868,8 +779,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Accent bar bottom */}
-          <div className="relative z-10 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
         </section>
       </Container>
     </main>

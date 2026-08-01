@@ -1,20 +1,22 @@
+import Image from "next/image";
+
 const illustrations: Record<
   string,
   { gradient: string; icon: string; bgFrom: string; bgTo: string }
 > = {
-  Formations: {
+  formations: {
     gradient: "from-gold/20 to-gold/5",
     bgFrom: "from-gold",
     bgTo: "to-gold-bright",
     icon: "academic",
   },
-  "Audit & Comptabilité": {
+  audit: {
     gradient: "from-navy/15 to-navy/5",
     bgFrom: "from-navy",
     bgTo: "to-navy-deep",
     icon: "chart",
   },
-  Événement: {
+  evenement: {
     gradient: "from-red/15 to-red/5",
     bgFrom: "from-red",
     bgTo: "to-red",
@@ -22,7 +24,7 @@ const illustrations: Record<
   },
 };
 
-const defaultIll = illustrations["Formations"];
+const defaultIll = illustrations["formations"];
 
 export default function PostIllustration({
   category,
@@ -37,9 +39,11 @@ export default function PostIllustration({
   // Si une vraie image est fournie, l'afficher directement
   if (src) {
     return (
-      <img
-        src={src}
+      <Image
+        src={src.split("?")[0]}
         alt={alt ?? category}
+        width={800}
+        height={500}
         className="h-full w-full object-cover"
         loading="lazy"
         decoding="async"

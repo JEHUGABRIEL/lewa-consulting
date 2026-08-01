@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -7,7 +8,10 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 
-export const metadata: Metadata = { title: "Contact" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("contact") };
+}
 
 export default async function ContactPage() {
   const t = await getTranslations();
@@ -39,7 +43,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=64&h=64&fit=crop&q=50" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    <Image src="https://images.unsplash.com/photo-1560179707-f14e90ef3623" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.office')}
                 </dt>
@@ -52,7 +56,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1553729459-afe8f2e0e21a?w=64&h=64&fit=crop&q=50" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    <Image src="https://images.unsplash.com/photo-1553729459-afe8f2e0e21a" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.phoneLabel')}
                 </dt>
@@ -61,16 +65,12 @@ export default async function ContactPage() {
                     +236 72 69 67 00
                     <span className="inline-block h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100 group-hover/link:translate-x-0.5" aria-hidden="true">→</span>
                   </a>
-                  <a href="tel:+23675343719" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
-                    +236 75 34 37 19
-                    <span className="inline-block h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100 group-hover/link:translate-x-0.5" aria-hidden="true">→</span>
-                  </a>
                 </dd>
               </Reveal>
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1596526131083-e8c4e8c0f9f6?w=64&h=64&fit=crop&q=50" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    <Image src="https://images.unsplash.com/photo-1596526131083-e8c4e8c0f9f6" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.emailLabel')}
                 </dt>
@@ -84,7 +84,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=64&h=64&fit=crop&q=50" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    <Image src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.online')}
                 </dt>
@@ -93,8 +93,8 @@ export default async function ContactPage() {
                     {t('contact.whatsapp')} — +236 72 69 67 00
                     <svg className="h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
                   </a>
-                  <a href="https://www.facebook.com/profile.php?id=100054567694400" target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
-                    {t('contact.facebook')} — Cabinet Lewa Consulting Group
+                  <a href="https://www.facebook.com/share/p/1HF9MirmNj/" target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
+                    {t('contact.facebook')} — Cabinet COSI Lewa-Consulting Group
                     <svg className="h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
                   </a>
                 </dd>

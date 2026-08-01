@@ -1,16 +1,29 @@
 {
+  "Metadata": {
+    "title": "COSI Lewa-Consulting Group | Bangui",
+    "suffix": "COSI Lewa-Consulting Group",
+    "description": "Audit, accounting and tax assistance firm for businesses and NGOs, and a center for practical professional training in Bangui, Central African Republic.",
+    "services": "Services",
+    "actualites": "News",
+    "contact": "Contact",
+    "mentionsLegales": "Legal notice",
+    "aPropos": "About us",
+    "comptabiliteFinance": "Accounting & Finance",
+    "bureautiqueDeveloppement": "Office automation & professional development"
+  },
   "common": {
-    "cabinet": "Firm",
     "cabinetFull": "COSI Lewa-Consulting Group",
     "tagline": "Bangui, Central African Republic",
     "phone": "+236 72 69 67 00",
     "email": "cabinetcosi29@gmail.com",
     "location": "Bangui, CAR",
+    "language": "Change language",
     "learnMore": "Learn more",
     "seeAll": "See all",
     "backTo": "Back to formations",
     "allFormations": "All formations",
     "contact": "Contact us",
+    "callUs": "Call the firm",
     "ourServices": "Our services",
     "discoverExpertise": "Discover our expertise",
     "subscribe": "Register",
@@ -22,6 +35,7 @@
   },
   "nav": {
     "home": "Home",
+    "about": "About",
     "expertise": "Our expertise",
     "formations": "Training",
     "contact": "Contact",
@@ -62,35 +76,6 @@
     "slide3Lead": "Finance professionals at your service to advise, audit and train you, in Bangui and throughout Central Africa."
   },
   "about": {
-    "pageTitle": "Legal notice",
-    "pageLead": "Legal information and privacy policy of COSI Lewa-Consulting Group.",
-    "directorTitle": "Publication director",
-    "directorName": "Marie-Claire Ngbokoli",
-    "directorRole": "Founding President of COSI Lewa-Consulting Group.",
-    "intellectualTitle2": "Intellectual property",
-    "intellectualDetail1": "All content on this site (texts, logos, images, videos, icons, graphic charter) is the exclusive property of COSI Lewa-Consulting Group, unless otherwise stated.",
-    "intellectualDetail2": "Any reproduction, distribution, modification, adaptation, publication or transmission of content, even partial, is strictly prohibited without the prior written consent of the firm.",
-    "liabilityTitle2": "Limitation of liability",
-    "liabilityDetail1": "COSI Lewa-Consulting Group strives to ensure the accuracy and timeliness of information published on this site. However, the firm cannot guarantee the completeness, accuracy or timeliness of the information provided.",
-    "liabilityDetail2": "The firm disclaims all liability for any direct or indirect damage resulting from access to or use of the site, including site unavailability, data loss or material or immaterial damage.",
-    "linksTitle": "Hyperlinks",
-    "linksText": "This site may contain links to third-party websites. COSI Lewa-Consulting Group has no control over the content of these sites and disclaims all liability for their content, data protection practices or availability.",
-    "privacyTitle2": "Privacy policy & data protection",
-    "dataCollectionTitle": "Data collection",
-    "dataCollectionText": "COSI Lewa-Consulting Group collects personal information that you voluntarily provide to us through our contact form, by phone or by email: first name, last name, email address, phone number, organization, and any message you send us.",
-    "dataUsageTitle": "Data usage",
-    "dataUsageText": "The collected data is used solely within the framework of the business and educational relationship with our clients, partners and learners: processing inquiries, managing training registrations, monitoring audit and accounting support missions, and sending information about our activities.",
-    "dataRetentionTitle": "Data retention",
-    "dataRetentionText": "Your personal data is kept for no longer than necessary for the purposes for which it was collected, in accordance with applicable regulations in the Central African Republic.",
-    "dataRightsTitle": "User rights",
-    "dataRightsText": "In accordance with applicable regulations, you have the right to access, rectify, erase and limit the processing of your personal data.",
-    "cookiesTitle2": "Cookies",
-    "cookiesDetail": "This site does not use tracking or advertising cookies. Technical cookies strictly necessary for the operation of the site may be used. No personal data is collected via cookies without your explicit consent.",
-    "securityTitle": "Security",
-    "securityText": "COSI Lewa-Consulting Group implements all appropriate technical and organizational measures to ensure the security and confidentiality of your personal data.",
-    "contactTitle": "Contact",
-    "contactText": "For any questions regarding legal notices or data protection, you can contact us:",
-    "lastUpdate": "Last updated: July 2026",
     "eyebrow": "The firm",
     "title": "Who we are",
     "lead": "A Central African firm of audit, accounting expertise and professional training.",
@@ -119,28 +104,10 @@
   },
   "services": {
     "title": "Our areas of expertise",
-    "expertiseComptable": "Accounting expertise",
-    "expertiseComptableDesc": "Tailored support close to your challenges",
-    "conseil": "Business consulting",
-    "conseilDesc": "Expert advice at the right time",
-    "rh": "HR & social management",
-    "rhDesc": "Secure your human resources management",
-    "formation": "Professional training",
-    "formationDesc": "Certificate, attestation and professional CV included",
-    "gestionPrivee": "Wealth management",
-    "gestionPriveeDesc": "Investment and planning advice",
-    "juridique": "Legal & tax advisory",
-    "juridiqueDesc": "Personalized legal and tax support",
     "aboutTitle": "About this service",
     "servicesList": "Our services",
     "discoverAlso": "Also discover",
     "allExpertises": "All our expertise",
-    "cardDesc1": "As an accounting firm, we provide tailored advice to guarantee reliable financial management, compliant and perfectly adapted to your organization's needs.",
-    "cardDesc2": "We support businesses in their strategic and operational decisions to improve their performance and secure their development.",
-    "cardDesc3": "We support you in the administrative management of your staff and the optimization of your HR processes.",
-    "cardDesc4": "Practical and certified training to develop your teams' skills and boost your career.",
-    "cardDesc5": "Personalized support to optimize your assets and secure your financial future.",
-    "cardDesc6": "Close legal and tax advice to secure your decisions and anticipate regulatory developments.",
     "servicesPageTitle1": "Audit, assistance, training",
     "servicesPageLead1": "Two professions, one requirement: rigor in numbers and transmission of know-how.",
     "servicesPageTitle2": "Audit and internal control",
@@ -157,9 +124,74 @@
     "faqQ3": "Do you offer one-off or regular support?",
     "faqR3": "Both options are available. We offer one-off assignments (audit, account review) as well as regular support (monthly bookkeeping, periodic declarations).",
     "faqQ4": "How long does an audit mission take?",
-    "faqR4": "The duration of an audit mission depends on the size of the organization and the complexity of its operations. On average, an audit mission lasts between one and three weeks."
+    "faqR4": "The duration of an audit mission depends on the size of the organization and the complexity of its operations. On average, an audit mission lasts between one and three weeks.",
+    "items": {
+      "expertise-comptable": {
+        "title": "Accounting expertise",
+        "short": "Tailored support close to your challenges",
+        "desc": "As an accounting firm, we provide tailored advice to guarantee reliable financial management, compliant and perfectly adapted to your organization's needs.",
+        "imageAlt": "Accounting expertise",
+        "tags": "SMEs\nLarge companies\nNGOs\nInstitutions",
+        "points": "General and analytical bookkeeping\nTax filings (VAT, payroll tax) and social declarations (CNSS)\nSupporting NGOs with the SYCEBNL accounting framework\nYear-end account review and reliability\nTax optimization advice",
+        "details": "Our firm provides you with a team of experienced chartered accountants to handle your entire accounting. We work with companies, non-governmental organizations and public institutions alike.\nWe use modern accounting tools to guarantee the reliability and traceability of your financial data. Each engagement includes personalized follow-up with regular reporting.\nFor NGOs, we have full command of the SYCEBNL framework, mandatory in the Central African Republic, and support you in setting up and maintaining your accounts.",
+        "benefits": "Time savings on administrative and accounting management\nSecuring your tax and social obligations\nBetter decision-making through clear reporting\nCompliance with accounting standards in force in CAR"
+      },
+      "conseil-aux-entreprises": {
+        "title": "Business consulting",
+        "short": "Sound advice at the right time",
+        "desc": "We support companies in their strategic and operational decisions to improve performance and secure growth.",
+        "imageAlt": "Business consulting",
+        "tags": "Large companies\nNGOs\nInstitutions",
+        "points": "Financial diagnosis and performance analysis\nSupport for business creation and growth\nProcess optimization and internal organization\nManagement and financial strategy advice\nSupport on financing projects",
+        "details": "Our team of experienced consultants supports you in analyzing your situation and developing solutions adapted to your goals. We intervene at every key stage of your company's life.\nWhether you are starting, growing or restructuring, we provide an external, objective perspective to inform your decisions and maximize your chances of success.\nWe work closely with your teams to ensure effective implementation of recommendations and long-term follow-up.",
+        "benefits": "Clear view of your financial and strategic situation\nInformed decisions through objective analyses\nOptimization of your organization and processes\nPersonalized support and long-term follow-up"
+      },
+      "gestion-sociale-rh": {
+        "title": "Social management and HR",
+        "short": "Secure the management of your human resources",
+        "desc": "We support you in the administrative management of your staff and the optimization of your HR processes.",
+        "imageAlt": "Social management and HR",
+        "tags": "SMEs\nLarge companies\nNGOs",
+        "points": "Payroll management and social declarations (CNSS)\nEmployment contracts and administrative follow-up\nLabor law advice and conflict management\nSetting up and optimizing HR processes\nHR management training",
+        "details": "Our firm supports you across all your social and HR obligations. From payroll to CNSS declarations and contract management, we secure all your processes.\nWe also help you implement HR management tools adapted to the size of your organization, whether you are a small business, a company or an NGO.\nOur expertise in Central African labor law allows us to effectively advise you on the legal aspects of managing your staff.",
+        "benefits": "Secured payroll and social declaration management\nCompliance with Central African labor law\nOptimized HR processes and productivity gains\nPersonalized support based on the size of your organization"
+      },
+      "formation-professionnelle": {
+        "title": "Professional training",
+        "short": "Certificate, attestation and professional CV included",
+        "desc": "Practical, certified training to develop your teams' skills and boost your career.",
+        "imageAlt": "Professional training",
+        "tags": "SMEs\nLarge companies\nNGOs\nInstitutions",
+        "points": "Accounting, audit and cash management\nHuman resources, executive assistance and office IT\nSage Compta, Sage Paie and office tools\nPublic speaking and personal development\nFlexible sessions: weekday, evening or weekend",
+        "details": "Cabinet COSI Lewa-Consulting Group offers high-quality professional training, delivered by experienced trainers from the business and accounting world.\nEach module is designed to be practical and operational, with real case studies, applied exercises and personalized support throughout the training.\nAt the end of the training, you receive a certificate of participation, an attestation detailing the skills acquired, as well as a professional CV showcasing your new skill.",
+        "benefits": "Practical, immediately operational training\nCertificate, attestation and professional CV included\nFlexible sessions (weekday, evening, weekend)\nPayment possible in weekly installments"
+      },
+      "gestion-privee": {
+        "title": "Private wealth management",
+        "short": "Investment and insurance advice",
+        "desc": "Personalized support to optimize your wealth and secure your financial future.",
+        "imageAlt": "Private wealth management",
+        "tags": "Executives\nIndividuals",
+        "points": "Investment and financial placement advice\nWealth optimization and structuring\nRetirement planning and insurance\nTransfer and succession strategy\nSupport on real estate investment projects",
+        "details": "Our firm supports you in managing your wealth with a personalized approach and advice adapted to your personal and professional situation.\nWe help you define an investment strategy consistent with your goals, risk profile and investment horizon.\nWhether you are a business leader, a self-employed professional or a private individual, we put our expertise at your service to secure and optimize your wealth.",
+        "benefits": "Personalized wealth strategy\nTax optimization of your wealth\nSerene retirement planning\nControlled transfer of your wealth"
+      },
+      "conseil-juridique-fiscal": {
+        "title": "Legal and tax consulting",
+        "short": "Personalized legal and tax support",
+        "desc": "Close-at-hand legal and tax advice to secure your decisions and anticipate regulatory changes.",
+        "imageAlt": "Legal and tax consulting",
+        "tags": "Large companies\nNGOs",
+        "points": "Legal advice in business law\nTax optimization and security\nSupport in tax disputes\nDrafting and reviewing contracts\nRegulatory watch and compliance",
+        "details": "Our firm offers complete legal and tax support to secure your decisions and anticipate regulatory changes.\nWe assist you in drafting and reviewing your contracts, managing your tax disputes and bringing your organization into compliance with applicable regulations.\nOur team maintains a permanent regulatory watch to keep you informed of legislative and tax changes affecting your business.",
+        "benefits": "Legal security for your activities\nOptimization of your tax situation\nAnticipation of risks and disputes\nPersonalized regulatory watch"
+      }
+    },
+    "notFound": "Service not found",
+    "faqImageAlt": "Business consultation and advice"
   },
   "formations": {
+    "notFound": "Training not found",
     "title": "Featured training",
     "subtitle": "Practical modules led by professionals, with certificate and attestation included.",
     "seeAll": "View all training programs",
@@ -209,7 +241,75 @@
     "all": "All",
     "level": "Level",
     "allLevels": "All levels",
-    "resultsCount": "{count} result(s)"
+    "resultsCount": "{count} result(s)",
+    "items": {
+      "comptabilite-bancaire": {
+        "name": "Bank accounting",
+        "note": "20 hours, payable in 2 installments",
+        "imageAlt": "Accounting office with financial documents",
+        "desc": "Master account keeping, cash operations and client relations in banking."
+      },
+      "systeme-comptable-des-ong-sycebnl": {
+        "name": "NGO accounting system (SYCEBNL)",
+        "note": "payable in 2 installments",
+        "imageAlt": "Accounting documents on a desk",
+        "desc": "Train on the SYCEBNL accounting framework, mandatory for NGOs in the Central African Republic."
+      },
+      "pratique-en-caissiere-bancaire": {
+        "name": "Bank teller practice",
+        "note": "",
+        "imageAlt": "Cashier recording a transaction",
+        "desc": "Prepare for the role of bank teller: cash operations, deposits and cash control."
+      },
+      "comptabilite-d-entreprise": {
+        "name": "Corporate accounting",
+        "note": "",
+        "imageAlt": "Calculator and accounting documents",
+        "desc": "Learn the basics of corporate accounting: journals, ledgers, balance sheet and income statement."
+      },
+      "comptabilite-d-entreprise-sur-sage-compta": {
+        "name": "Corporate accounting on Sage Compta",
+        "note": "payable in installments",
+        "imageAlt": "Laptop with financial charts",
+        "desc": "Master corporate accounting with Sage Compta software, from data entry to financial statements."
+      },
+      "ressources-humaines-sage-paie": {
+        "name": "Human resources (Sage Payroll)",
+        "note": "",
+        "imageAlt": "HR team meeting",
+        "desc": "Manage payroll and social declarations with Sage Payroll and optimize your HR management."
+      },
+      "mission-d-audit": {
+        "name": "Audit mission",
+        "note": "",
+        "imageAlt": "Audit report on a desk",
+        "desc": "Learn how to conduct an audit engagement: planning, controls, reporting and recommendations."
+      },
+      "gestion-de-caisse": {
+        "name": "Cash management",
+        "note": "",
+        "imageAlt": "Cash register",
+        "desc": "Secure your cash operations: receipts, payments, reconciliations and controls."
+      },
+      "assistante-de-direction": {
+        "name": "Executive assistant",
+        "note": "",
+        "imageAlt": "Executive assistant at the office",
+        "desc": "Develop the key skills of an executive assistant: organization, communication and office IT."
+      },
+      "informatique-bureautique": {
+        "name": "Office IT",
+        "note": "Word, Excel, PowerPoint, Access",
+        "imageAlt": "Computer with office tools",
+        "desc": "Master essential office tools: Word, Excel and PowerPoint to boost productivity."
+      },
+      "art-oratoire": {
+        "name": "Public speaking",
+        "note": "",
+        "imageAlt": "Person speaking in public",
+        "desc": "Speak with confidence: communication techniques, stage fright management and eloquence."
+      }
+    }
   },
   "testimonials": {
     "eyebrow": "Trusted by",
@@ -330,6 +430,7 @@
     "formations": "Training",
     "actualites": "News",
     "legal": "Legal notice",
+    "services": "Our services",
     "newsletter": "Newsletter",
     "newsletterText": "Receive our news, training sessions and advice.",
     "newsletterSuccess": "Thank you for subscribing!",
@@ -339,21 +440,27 @@
     "newsletterLabel": "Email address",
     "newsletterBtn": "Subscribe",
     "backToTop": "Back to top",
-    "copyright": "\u00a9 {year} COSI Lewa-Consulting Group. All rights reserved.",
-    "followUs": "Follow us"
+    "copyright": "© {year} COSI Lewa-Consulting Group. All rights reserved.",
+    "followUs": "Follow us",
+    "rightsReserved": "All rights reserved."
   },
   "legal": {
     "title": "Legal notice",
     "subtitle": "Legal information regarding COSI Lewa-Consulting Group",
+    "pageTitle": "Legal notice",
+    "pageLead": "Legal information and privacy policy of COSI Lewa-Consulting Group.",
     "companyTitle": "Publisher",
     "companyName": "COSI Lewa-Consulting Group",
     "companyLegal": "SARL with capital of 10,000,000 FCFA",
     "companyRccm": "RCCM: RC BGI 2023 B 12345",
     "companyNiu": "NIU: M0123456789P",
-    "companyAddress": "Avenue des Martyrs \u2014 SOCATEL, across from Stade 20 000 Places",
+    "companyAddress": "Avenue des Martyrs — SOCATEL, across from Stade 20 000 Places",
     "companyCity": "Bangui, Central African Republic",
     "companyPhone": "Tel: +236 72 69 67 00",
     "companyEmail": "Email: cabinetcosi29@gmail.com",
+    "directorTitle": "Publication director",
+    "directorName": "Marie-Claire Ngbokoli",
+    "directorRole": "Founding President of COSI Lewa-Consulting Group.",
     "hostTitle": "Hosting",
     "hostText": "This site is hosted by <strong>Vercel Inc.</strong><br />340 S Lemon Ave #4133, Walnut, CA 91789, USA.",
     "intellectualTitle": "Intellectual property",
@@ -365,7 +472,31 @@
     "privacyText1": "Information collected via the contact form is used solely to respond to your request and is not shared with third parties.",
     "privacyText2": "In accordance with applicable regulations, you have the right to access, rectify and delete your personal data. To exercise this right, contact us at cabinetcosi29@gmail.com.",
     "cookiesTitle": "Cookies",
-    "cookiesText": "This site uses cookies strictly necessary for its operation. No advertising or tracking cookies are used without your explicit consent."
+    "cookiesText": "This site uses cookies strictly necessary for its operation. No advertising or tracking cookies are used without your explicit consent.",
+    "intellectualTitle2": "Intellectual property",
+    "intellectualDetail1": "All content on this site (texts, logos, images, videos, icons, graphic charter) is the exclusive property of COSI Lewa-Consulting Group, unless otherwise stated.",
+    "intellectualDetail2": "Any reproduction, distribution, modification, adaptation, publication or transmission of content, even partial, is strictly prohibited without the prior written consent of the firm.",
+    "liabilityTitle2": "Limitation of liability",
+    "liabilityDetail1": "COSI Lewa-Consulting Group strives to ensure the accuracy and timeliness of information published on this site. However, the firm cannot guarantee the completeness, accuracy or timeliness of the information provided.",
+    "liabilityDetail2": "The firm disclaims all liability for any direct or indirect damage resulting from access to or use of the site, including site unavailability, data loss or material or immaterial damage.",
+    "linksTitle": "Hyperlinks",
+    "linksText": "This site may contain links to third-party websites. COSI Lewa-Consulting Group has no control over the content of these sites and disclaims all liability for their content, data protection practices or availability.",
+    "privacyTitle2": "Privacy policy & data protection",
+    "dataCollectionTitle": "Data collection",
+    "dataCollectionText": "COSI Lewa-Consulting Group collects personal information that you voluntarily provide to us through our contact form, by phone or by email: first name, last name, email address, phone number, organization, and any message you send us.",
+    "dataUsageTitle": "Data usage",
+    "dataUsageText": "The collected data is used solely within the framework of the business and educational relationship with our clients, partners and learners: processing inquiries, managing training registrations, monitoring audit and accounting support missions, and sending information about our activities.",
+    "dataRetentionTitle": "Data retention",
+    "dataRetentionText": "Your personal data is kept for no longer than necessary for the purposes for which it was collected, in accordance with applicable regulations in the Central African Republic.",
+    "dataRightsTitle": "User rights",
+    "dataRightsText": "In accordance with applicable regulations, you have the right to access, rectify, erase and limit the processing of your personal data.",
+    "cookiesTitle2": "Cookies",
+    "cookiesDetail": "This site does not use tracking or advertising cookies. Technical cookies strictly necessary for the operation of the site may be used. No personal data is collected via cookies without your explicit consent.",
+    "securityTitle": "Security",
+    "securityText": "COSI Lewa-Consulting Group implements all appropriate technical and organizational measures to ensure the security and confidentiality of your personal data.",
+    "contactTitle": "Contact",
+    "contactText": "For any questions regarding legal notices or data protection, you can contact us:",
+    "lastUpdate": "Last updated: July 2026"
   },
   "chatbot": {
     "title": "COSI Assistant",
@@ -379,6 +510,7 @@
     "chooseTopic": "Choose a topic below"
   },
   "faq": {
+    "eyebrow": "Got questions?",
     "title": "Frequently asked questions",
     "q1": "How do I register for a training program?",
     "r1": "You can register by phone at +236 72 69 67 00, by email at cabinetcosi29@gmail.com, or via our online contact form. An advisor will help you choose the module best suited to your level and goals.",
@@ -392,5 +524,39 @@
     "r5": "Most of our training programs are accessible without specific prerequisites. For advanced modules (such as Sage Compta or SYCEBNL), basic accounting knowledge is recommended. Our team will advise you on the most suitable path.",
     "q6": "Where do the training sessions take place?",
     "r6": "Training takes place at our headquarters: Avenue des Martyrs — SOCATEL, across from Stade 20 000 Places, Bangui. We can also organize on-site sessions for businesses and organizations."
+  },
+  "posts": {
+    "session-comptabilite-bancaire-2026": {
+      "title": "Launch of the intensive bank accounting training session",
+      "excerpt": "COSI Firm is opening registrations for its new bank accounting training session. 20 hours of practical modules to master account management, cash operations and customer relations in a banking environment.",
+      "date": "June 15, 2026",
+      "category": "Training",
+      "imageAlt": "Bank accounting training",
+      "content": "COSI Lewa-Consulting Group is pleased to announce the launch of its new intensive bank accounting training session, scheduled for July 2026.\n\nThis 20-hour training is designed for professionals and students wishing to acquire a solid mastery of bank account management, cash operations and customer relations in a banking environment.\n\nProgram:\n- Techniques for managing current and savings accounts\n- Managing cash and counter operations\n- Processing cheques, transfers and direct debits\n- Customer relations and banking advice\n- Regulatory compliance and anti-money laundering\n\nRegistrations are open. The participation fee is 75,000 FCFA, payable in two installments. Each participant will receive a certificate of completion and a professional CV.\n\nTo register, contact us at +236 72 69 67 00 or by email at cabinetcosi29@gmail.com. Places are limited."
+    },
+    "accompagnement-sycebnl-2026": {
+      "title": "SYCEBNL support: the firm now referenced by new NGOs",
+      "excerpt": "Two new non-governmental organizations have entrusted us with maintaining their accounts under the SYCEBNL framework. A recognition of our expertise in the non-profit sector in Central Africa.",
+      "date": "June 2, 2026",
+      "category": "Audit & Accounting",
+      "imageAlt": "SYCEBNL accounting support",
+      "content": "COSI Lewa-Consulting Group is expanding its expertise in the non-profit sector. Two new international non-governmental organizations have recently entrusted us with maintaining their accounts under the SYCEBNL framework (Non-Profit Entities Accounting System).\n\nThis new collaboration reflects the recognition of our expertise in accounting and financial support for NGOs in the Central African Republic. Our team fully masters the specificities of SYCEBNL, a framework adapted to the particularities of non-profit organizations.\n\nOur services include:\n- Full bookkeeping under the SYCEBNL framework\n- Preparation of annual financial statements\n- Assistance with external audits\n- Tax and social declarations\n- Financial management advice and donor reporting\n\nWe also support NGOs in training their accounting teams on the SYCEBNL framework, ensuring progressive autonomy and better control of their management tools."
+    },
+    "atelier-declaration-fiscale-tpe": {
+      "title": "Free workshop: tax filing basics for small businesses",
+      "excerpt": "As part of our commitment to local economic development, COSI Firm is organizing a free workshop on tax filings (VAT, IRPP, CNSS) for very small businesses in Bangui.",
+      "date": "May 18, 2026",
+      "category": "Event",
+      "imageAlt": "Free workshop on tax filings",
+      "content": "As part of our commitment to local economic development, COSI Lewa-Consulting Group is organizing a free workshop on tax filings for very small businesses (VSBs) in Bangui.\n\nThis practical workshop will cover the following topics:\n- Value Added Tax (VAT) declaration\n- Personal Income Tax (IRPP)\n- National Social Security Fund (CNSS) contributions\n- Common filing obligations for very small businesses\n- Tax deadlines not to be missed\n\nThe workshop will take place at our premises: Avenue des Martyrs &mdash; SOCATEL, across from Stade 20 000 Places, Bangui. A Q&A session is planned at the end of the presentation.\n\nParticipation is free, but registration is required. Contact us at +236 72 69 67 00 to reserve your spot. Places are limited to 20 participants."
+    },
+    "certificats-bureautique-2026": {
+      "title": "Certificate ceremony for the office IT session graduates",
+      "excerpt": "12 participants received their office IT training certificate. A committed cohort, ready for the job market.",
+      "date": "May 5, 2026",
+      "category": "Training",
+      "imageAlt": "Training certificate ceremony",
+      "content": "COSI Lewa-Consulting Group presented the end-of-training certificates to the 12 participants of the office IT session, concluding a four-week intensive training cycle.\n\nDuring this training, participants acquired solid skills on essential professional software:\n- Microsoft Word: layout, mail merge, long documents\n- Microsoft Excel: spreadsheets, formulas, charts, pivot tables\n- Microsoft PowerPoint: professional and animated presentations\n- Microsoft Access: databases and queries\n\nThis 2026 cohort stands out for the diversity of its profiles: newly graduated students, professionals changing careers and administrative staff wishing to strengthen their skills.\n\nCongratulations to all graduates! The next session is scheduled for September 2026. Registrations are already open."
+    }
   }
 }

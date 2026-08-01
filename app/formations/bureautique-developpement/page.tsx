@@ -9,7 +9,10 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { bureautiqueDev } from "@/lib/formations";
 import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = { title: "Bureautique & développement professionnel" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("bureautiqueDeveloppement") };
+}
 
 export default async function BureautiqueDeveloppementPage() {
   const t = await getTranslations();
@@ -51,56 +54,23 @@ export default async function BureautiqueDeveloppementPage() {
               i
             </span>
             <div>
-              <p>
-                Montant payable par tranche, chaque semaine. Formations flexibles, accessibles en
-                semaine, le soir ou le week-end.
-              </p>
-              <p className="mt-2">
-                Pour vous inscrire, contactez-nous au{" "}
-                <a href="tel:+23672696700" className="group font-medium text-navy transition hover:text-red">
-                  <span>+236 72 69 67 00</span>
-                  <span className="block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full" />
-                </a>{" "}
-                ou via notre{" "}
-                <a href="/contact" className="group font-medium text-navy transition hover:text-red">
-                  <span>page de contact</span>
-                  <span className="block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full" />
-                </a>
-                .
-              </p>
+              <p>{t('formations.paymentInfo')}</p>
+              <p className="mt-2" dangerouslySetInnerHTML={{ __html: t.raw('formations.contactInfo') }} />
             </div>
           </div>
         </Reveal>
 
         <FAQSection
-          title="Foire aux questions"
+          title={t('faq.title')}
           image="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80"
           imageAlt="Bureautique et développement professionnel"
           items={[
-            {
-              q: "Comment s'inscrire à une formation ?",
-              r: "Vous pouvez vous inscrire par téléphone au +236 72 69 67 00, par email à cabinetcosi29@gmail.com, ou via notre formulaire de contact en ligne. Un conseiller vous accompagnera dans le choix du module adapté à votre niveau et vos objectifs.",
-            },
-            {
-              q: "Quels sont les modes de paiement ?",
-              r: "Le règlement peut s'effectuer en espèces ou par tranches hebdomadaires. Nous proposons des facilités de paiement pour rendre nos formations accessibles au plus grand nombre. Contactez-nous pour discuter des modalités.",
-            },
-            {
-              q: "Les formations sont-elles certifiantes ?",
-              r: "Oui, chaque formation est conclue par la remise d'un certificat de participation et d'une attestation. Nous vous accompagnons également dans la rédaction de votre CV professionnel pour valoriser votre nouvelle compétence.",
-            },
-            {
-              q: "Puis-je suivre une formation en soirée ou le week-end ?",
-              r: "Absolument. Nos sessions sont flexibles et s'adaptent à votre disponibilité : en semaine, en soirée ou le week-end. Il vous suffit de nous indiquer vos créneaux préférentiels lors de l'inscription.",
-            },
-            {
-              q: "Y a-t-il des prérequis pour s'inscrire ?",
-              r: "La plupart de nos formations sont accessibles sans prérequis spécifiques. Pour les modules avancés (comme Sage Compta ou le SYCEBNL), une connaissance de base en comptabilité est recommandée. Notre équipe vous conseillera sur le parcours le plus adapté.",
-            },
-            {
-              q: "Où se déroulent les formations ?",
-              r: "Les formations ont lieu à notre siège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui. Nous pouvons également organiser des sessions sur site pour les entreprises et organisations.",
-            },
+            { q: t('faq.q1'), r: t('faq.r1') },
+            { q: t('faq.q2'), r: t('faq.r2') },
+            { q: t('faq.q3'), r: t('faq.r3') },
+            { q: t('faq.q4'), r: t('faq.r4') },
+            { q: t('faq.q5'), r: t('faq.r5') },
+            { q: t('faq.q6'), r: t('faq.r6') },
           ]}
         />
       </Container>

@@ -10,7 +10,10 @@ import CTASection from "@/components/CTASection";
 import { servicesData } from "@/lib/services";
 import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = { title: "Services" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("services") };
+}
 
 const expertiseIcon = (icon: string) => {
   const cls = "h-5 w-5";
@@ -98,7 +101,7 @@ export default async function ServicesPage() {
                   <div className="relative h-36 w-full overflow-hidden rounded-t-xl">
                     <BlurImage
                       src={s.image}
-                      alt={s.imageAlt}
+                      alt={t(`services.items.${s.slug}.imageAlt`)}
                       className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -110,21 +113,21 @@ export default async function ServicesPage() {
 
                   {/* Contenu */}
                   <div className="flex flex-1 flex-col p-5 lg:p-7 pt-4 lg:pt-5">
-                    <h2 className="font-display text-xl text-navy transition-colors duration-200 group-hover:text-red">{s.title}</h2>
-                    <p className="mt-1 text-xs leading-relaxed text-ink/70">{s.desc}</p>
+                    <h2 className="font-display text-xl text-navy transition-colors duration-200 group-hover:text-red">{t(`services.items.${s.slug}.title`)}</h2>
+                    <p className="mt-1 text-xs leading-relaxed text-ink/70">{t(`services.items.${s.slug}.desc`)}</p>
 
                     {/* Tags */}
                     <div className="mt-3 flex flex-wrap gap-1.5">
-                      {s.tags.map((t) => (
-                        <span key={t} className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/60">
-                          {t}
+                      {t(`services.items.${s.slug}.tags`).split("\n").map((tag) => (
+                        <span key={tag} className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/60">
+                          {tag}
                         </span>
                       ))}
                     </div>
 
                     {/* Points */}
                     <ul className="mt-4 space-y-1.5 text-sm text-ink/80 border-t border-border pt-4 flex-1">
-                      {s.points.slice(0, 3).map((p) => (
+                      {t(`services.items.${s.slug}.points`).split("\n").slice(0, 3).map((p) => (
                         <li key={p} className="flex gap-2.5">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
                           <span className="text-xs text-ink/75">{p}</span>
@@ -158,7 +161,7 @@ export default async function ServicesPage() {
         <FAQSection
           title={t('services.servicesPageFaqTitle')}
           image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"
-          imageAlt="Consultation et conseil aux entreprises"
+          imageAlt={t('services.faqImageAlt')}
           items={[
             { q: t('services.faqQ1'), r: t('services.faqR1') },
             { q: t('services.faqQ2'), r: t('services.faqR2') },

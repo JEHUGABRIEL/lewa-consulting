@@ -4,29 +4,34 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Mark from "./Mark";
 import { servicesData } from "@/lib/services";
 import { formationCategories, comptaFinance, bureautiqueDev, featuredFormations } from "@/lib/formations";
 
-// Lookup rapide image Unsplash par titre de service
+// Lookup rapide image Unsplash par slug de service
 const serviceImageMap = new Map<string, string>(
-  servicesData.map((s) => [s.title, s.image]),
+  servicesData.map((s) => [s.slug, s.image]),
 );
 
-const categoryFormations: Record<string, { name: string; slug: string; price: string; image: string }[]> = {
-  compta: comptaFinance.map((f) => ({ name: f.name, slug: f.slug, price: f.price, image: f.image })),
-  bureautique: bureautiqueDev.map((f) => ({ name: f.name, slug: f.slug, price: f.price, image: f.image })),
+const categoryFormations: Record<string, { slug: string; price: string; image: string }[]> = {
+  compta: comptaFinance.map((f) => ({ slug: f.slug, price: f.price, image: f.image })),
+  bureautique: bureautiqueDev.map((f) => ({ slug: f.slug, price: f.price, image: f.image })),
 };
+
+// Clé i18n du libellé d'une catégorie de formations
+const categoryTitleKey = (id: string) =>
+  id === "compta" ? "formations.catComptaTitle" : "formations.catBureautiqueTitle";
 
 // ---- Clés de traduction pour le mega-menu ----
 
 const expertiseItems = [
-  { href: "/services/expertise-comptable", key: "expertiseComptable", label: "Expertise comptable", tags: ["TPE", "PME", "ONG", "Institution"], icon: "compta" },
-  { href: "/services/conseil-aux-entreprises", key: "conseil", label: "Conseil aux entreprises", tags: ["PME", "ONG", "Institution"], icon: "conseil" },
-  { href: "/services/gestion-sociale-rh", key: "rh", label: "Gestion sociale et RH", tags: ["TPE", "PME", "ONG"], icon: "rh" },
-  { href: "/services/formation-professionnelle", key: "formation", label: "Formation professionnelle", tags: ["TPE", "PME", "ONG", "Institution"], icon: "formation" },
-  { href: "/services/gestion-privee", key: "gestionPrivee", label: "Gestion privée", tags: ["Dirigeants", "Particuliers"], icon: "privee" },
-  { href: "/services/conseil-juridique-fiscal", key: "juridique", label: "Conseil juridique et fiscal", tags: ["PME", "ONG"], icon: "juridique" },
+  { href: "/services/expertise-comptable", slug: "expertise-comptable", key: "expertiseComptable", icon: "compta" },
+  { href: "/services/conseil-aux-entreprises", slug: "conseil-aux-entreprises", key: "conseil", icon: "conseil" },
+  { href: "/services/gestion-sociale-rh", slug: "gestion-sociale-rh", key: "rh", icon: "rh" },
+  { href: "/services/formation-professionnelle", slug: "formation-professionnelle", key: "formation", icon: "formation" },
+  { href: "/services/gestion-privee", slug: "gestion-privee", key: "gestionPrivee", icon: "privee" },
+  { href: "/services/conseil-juridique-fiscal", slug: "conseil-juridique-fiscal", key: "juridique", icon: "juridique" },
 ];
 
 const sectorsItems = [
@@ -297,31 +302,26 @@ const links: NavLink[] = [
     submenu: [
       ...formationCategories.map((c) => ({
         href: `/formations/${c.slug}`,
-        label: c.label,
+        label: "",
       })),
     ],
   },
-  { href: "/contact", key: "contact" },
+  { href: "/a-propos", key: "about" },
 ];
 
-export default function Header() {
+export default function Header({ initialLocale = "fr" }: { initialLocale?: string }) {
   const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(formationCategories[0]?.id ?? null);
-  const [locale, setLocale] = useState("fr");
+  const [locale, setLocale] = useState(initialLocale);
   const pathname = usePathname();
   const router = useRouter();
   const formationsRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const match = document.cookie.match(/(?:^|; )locale=([^;]*)/);
-    setLocale(match ? match[1] : "fr");
-  }, []);
 
   const switchLocale = (lang: string) => {
     document.cookie = `locale=${lang};path=/;max-age=31536000`;
@@ -395,7 +395,6 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 group">
           <Mark className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
           <span className="font-display leading-tight">
-            <span className="block text-[0.62rem] tracking-[0.2em] text-muted uppercase">{t('common.cabinet')}</span>
             <span
               className={`block font-semibold text-navy transition-all duration-300 ${
                 scrolled ? "text-sm" : "text-base sm:text-lg"
@@ -478,25 +477,25 @@ export default function Header() {
                               onClick={() => setHoveredDropdown(null)}                            className="group flex flex-col gap-2.5 rounded-lg bg-paper p-4 transition hover:bg-navy/[0.02] -mx-1 px-4"
                           >
                               <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                                <img
-                                  src={serviceImageMap.get(s.label)?.replace("w=600&q=80", "w=80&h=80&fit=crop&q=50")}
+                                <Image
+                                  src={serviceImageMap.get(s.slug)?.split("?")[0] ?? ""}
                                   alt=""
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                  decoding="async"
+                                  fill
+                                  sizes="40px"
+                                  className="object-cover"
                                 />
                               </span>
                               <div>
-                                <p className="text-sm font-semibold text-navy leading-snug">{t(`services.${s.key}`)}</p>
-                                <p className="mt-0.5 text-[11px] text-muted leading-snug">{t(`services.${s.key}Desc`)}</p>
+                                <p className="text-sm font-semibold text-navy leading-snug">{t(`services.items.${s.slug}.title`)}</p>
+                                <p className="mt-0.5 text-[11px] text-muted leading-snug">{t(`services.items.${s.slug}.short`)}</p>
                               </div>
                               <div className="flex flex-wrap gap-1.5">
-                                {s.tags.map((t) => (
+                                {t(`services.items.${s.slug}.tags`).split("\n").map((tag) => (
                                   <span
-                                    key={t}
+                                    key={tag}
                                     className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/70"
                                   >
-                                    {t}
+                                    {tag}
                                   </span>
                                 ))}
                               </div>
@@ -607,7 +606,7 @@ export default function Header() {
                               >
                                 <span className="flex items-center gap-2">
                                   <span className={`h-1.5 w-1.5 shrink-0 rounded-full transition ${isHovered ? "bg-gold" : "bg-gold/40"}`} />
-                                  {c.label}
+                                  {t(categoryTitleKey(c.id))}
                                 </span>
                                 <span className="text-[10px] text-muted/60 tabular">{count}</span>
                               </button>
@@ -620,7 +619,7 @@ export default function Header() {
                         <div className="flex-1 p-4">
                           <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
                             {hoveredCategory
-                              ? formationCategories.find((c) => c.id === hoveredCategory)?.label ?? ""
+                              ? t(categoryTitleKey(hoveredCategory))
                               : t('nav.chooseCategory')}
                           </div>
                           <div className="space-y-1">
@@ -633,18 +632,15 @@ export default function Header() {
                                   className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm text-ink/70 transition hover:bg-navy/[0.04] hover:text-navy"
                                 >
                                   <span className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-md">
-                                    <img
-                                      src={f.image.replace("w=600&q=80", "w=48&h=48&fit=crop&q=50")}
+                                    <Image
+                                      src={f.image.split("?")[0]}
                                       alt=""
-                                      className="h-full w-full object-cover"
-                                      loading="lazy"
-                                      decoding="async"
+                                      fill
+                                      sizes="28px"
+                                      className="object-cover"
                                     />
                                   </span>
-                                  <span className="flex-1 min-w-0 truncate">{f.name}</span>
-                                  <span className="font-mono text-[10px] text-muted/60 tabular shrink-0">
-                                    {f.price} FCFA
-                                  </span>
+                                  <span className="flex-1 min-w-0 truncate">{t(`formations.items.${f.slug}.name`)}</span>
                                 </Link>
                               ))
                             ) : (
@@ -673,19 +669,16 @@ export default function Header() {
                                 className="group flex items-start gap-2.5 rounded-lg px-3 py-2 text-sm transition hover:bg-gold/[0.06]"
                               >
                                 <span className="relative mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md">
-                                  <img
-                                    src={f.image.replace("w=600&q=80", "w=64&h=64&fit=crop&q=50")}
+                                  <Image
+                                    src={f.image.split("?")[0]}
                                     alt=""
-                                    className="h-full w-full object-cover"
-                                    loading="lazy"
-                                    decoding="async"
+                                    fill
+                                    sizes="32px"
+                                    className="object-cover"
                                   />
                                 </span>
                                 <span className="min-w-0 leading-snug text-ink/70 group-hover:text-navy">
-                                  <span className="block truncate">{f.name}</span>
-                                  <span className="mt-0.5 block text-[10px] text-muted/60">
-                                    {f.price} FCFA
-                                  </span>
+                                  <span className="block truncate">{t(`formations.items.${f.slug}.name`)}</span>
                                 </span>
                               </Link>
                             ))}
@@ -695,24 +688,6 @@ export default function Header() {
                     </div>
                   )}
                 </div>
-              );
-            }
-
-            const isContact = l.href === "/contact";
-
-            if (isContact) {
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={`ml-auto rounded-full border-2 px-4 py-1.5 text-sm font-semibold transition-all duration-200 ${
-                    active
-                      ? "border-navy bg-navy text-paper"
-                      : "border-navy/30 text-navy hover:border-navy hover:bg-navy/[0.04]"
-                  }`}
-                >
-                  {t(`nav.${l.key}`)}
-                </Link>
               );
             }
 
@@ -736,35 +711,44 @@ export default function Header() {
         </nav>
 
         {/* Sélecteur de langue desktop */}
-        <div className="hidden items-center gap-1 md:flex">
-          <button
-            onClick={() => switchLocale("fr")}
-            className={`relative flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-semibold transition ${
-              locale === "fr"
-                ? "bg-navy text-paper"
-                : "text-muted hover:bg-navy/[0.06] hover:text-navy"
-            }`}
-            aria-label={t('common.french')}
+        <div className="hidden items-center gap-3 md:flex">
+          <select
+            value={locale}
+            onChange={(e) => switchLocale(e.target.value)}
+            aria-label={t('common.language')}
+            className="cursor-pointer rounded-full border border-navy/20 bg-paper px-3 py-1.5 text-xs font-semibold text-navy outline-none transition hover:border-navy/40 focus:border-navy/60 focus:ring-2 focus:ring-navy/10"
           >
-            FR
-          </button>
-          <span className="text-muted/40 text-[10px]">/</span>
-          <button
-            onClick={() => switchLocale("en")}
-            className={`relative flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-semibold transition ${
-              locale === "en"
-                ? "bg-navy text-paper"
-                : "text-muted hover:bg-navy/[0.06] hover:text-navy"
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+          </select>
+
+          {/* Lien Contact — juste après le sélecteur de langue */}
+          <Link
+            href="/contact"
+            className={`inline-flex items-center rounded-full border-2 px-4 py-1.5 text-sm font-semibold transition-all duration-200 ${
+              pathname.startsWith("/contact")
+                ? "border-navy bg-navy text-paper"
+                : "border-navy/30 text-navy hover:border-navy hover:bg-navy/[0.04]"
             }`}
-            aria-label={t('common.english')}
           >
-            EN
-          </button>
+            {t('nav.contact')}
+          </Link>
         </div>
 
-        {/* Bouton menu mobile hamburger */}
+        {/* Sélecteur de langue + bouton menu mobile */}
+        <div className="flex items-center gap-2 md:hidden">
+          <select
+            value={locale}
+            onChange={(e) => switchLocale(e.target.value)}
+            aria-label={t('common.language')}
+            className="cursor-pointer rounded-full border border-navy/20 bg-paper px-2.5 py-1.5 text-xs font-semibold text-navy outline-none transition hover:border-navy/40"
+          >
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+          </select>
+
         <button
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
           onClick={() => setOpen((o) => !o)}
           aria-label={t('nav.openMenu')}
           aria-expanded={open}
@@ -785,6 +769,7 @@ export default function Header() {
             }`}
           />
         </button>
+        </div>
       </div>
 
       {/* Menu mobile drawer professionnel */}
@@ -809,7 +794,6 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
             <Mark className="h-8 w-8 shrink-0" />
             <div>
-              <span className="block text-[0.55rem] tracking-[0.2em] text-muted uppercase">{t('common.cabinet')}</span>
               <span className="block text-sm font-semibold text-navy">COSI LEWA</span>
             </div>
           </Link>
@@ -868,24 +852,24 @@ export default function Header() {
                   className="flex items-start gap-3 rounded-lg px-3 py-3 transition hover:bg-navy/[0.04]"
                 >
                   <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <img
-                      src={serviceImageMap.get(s.label)?.replace("w=600&q=80", "w=80&h=80&fit=crop&q=50")}
+                    <Image
+                      src={serviceImageMap.get(s.slug)?.split("?")[0] ?? ""}
                       alt=""
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                      decoding="async"
+                      fill
+                      sizes="40px"
+                      className="object-cover"
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-navy">{t(`services.${s.key}`)}</p>
-                    <p className="mt-0.5 text-[11px] text-muted leading-snug line-clamp-1">{t(`services.${s.key}Desc`)}</p>
+                    <p className="text-sm font-semibold text-navy">{t(`services.items.${s.slug}.title`)}</p>
+                    <p className="mt-0.5 text-[11px] text-muted leading-snug line-clamp-1">{t(`services.items.${s.slug}.short`)}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
-                      {s.tags.map((t) => (
+                      {t(`services.items.${s.slug}.tags`).split("\n").map((tag) => (
                         <span
-                          key={t}
+                          key={tag}
                           className="inline-flex items-center rounded-full bg-navy/[0.06] px-1.5 py-0.5 text-[8px] font-medium uppercase tracking-wider text-navy/70"
                         >
-                          {t}
+                          {tag}
                         </span>
                       ))}
                     </div>
@@ -911,7 +895,7 @@ export default function Header() {
                 <div key={cat.id}>
                   <div className="flex items-center gap-1.5 px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
                     <span className="inline-block h-1 w-1 rounded-full bg-gold/60" />
-                    {cat.label}
+                    {t(categoryTitleKey(cat.id))}
                   </div>
                   <div className="space-y-0.5">
                     {(categoryFormations[cat.id] || []).map((f) => (
@@ -922,22 +906,39 @@ export default function Header() {
                         className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition hover:bg-navy/[0.04]"
                       >
                         <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md">
-                          <img
-                            src={f.image.replace("w=600&q=80", "w=48&h=48&fit=crop&q=50")}
+                          <Image
+                            src={f.image.split("?")[0]}
                             alt=""
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                            decoding="async"
+                            fill
+                            sizes="32px"
+                            className="object-cover"
                           />
                         </span>
-                        <span className="flex-1 text-sm text-ink/80 leading-snug">{f.name}</span>
-                        <span className="shrink-0 font-mono text-[10px] text-muted/60 tabular">{f.price} FCFA</span>
+                        <span className="flex-1 text-sm text-ink/80 leading-snug">{t(`formations.items.${f.slug}.name`)}</span>
                       </Link>
                     ))}
                   </div>
                 </div>
               ))}
             </MobileAccordion>
+
+            {/* À propos */}
+            <Link
+              href="/a-propos"
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3.5 text-sm font-medium transition ${
+                pathname.startsWith("/a-propos")
+                  ? "bg-navy text-paper"
+                  : "text-ink/80 hover:bg-navy/[0.04] hover:text-navy"
+              }`}
+            >
+              <svg className="h-5 w-5 shrink-0 text-current opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+              </svg>
+              <span>{t('nav.about')}</span>
+            </Link>
 
             {/* Contact */}
             <Link
@@ -960,30 +961,6 @@ export default function Header() {
 
         {/* Drawer footer — coordonnées + langue */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-gradient-to-t from-paper via-paper to-transparent px-5 py-4">
-          {/* Sélecteur de langue mobile */}
-          <div className="mb-3 flex items-center justify-center gap-1">
-            <button
-              onClick={() => switchLocale("fr")}
-              className={`rounded-full px-3 py-1 text-[11px] font-semibold transition ${
-                locale === "fr"
-                  ? "bg-navy text-paper"
-                  : "bg-navy/[0.06] text-muted hover:bg-navy/[0.12] hover:text-navy"
-              }`}
-            >
-              FR
-            </button>
-            <button
-              onClick={() => switchLocale("en")}
-              className={`rounded-full px-3 py-1 text-[11px] font-semibold transition ${
-                locale === "en"
-                  ? "bg-navy text-paper"
-                  : "bg-navy/[0.06] text-muted hover:bg-navy/[0.12] hover:text-navy"
-              }`}
-            >
-              EN
-            </button>
-          </div>
-
           <div className="space-y-2.5">
             <a
               href="tel:+23672696700"

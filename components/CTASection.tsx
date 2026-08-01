@@ -92,8 +92,6 @@ export default function CTASection({ page }: { page: PageKey }) {
           </div>
         </div>
 
-        {/* Accent bar bottom */}
-        <div className="relative z-10 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
       </section>
     </Container>
   );

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
+import CallButton from "@/components/CallButton";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -26,14 +27,16 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Cabinet COSI Lewa-Consulting Group | Bangui",
-    template: "%s | Cabinet COSI Lewa-Consulting Group",
-  },
-  description:
-    "Cabinet d'audit, d'assistance comptable et fiscale pour entreprises et ONG, et centre de formations professionnelles pratiques à Bangui, République Centrafricaine.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return {
+    title: {
+      default: t("title"),
+      template: `%s | ${t("suffix")}`,
+    },
+    description: t("description"),
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -50,9 +53,10 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <Header initialLocale={locale} />
           {children}
           <Footer />
+          <CallButton />
           <ChatBot />
         </NextIntlClientProvider>
       </body>

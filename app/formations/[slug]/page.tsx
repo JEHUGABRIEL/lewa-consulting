@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
 import LevelBadge from "@/components/LevelBadge";
-import Mark from "@/components/Mark";
 import HeroSlider from "@/components/HeroSlider";
 import BlurImage from "@/components/BlurImage";
 import CTASection from "@/components/CTASection";
@@ -14,7 +13,6 @@ import {
   getFormationBySlug,
   getFormationsByCategory,
   allFormations,
-  slugify,
   formationCategories,
 } from "@/lib/formations";
 
@@ -27,8 +25,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const formation = getFormationBySlug(slug);
-  if (!formation) return { title: "Formation introuvable" };
-  return { title: formation.name };
+  const t = await getTranslations();
+  if (!formation) return { title: t("formations.notFound") };
+  return {
+    title: t(`formations.items.${formation.slug}.name`),
+    description: t(`formations.items.${formation.slug}.desc`),
+  };
 }
 
 export default async function FormationDetailPage({ params }: Props) {
@@ -38,8 +40,9 @@ export default async function FormationDetailPage({ params }: Props) {
   if (!formation) notFound();
 
   // Formations liées (même catégorie, sauf celle-ci)
-  const categoryLabel =
-    formationCategories.find((c) => c.id === formation.category)?.label ?? "";
+  const categoryTitle = (id: string) =>
+    id === "compta" ? "formations.catComptaTitle" : "formations.catBureautiqueTitle";
+  const categoryLabel = t(categoryTitle(formation.category));
   const categorySlug =
     formationCategories.find((c) => c.id === formation.category)?.slug ?? "";
 
@@ -63,15 +66,7 @@ export default async function FormationDetailPage({ params }: Props) {
     <main>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-navy-deep">
-        {/* Top accent bar */}
-        <div className="relative z-20 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
-
         <HeroSlider slides={heroBgs} interval={5000} />
-
-        {/* Décor géométrique */}
-        <div className="pointer-events-none absolute -right-20 -top-16 z-10 select-none text-white/[0.06]" aria-hidden="true">
-          <Mark className="h-48 w-48" />
-        </div>
 
         <Container className="relative z-10 py-24 sm:py-[7.5rem]">
           <Reveal as="div">
@@ -105,14 +100,17 @@ export default async function FormationDetailPage({ params }: Props) {
                 </div>
 
                 <h1 className="font-display text-3xl leading-tight text-white sm:text-4xl">
-                  {formation.name}
+                  {t(`formations.items.${formation.slug}.name`)}
                 </h1>
 
-                {formation.note && (
-                  <p className="mt-3 text-sm leading-relaxed text-white/70">
-                    {formation.note}
-                  </p>
-                )}
+                {(() => {
+                  const note = t(`formations.items.${formation.slug}.note`);
+                  return note ? (
+                    <p className="mt-3 text-sm leading-relaxed text-white/70">
+                      {note}
+                    </p>
+                  ) : null;
+                })()}
               </div>
 
             </div>
@@ -149,9 +147,9 @@ export default async function FormationDetailPage({ params }: Props) {
                 {t('formations.aboutTitle')}
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink/75">
-                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara1') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara2') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('formations.aboutPara3') }} />
+                <p dangerouslySetInnerHTML={{ __html: t.raw('formations.aboutPara1') }} />
+                <p dangerouslySetInnerHTML={{ __html: t.raw('formations.aboutPara2') }} />
+                <p dangerouslySetInnerHTML={{ __html: t.raw('formations.aboutPara3') }} />
               </div>
             </Reveal>
 
@@ -207,7 +205,7 @@ export default async function FormationDetailPage({ params }: Props) {
                           <div className="relative h-24 w-full overflow-hidden">
                             <BlurImage
                               src={r.image}
-                              alt={r.imageAlt}
+                              alt={t(`formations.items.${r.slug}.imageAlt`)}
                               className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
@@ -228,13 +226,16 @@ export default async function FormationDetailPage({ params }: Props) {
                               </span>
                             </div>
                             <p className="mt-2 text-xs font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red line-clamp-2">
-                              {r.name}
+                              {t(`formations.items.${r.slug}.name`)}
                             </p>
-                            {r.note && (
-                              <p className="mt-1 text-[10px] text-muted leading-relaxed line-clamp-2">
-                                {r.note}
-                              </p>
-                            )}
+                            {(() => {
+                              const note = t(`formations.items.${r.slug}.note`);
+                              return note ? (
+                                <p className="mt-1 text-[10px] text-muted leading-relaxed line-clamp-2">
+                                  {note}
+                                </p>
+                              ) : null;
+                            })()}
                           </div>
                         </div>
                       </Link>

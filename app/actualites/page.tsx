@@ -7,7 +7,10 @@ import PostIllustration from "@/components/PostIllustration";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { posts } from "@/lib/posts";
 
-export const metadata: Metadata = { title: "Actualités" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("actualites") };
+}
 
 export default async function ActualitesPage() {
   const t = await getTranslations();
@@ -43,25 +46,25 @@ export default async function ActualitesPage() {
             >
               {/* Illustration */}
               <div className="mb-3 h-40 w-full overflow-hidden rounded-lg">
-                <PostIllustration category={post.category} src={post.image} alt={post.imageAlt} />
+                <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
               </div>
 
               {/* Category badge */}
               <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
-                {post.category}
+                {t(`posts.${post.slug}.category`)}
               </span>
 
               {/* Date */}
-              <p className="mt-1.5 text-[11px] text-muted">{post.date}</p>
+              <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
 
               {/* Title */}
               <h2 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
-                {post.title}
+                {t(`posts.${post.slug}.title`)}
               </h2>
 
               {/* Excerpt */}
               <p className="mt-2 text-xs leading-relaxed text-muted flex-1">
-                {post.excerpt}
+                {t(`posts.${post.slug}.excerpt`)}
               </p>
 
               {/* Read more */}
@@ -98,17 +101,17 @@ export default async function ActualitesPage() {
                   className="group flex h-full flex-col rounded-xl border border-border bg-white p-5 hover-lift lg:p-7"
                 >
                   <div className="mb-3 h-24 w-full overflow-hidden rounded-lg">
-                    <PostIllustration category={post.category} src={post.image} alt={post.imageAlt} />
+                    <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
                   </div>
                   <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
-                    {post.category}
+                    {t(`posts.${post.slug}.category`)}
                   </span>
-                  <p className="mt-1.5 text-[11px] text-muted">{post.date}</p>
+                  <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
                   <h3 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
-                    {post.title}
+                    {t(`posts.${post.slug}.title`)}
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted flex-1 line-clamp-2">
-                    {post.excerpt}
+                    {t(`posts.${post.slug}.excerpt`)}
                   </p>
                   <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
                     <span>{t('blog.readShort')}</span>

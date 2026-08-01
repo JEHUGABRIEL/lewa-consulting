@@ -5,7 +5,10 @@ import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 
-export const metadata: Metadata = { title: "Mentions légales" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+  return { title: t("legal.title") };
+}
 
 export default async function MentionsLegalesPage() {
   const t = await getTranslations();
@@ -64,7 +67,7 @@ export default async function MentionsLegalesPage() {
             <h2 className="font-display text-xl text-navy">{t('legal.hostTitle')}</h2>
             <p
               className="mt-4 text-sm leading-relaxed text-ink/75"
-              dangerouslySetInnerHTML={{ __html: t('legal.hostText') }}
+              dangerouslySetInnerHTML={{ __html: t.raw('legal.hostText') }}
             />
           </section>
 

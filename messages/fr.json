@@ -1,16 +1,29 @@
 {
+  "Metadata": {
+    "title": "Cabinet COSI Lewa-Consulting Group | Bangui",
+    "suffix": "Cabinet COSI Lewa-Consulting Group",
+    "description": "Cabinet d'audit, d'assistance comptable et fiscale pour entreprises et ONG, et centre de formations professionnelles pratiques à Bangui, République Centrafricaine.",
+    "services": "Services",
+    "actualites": "Actualités",
+    "contact": "Contact",
+    "mentionsLegales": "Mentions légales",
+    "aPropos": "À propos",
+    "comptabiliteFinance": "Comptabilité & finance",
+    "bureautiqueDeveloppement": "Bureautique & développement professionnel"
+  },
   "common": {
-    "cabinet": "Cabinet",
     "cabinetFull": "COSI Lewa-Consulting Group",
     "tagline": "Bangui, République Centrafricaine",
     "phone": "+236 72 69 67 00",
     "email": "cabinetcosi29@gmail.com",
     "location": "Bangui, RCA",
+    "language": "Changer de langue",
     "learnMore": "En savoir plus",
     "seeAll": "Voir toutes",
     "backTo": "Retour aux formations",
     "allFormations": "Toutes les formations",
     "contact": "Nous contacter",
+    "callUs": "Appeler le cabinet",
     "ourServices": "Nos services",
     "discoverExpertise": "Découvrir notre expertise",
     "subscribe": "S'inscrire",
@@ -22,6 +35,7 @@
   },
   "nav": {
     "home": "Accueil",
+    "about": "À propos",
     "expertise": "Notre expertise",
     "formations": "Formations",
     "contact": "Contact",
@@ -62,41 +76,12 @@
     "slide3Lead": "Des professionnels du chiffre à votre écoute pour vous conseiller, vous auditer et vous former, à Bangui et dans toute la Centrafrique."
   },
   "about": {
-    "pageTitle": "Mentions légales",
-    "pageLead": "Informations légales et politique de confidentialité du Cabinet COSI Lewa-Consulting Group.",
-    "directorTitle": "Directeur de la publication",
-    "directorName": "Marie-Claire Ngbokoli",
-    "directorRole": "Présidente Fondatrice du Cabinet COSI Lewa-Consulting Group.",
-    "intellectualTitle2": "Propriété intellectuelle",
-    "intellectualDetail1": "L'ensemble du contenu du site (textes, logos, images, vidéos, icônes, charte graphique) est la propriété exclusive du Cabinet COSI Lewa-Consulting Group, sauf mention contraire.",
-    "intellectualDetail2": "Toute reproduction, distribution, modification, adaptation, publication ou transmission du contenu, même partielle, est strictement interdite sans l'autorisation écrite préalable du cabinet.",
-    "liabilityTitle2": "Limitation de responsabilité",
-    "liabilityDetail1": "Le Cabinet COSI Lewa-Consulting Group s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, le cabinet ne saurait garantir l'exhaustivité, l'exactitude ou l'actualité des informations fournies.",
-    "liabilityDetail2": "Le cabinet décline toute responsabilité en cas de dommage direct ou indirect résultant de l'accès ou de l'utilisation du site, y compris l'indisponibilité du site, une perte de données ou un préjudice matériel ou immatériel.",
-    "linksTitle": "Liens hypertextes",
-    "linksText": "Le site peut contenir des liens vers des sites tiers. Le Cabinet COSI Lewa-Consulting Group n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leur contenu, leurs pratiques en matière de protection des données ou leur disponibilité.",
-    "privacyTitle2": "Politique de confidentialité & protection des données",
-    "dataCollectionTitle": "Collecte des données",
-    "dataCollectionText": "Le Cabinet COSI Lewa-Consulting Group collecte les informations personnelles que vous nous fournissez volontairement via notre formulaire de contact, par téléphone ou par email : nom, prénom, adresse email, numéro de téléphone, structure, et tout message que vous nous adressez.",
-    "dataUsageTitle": "Utilisation des données",
-    "dataUsageText": "Les données collectées sont utilisées uniquement dans le cadre de la relation commerciale et pédagogique avec nos clients, partenaires et apprenants : traitement des demandes de renseignement, gestion des inscriptions aux formations, suivi des missions d'audit et d'assistance comptable, et envoi d'informations relatives à nos activités.",
-    "dataRetentionTitle": "Conservation des données",
-    "dataRetentionText": "Vos données personnelles sont conservées pour une durée n'excédant pas celle nécessaire aux finalités pour lesquelles elles ont été collectées, conformément à la réglementation en vigueur en République Centrafricaine.",
-    "dataRightsTitle": "Droits des utilisateurs",
-    "dataRightsText": "Conformément à la réglementation applicable, vous disposez d'un droit d'accès, de rectification, d'effacement et de limitation du traitement de vos données personnelles.",
-    "cookiesTitle2": "Cookies",
-    "cookiesDetail": "Ce site n'utilise pas de cookies de traçage ou de publicité. Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être utilisés. Aucune donnée personnelle n'est collectée via des cookies sans votre consentement explicite.",
-    "securityTitle": "Sécurité",
-    "securityText": "Le Cabinet COSI Lewa-Consulting Group met en œuvre toutes les mesures techniques et organisationnelles appropriées pour garantir la sécurité et la confidentialité de vos données personnelles.",
-    "contactTitle": "Contact",
-    "contactText": "Pour toute question relative aux mentions légales ou à la protection des données, vous pouvez nous contacter :",
-    "lastUpdate": "Dernière mise à jour : juillet 2026",
     "eyebrow": "Le cabinet",
-    "title": "Qui sommes-nous\u00a0?",
+    "title": "Qui sommes-nous ?",
     "lead": "Un cabinet centrafricain d'audit, d'expertise comptable et de formation professionnelle.",
-    "paragraph1": "Fondé par <strong>Marie-Claire Ngbokoli</strong>, le <strong>Cabinet COSI Lewa-Consulting Group</strong> est un cabinet de conseil, d\u2019audit et de formation basé à Bangui, en République Centrafricaine. Depuis sa création, le cabinet s\u2019est donné pour mission d\u2019accompagner les entreprises, les organisations non gouvernementales et les institutions publiques dans la maîtrise de leurs obligations comptables, fiscales et sociales.",
-    "paragraph2": "Notre équipe est composée de professionnels aguerris, experts-comptables, auditeurs et formateurs, qui mettent leur expérience au service de votre performance. Nous intervenons dans tous les secteurs d\u2019activité, du commerce à l\u2019humanitaire, en passant par la microfinance et les services publics.",
-    "paragraph3": "Au-delà de l\u2019expertise technique, c\u2019est une relation de proximité et de confiance que nous construisons avec chacun de nos clients. Nous croyons en une Centrafrique où chaque organisation a accès à des services comptables et fiscaux de qualité, pour mieux grandir et innover.",
+    "paragraph1": "Fondé par <strong>Marie-Claire Ngbokoli</strong>, le <strong>Cabinet COSI Lewa-Consulting Group</strong> est un cabinet de conseil, d’audit et de formation basé à Bangui, en République Centrafricaine. Depuis sa création, le cabinet s’est donné pour mission d’accompagner les entreprises, les organisations non gouvernementales et les institutions publiques dans la maîtrise de leurs obligations comptables, fiscales et sociales.",
+    "paragraph2": "Notre équipe est composée de professionnels aguerris, experts-comptables, auditeurs et formateurs, qui mettent leur expérience au service de votre performance. Nous intervenons dans tous les secteurs d’activité, du commerce à l’humanitaire, en passant par la microfinance et les services publics.",
+    "paragraph3": "Au-delà de l’expertise technique, c’est une relation de proximité et de confiance que nous construisons avec chacun de nos clients. Nous croyons en une Centrafrique où chaque organisation a accès à des services comptables et fiscaux de qualité, pour mieux grandir et innover.",
     "stat1Value": "10+",
     "stat1Label": "Années d'expérience",
     "stat2Value": "300+",
@@ -105,9 +90,9 @@
     "stat3Label": "Experts"
   },
   "mission": {
-    "eyebrow": "Notre raison d\u2019être",
+    "eyebrow": "Notre raison d’être",
     "title": "Notre mission",
-    "lead": "Révéler les talents, sécuriser les finances, bâtir l\u2019avenir.",
+    "lead": "Révéler les talents, sécuriser les finances, bâtir l’avenir.",
     "item1Title": "Sécuriser",
     "item1Desc": "Mettre à la disposition des entreprises et des ONG une expertise comptable et fiscale fiable pour sécuriser leur gestion financière et leur conformité réglementaire.",
     "item2Title": "Accompagner",
@@ -115,32 +100,14 @@
     "item3Title": "Former",
     "item3Desc": "Préparer les étudiants et les professionnels aux métiers de la comptabilité, de la finance et du management à travers des formations pratiques et certifiantes.",
     "item4Title": "Rayonner",
-    "item4Desc": "Contribuer au développement économique de la Centrafrique en promouvant l\u2019excellence comptable et financière comme levier de croissance."
+    "item4Desc": "Contribuer au développement économique de la Centrafrique en promouvant l’excellence comptable et financière comme levier de croissance."
   },
   "services": {
-    "title": "Nos domaines d\u2019intervention",
-    "expertiseComptable": "Expertise comptable",
-    "expertiseComptableDesc": "Un accompagnement sur mesure au plus proche de vos enjeux",
-    "conseil": "Conseil aux entreprises",
-    "conseilDesc": "Des conseils avisés au moment opportun",
-    "rh": "Gestion sociale et RH",
-    "rhDesc": "Sécurisez la gestion de vos ressources humaines",
-    "formation": "Formation professionnelle",
-    "formationDesc": "Certificat, attestation et CV professionnel à la clé",
-    "gestionPrivee": "Gestion privée",
-    "gestionPriveeDesc": "Conseils en investissements et prévoyance",
-    "juridique": "Conseil juridique et fiscal",
-    "juridiqueDesc": "Accompagnement juridique et fiscal personnalisé",
+    "title": "Nos domaines d’intervention",
     "aboutTitle": "À propos de ce service",
     "servicesList": "Nos prestations",
     "discoverAlso": "Découvrez aussi",
     "allExpertises": "Toutes nos expertises",
-    "cardDesc1": "En tant que cabinet d'expertise comptable, nous promulguons des conseils sur mesure pour garantir une gestion financière fiable, conforme et parfaitement adaptée aux besoins de votre organisation.",
-    "cardDesc2": "Nous accompagnons les entreprises dans leurs décisions stratégiques et opérationnelles pour améliorer leur performance et sécuriser leur développement.",
-    "cardDesc3": "Nous vous accompagnons dans la gestion administrative de votre personnel et l'optimisation de vos processus RH.",
-    "cardDesc4": "Des formations pratiques et certifiantes pour développer les compétences de vos équipes et booster votre carrière.",
-    "cardDesc5": "Un accompagnement personnalisé pour optimiser votre patrimoine et sécuriser votre avenir financier.",
-    "cardDesc6": "Un conseil juridique et fiscal de proximité pour sécuriser vos décisions et anticiper les évolutions réglementaires.",
     "servicesPageTitle1": "Audit, assistance, formation",
     "servicesPageLead1": "Deux métiers, une même exigence : la rigueur du chiffre et la transmission du savoir-faire.",
     "servicesPageTitle2": "Audit et contrôle interne",
@@ -157,18 +124,83 @@
     "faqQ3": "Proposez-vous un accompagnement ponctuel ou régulier ?",
     "faqR3": "Les deux formules sont possibles. Nous proposons des missions ponctuelles (audit, révision de comptes) ainsi qu'un accompagnement régulier (tenue de comptabilité mensuelle, déclarations périodiques).",
     "faqQ4": "Quels sont les délais pour une mission d'audit ?",
-    "faqR4": "La durée d'une mission d'audit dépend de la taille de l'organisation et de la complexité de ses opérations. En moyenne, une mission d'audit dure entre une et trois semaines."
+    "faqR4": "La durée d'une mission d'audit dépend de la taille de l'organisation et de la complexité de ses opérations. En moyenne, une mission d'audit dure entre une et trois semaines.",
+    "items": {
+      "expertise-comptable": {
+        "title": "Expertise comptable",
+        "short": "Un accompagnement sur mesure au plus proche de vos enjeux",
+        "desc": "En tant que cabinet d'expertise comptable, nous promulguons des conseils sur mesure pour garantir une gestion financière fiable, conforme et parfaitement adaptée aux besoins de votre organisation.",
+        "imageAlt": "Expertise comptable",
+        "tags": "TPE\nPME\nONG\nInstitution",
+        "points": "Tenue de comptabilité générale et analytique\nDéclarations fiscales (TVA, IRPP) et sociales (CNSS)\nAccompagnement des ONG sur le référentiel comptable SYCEBNL\nRévision et fiabilisation des comptes annuels\nConseil en optimisation fiscale",
+        "details": "Notre cabinet met à votre disposition une équipe d'experts-comptables expérimentés pour prendre en charge l'intégralité de votre comptabilité. Nous intervenons aussi bien auprès des entreprises que des organisations non gouvernementales et des institutions publiques.\nNous utilisons des outils modernes de gestion comptable pour garantir la fiabilité et la traçabilité de vos données financières. Chaque mission fait l'objet d'un suivi personnalisé avec des reportings réguliers.\nPour les ONG, nous maîtrisons parfaitement le référentiel SYCEBNL, obligatoire en République Centrafricaine, et vous accompagnons dans la mise en place et la tenue de votre comptabilité.",
+        "benefits": "Gain de temps sur la gestion administrative et comptable\nSécurisation de vos obligations fiscales et sociales\nAide à la décision grâce à des reportings clairs\nConformité avec les normes comptables en vigueur en RCA"
+      },
+      "conseil-aux-entreprises": {
+        "title": "Conseil aux entreprises",
+        "short": "Des conseils avisés au moment opportun",
+        "desc": "Nous accompagnons les entreprises dans leurs décisions stratégiques et opérationnelles pour améliorer leur performance et sécuriser leur développement.",
+        "imageAlt": "Conseil aux entreprises",
+        "tags": "PME\nONG\nInstitution",
+        "points": "Diagnostic financier et analyse de la performance\nAccompagnement à la création et au développement d'entreprise\nOptimisation des processus et organisation interne\nConseil en gestion et stratégie financière\nAccompagnement dans les projets de financement",
+        "details": "Notre équipe de consultants expérimentés vous accompagne dans l'analyse de votre situation et l'élaboration de solutions adaptées à vos objectifs. Nous intervenons à chaque étape clé de la vie de votre entreprise.\nQue vous soyez en phase de création, de croissance ou de restructuration, nous vous apportons un regard externe et objectif pour éclairer vos décisions et maximiser vos chances de succès.\nNous travaillons en étroite collaboration avec vos équipes pour garantir une mise en œuvre efficace des recommandations et un suivi dans la durée.",
+        "benefits": "Vision claire de votre situation financière et stratégique\nPrise de décision éclairée grâce à des analyses objectives\nOptimisation de votre organisation et de vos processus\nAccompagnement personnalisé et suivi dans la durée"
+      },
+      "gestion-sociale-rh": {
+        "title": "Gestion sociale et RH",
+        "short": "Sécurisez la gestion de vos ressources humaines",
+        "desc": "Nous vous accompagnons dans la gestion administrative de votre personnel et l'optimisation de vos processus RH.",
+        "imageAlt": "Gestion sociale et RH",
+        "tags": "TPE\nPME\nONG",
+        "points": "Gestion de la paie et des déclarations sociales (CNSS)\nÉtablissement des contrats de travail et suivi administratif\nConseil en droit social et gestion des conflits\nMise en place et optimisation des processus RH\nFormation en gestion des ressources humaines",
+        "details": "Notre cabinet vous accompagne dans l'ensemble de vos obligations sociales et RH. De la paie aux déclarations CNSS, en passant par la gestion des contrats, nous sécurisons l'intégralité de vos processus.\nNous vous aidons également à mettre en place des outils de gestion RH adaptés à la taille de votre organisation, que vous soyez une TPE, une PME ou une ONG.\nNotre expertise en droit social centrafricain nous permet de vous conseiller efficacement sur les aspects juridiques liés à la gestion de votre personnel.",
+        "benefits": "Sécurisation de la gestion de la paie et des déclarations sociales\nConformité avec le droit social centrafricain\nOptimisation des processus RH et gain de productivité\nAccompagnement personnalisé selon la taille de votre structure"
+      },
+      "formation-professionnelle": {
+        "title": "Formation professionnelle",
+        "short": "Certificat, attestation et CV professionnel à la clé",
+        "desc": "Des formations pratiques et certifiantes pour développer les compétences de vos équipes et booster votre carrière.",
+        "imageAlt": "Formation professionnelle",
+        "tags": "TPE\nPME\nONG\nInstitution",
+        "points": "Comptabilité, audit et gestion de caisse\nRessources humaines, assistanat de direction et bureautique\nSage Compta, Sage Paie et outils bureautiques\nArt oratoire et développement personnel\nSessions adaptées : semaine, soirée ou week-end",
+        "details": "Le Cabinet COSI Lewa-Consulting Group propose des formations professionnelles de qualité, animées par des formateurs expérimentés issus du monde de l'entreprise et de l'expertise comptable.\nChaque module est conçu pour être pratique et opérationnel, avec des études de cas réels, des exercices appliqués et un accompagnement personnalisé tout au long de la formation.\nÀ l'issue de la formation, vous recevrez un certificat de participation, une attestation détaillant les compétences acquises, ainsi qu'un CV professionnel valorisant votre nouvelle compétence.",
+        "benefits": "Formations pratiques et immédiatement opérationnelles\nCertificat, attestation et CV professionnel à la clé\nSessions flexibles (semaine, soirée, week-end)\nPaiement possible par tranches hebdomadaires"
+      },
+      "gestion-privee": {
+        "title": "Gestion privée",
+        "short": "Conseils en investissements et prévoyance",
+        "desc": "Un accompagnement personnalisé pour optimiser votre patrimoine et sécuriser votre avenir financier.",
+        "imageAlt": "Gestion privée",
+        "tags": "Dirigeants\nParticuliers",
+        "points": "Conseil en investissements et placements financiers\nOptimisation et structuration du patrimoine\nPréparation à la retraite et prévoyance\nStratégie de transmission et succession\nAccompagnement dans les projets d'investissement immobilier",
+        "details": "Notre cabinet vous accompagne dans la gestion de votre patrimoine avec une approche personnalisée et des conseils adaptés à votre situation personnelle et professionnelle.\nNous vous aidons à définir une stratégie d'investissement cohérente avec vos objectifs, votre profil de risque et votre horizon de placement.\nQue vous soyez dirigeant d'entreprise, professionnel libéral ou particulier, nous mettons notre expertise à votre service pour sécuriser et optimiser votre patrimoine.",
+        "benefits": "Stratégie patrimoniale personnalisée\nOptimisation fiscale de votre patrimoine\nPréparation sereine de votre retraite\nTransmission maîtrisée de votre patrimoine"
+      },
+      "conseil-juridique-fiscal": {
+        "title": "Conseil juridique et fiscal",
+        "short": "Accompagnement juridique et fiscal personnalisé",
+        "desc": "Un conseil juridique et fiscal de proximité pour sécuriser vos décisions et anticiper les évolutions réglementaires.",
+        "imageAlt": "Conseil juridique et fiscal",
+        "tags": "PME\nONG",
+        "points": "Conseil juridique en droit des affaires\nOptimisation et sécurisation fiscale\nAccompagnement dans les contentieux fiscaux\nRédaction et révision de contrats\nVeille réglementaire et conformité",
+        "details": "Notre cabinet vous propose un accompagnement juridique et fiscal complet pour sécuriser vos décisions et anticiper les évolutions réglementaires.\nNous vous assistons dans la rédaction et la révision de vos contrats, la gestion de vos contentieux fiscaux et la mise en conformité de votre organisation avec la réglementation en vigueur.\nNotre équipe assure une veille réglementaire permanente pour vous informer des changements législatifs et fiscaux qui impactent votre activité.",
+        "benefits": "Sécurisation juridique de vos activités\nOptimisation de votre situation fiscale\nAnticipation des risques et des contentieux\nVeille réglementaire personnalisée"
+      }
+    },
+    "notFound": "Service introuvable",
+    "faqImageAlt": "Consultation et conseil aux entreprises"
   },
   "formations": {
+    "notFound": "Formation introuvable",
     "title": "Formations vedettes",
     "subtitle": "Des modules pratiques animés par des professionnels, avec certificat et attestation à la clé.",
     "seeAll": "Voir toutes les formations",
-    "btnInscrire": "S\u2019inscrire",
+    "btnInscrire": "S’inscrire",
     "backLink": "Retour aux formations",
     "aboutTitle": "À propos de cette formation",
-    "aboutPara1": "Le <strong>Cabinet COSI Lewa-Consulting Group</strong> propose des formations professionnelles de qualité, animées par des formateurs expérimentés issus du monde de l\u2019entreprise et de l\u2019expertise comptable.",
+    "aboutPara1": "Le <strong>Cabinet COSI Lewa-Consulting Group</strong> propose des formations professionnelles de qualité, animées par des formateurs expérimentés issus du monde de l’entreprise et de l’expertise comptable.",
     "aboutPara2": "Chaque module est conçu pour être <strong>pratique et opérationnel</strong>, avec des études de cas réels, des exercices appliqués et un accompagnement personnalisé tout au long de la formation.",
-    "aboutPara3": "À l\u2019issue de la formation, vous recevrez un <strong>certificat de participation</strong>, une <strong>attestation</strong> détaillant les compétences acquises, ainsi qu\u2019un <strong>CV professionnel</strong> valorisant votre nouvelle compétence.",
+    "aboutPara3": "À l’issue de la formation, vous recevrez un <strong>certificat de participation</strong>, une <strong>attestation</strong> détaillant les compétences acquises, ainsi qu’un <strong>CV professionnel</strong> valorisant votre nouvelle compétence.",
     "flexibleTitle": "Formation flexible",
     "flexibleDesc": "Sessions disponibles en semaine, en soirée ou le week-end. Paiement possible par tranches hebdomadaires. Contactez-nous pour discuter de vos disponibilités.",
     "otherTitle": "Autres formations en",
@@ -209,7 +241,75 @@
     "all": "Toutes",
     "level": "Niveau",
     "allLevels": "Tous",
-    "resultsCount": "{count} résultat(s)"
+    "resultsCount": "{count} résultat(s)",
+    "items": {
+      "comptabilite-bancaire": {
+        "name": "Comptabilité bancaire",
+        "note": "20 heures, payable en 2 tranches",
+        "imageAlt": "Bureau de comptabilité avec documents financiers",
+        "desc": "Maîtrisez la tenue de comptes, les opérations de caisse et la relation clientèle en milieu bancaire."
+      },
+      "systeme-comptable-des-ong-sycebnl": {
+        "name": "Système comptable des ONG (SYCEBNL)",
+        "note": "payable en 2 tranches",
+        "imageAlt": "Documents comptables sur un bureau",
+        "desc": "Formez-vous au référentiel comptable SYCEBNL, obligatoire pour les ONG en République Centrafricaine."
+      },
+      "pratique-en-caissiere-bancaire": {
+        "name": "Pratique en caissier(e) bancaire",
+        "note": "",
+        "imageAlt": "Caissière enregistrant une transaction",
+        "desc": "Préparez-vous au métier de caissier(ère) bancaire : opérations de caisse, remises et contrôle des espèces."
+      },
+      "comptabilite-d-entreprise": {
+        "name": "Comptabilité d'entreprise",
+        "note": "",
+        "imageAlt": "Calculatrice et documents comptables",
+        "desc": "Acquérez les bases de la comptabilité d'entreprise : journaux, grands livres, bilan et compte de résultat."
+      },
+      "comptabilite-d-entreprise-sur-sage-compta": {
+        "name": "Comptabilité d'entreprise sur Sage Compta",
+        "note": "payable par tranches",
+        "imageAlt": "Ordinateur portable avec graphiques financiers",
+        "desc": "Maîtrisez la comptabilité d'entreprise avec le logiciel Sage Compta, de la saisie aux états financiers."
+      },
+      "ressources-humaines-sage-paie": {
+        "name": "Ressources humaines (Sage Paie)",
+        "note": "",
+        "imageAlt": "Réunion d'équipe en ressources humaines",
+        "desc": "Gérez la paie et les déclarations sociales avec Sage Paie et optimisez la gestion de vos ressources humaines."
+      },
+      "mission-d-audit": {
+        "name": "Mission d'audit",
+        "note": "",
+        "imageAlt": "Rapport d'audit sur un bureau",
+        "desc": "Apprenez à conduire une mission d'audit : planification, contrôles, rapport et recommandations."
+      },
+      "gestion-de-caisse": {
+        "name": "Gestion de caisse",
+        "note": "",
+        "imageAlt": "Caisse enregistreuse",
+        "desc": "Sécurisez vos opérations de caisse : encaissements, décaissements, rapprochements et contrôles."
+      },
+      "assistante-de-direction": {
+        "name": "Assistant(e) de direction",
+        "note": "",
+        "imageAlt": "Assistante de direction au bureau",
+        "desc": "Développez les compétences clés de l'assistant(e) de direction : organisation, communication et bureautique."
+      },
+      "informatique-bureautique": {
+        "name": "Informatique bureautique",
+        "note": "Word, Excel, PowerPoint, Access",
+        "imageAlt": "Ordinateur avec outils bureautiques",
+        "desc": "Maîtrisez les outils bureautiques essentiels : Word, Excel et PowerPoint pour gagner en productivité."
+      },
+      "art-oratoire": {
+        "name": "Art oratoire",
+        "note": "",
+        "imageAlt": "Personne s'exprimant en public",
+        "desc": "Prenez la parole avec aisance : techniques de communication, gestion du trac et éloquence."
+      }
+    }
   },
   "testimonials": {
     "eyebrow": "Ils nous font confiance",
@@ -256,7 +356,7 @@
   },
   "cta": {
     "iconAlt": "Prêt à démarrer",
-    "title": "Prêt à démarrer\u00a0?",
+    "title": "Prêt à démarrer ?",
     "subtitle": "Que vous soyez une entreprise, une organisation non gouvernementale ou un professionnel en quête de compétences, le Cabinet COSI Lewa-Consulting Group est à votre écoute pour vous accompagner.",
     "contact": "Nous contacter",
     "services": "Nos services",
@@ -280,7 +380,7 @@
   "contact": {
     "eyebrow": "Nous contacter",
     "title": "Parlons de votre projet",
-    "subtitle": "Une question, un besoin d\u2019accompagnement\u00a0? Notre équipe est à votre écoute.",
+    "subtitle": "Une question, un besoin d’accompagnement ? Notre équipe est à votre écoute.",
     "address": "Adresse",
     "navigation": "Navigation",
     "addressLine1": "Avenue des Martyrs — SOCATEL",
@@ -330,21 +430,25 @@
     "formations": "Formations",
     "actualites": "Actualités",
     "legal": "Mentions légales",
+    "services": "Nos services",
     "newsletter": "Newsletter",
     "newsletterText": "Recevez nos actualités, sessions de formation et conseils.",
-    "newsletterSuccess": "Merci de votre inscription\u00a0!",
+    "newsletterSuccess": "Merci de votre inscription !",
     "newsletterRequired": "Veuillez entrer votre adresse email",
     "newsletterInvalid": "Adresse email invalide",
     "newsletterPlaceholder": "votre@email.com",
     "newsletterLabel": "Adresse email",
     "newsletterBtn": "S'abonner",
     "backToTop": "Retour en haut",
-    "copyright": "\u00a9 {year} Cabinet COSI Lewa-Consulting Group. Tous droits r\u00e9serv\u00e9s.",
-    "followUs": "Suivez-nous"
+    "copyright": "© {year} Cabinet COSI Lewa-Consulting Group. Tous droits réservés.",
+    "followUs": "Suivez-nous",
+    "rightsReserved": "Tous droits réservés."
   },
   "legal": {
     "title": "Mentions légales",
     "subtitle": "Informations légales relatives au Cabinet COSI Lewa-Consulting Group",
+    "pageTitle": "Mentions légales",
+    "pageLead": "Informations légales et politique de confidentialité du Cabinet COSI Lewa-Consulting Group.",
     "companyTitle": "Éditeur du site",
     "companyName": "Cabinet COSI Lewa-Consulting Group",
     "companyLegal": "SARL au capital de 10 000 000 FCFA",
@@ -354,6 +458,9 @@
     "companyCity": "Bangui, République Centrafricaine",
     "companyPhone": "Tél : +236 72 69 67 00",
     "companyEmail": "Email : cabinetcosi29@gmail.com",
+    "directorTitle": "Directeur de la publication",
+    "directorName": "Marie-Claire Ngbokoli",
+    "directorRole": "Présidente Fondatrice du Cabinet COSI Lewa-Consulting Group.",
     "hostTitle": "Hébergement",
     "hostText": "Le site <a href=\"https://www.lewa-consulting.com\" class=\"text-navy underline transition hover:text-red\">lewa-consulting.com</a> est hébergé par <strong>Vercel Inc.</strong><br />340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis.",
     "intellectualTitle": "Propriété intellectuelle",
@@ -365,7 +472,31 @@
     "privacyText1": "Les informations recueillies via le formulaire de contact sont utilisées uniquement pour répondre à votre demande et ne sont pas partagées avec des tiers.",
     "privacyText2": "Conformément à la réglementation en vigueur, vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles. Pour l'exercer, contactez-nous à cabinetcosi29@gmail.com.",
     "cookiesTitle": "Cookies",
-    "cookiesText": "Ce site utilise des cookies strictement nécessaires à son fonctionnement. Aucun cookie publicitaire ou de traçage n'est utilisé sans votre consentement explicite."
+    "cookiesText": "Ce site utilise des cookies strictement nécessaires à son fonctionnement. Aucun cookie publicitaire ou de traçage n'est utilisé sans votre consentement explicite.",
+    "intellectualTitle2": "Propriété intellectuelle",
+    "intellectualDetail1": "L'ensemble du contenu du site (textes, logos, images, vidéos, icônes, charte graphique) est la propriété exclusive du Cabinet COSI Lewa-Consulting Group, sauf mention contraire.",
+    "intellectualDetail2": "Toute reproduction, distribution, modification, adaptation, publication ou transmission du contenu, même partielle, est strictement interdite sans l'autorisation écrite préalable du cabinet.",
+    "liabilityTitle2": "Limitation de responsabilité",
+    "liabilityDetail1": "Le Cabinet COSI Lewa-Consulting Group s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, le cabinet ne saurait garantir l'exhaustivité, l'exactitude ou l'actualité des informations fournies.",
+    "liabilityDetail2": "Le cabinet décline toute responsabilité en cas de dommage direct ou indirect résultant de l'accès ou de l'utilisation du site, y compris l'indisponibilité du site, une perte de données ou un préjudice matériel ou immatériel.",
+    "linksTitle": "Liens hypertextes",
+    "linksText": "Le site peut contenir des liens vers des sites tiers. Le Cabinet COSI Lewa-Consulting Group n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leur contenu, leurs pratiques en matière de protection des données ou leur disponibilité.",
+    "privacyTitle2": "Politique de confidentialité & protection des données",
+    "dataCollectionTitle": "Collecte des données",
+    "dataCollectionText": "Le Cabinet COSI Lewa-Consulting Group collecte les informations personnelles que vous nous fournissez volontairement via notre formulaire de contact, par téléphone ou par email : nom, prénom, adresse email, numéro de téléphone, structure, et tout message que vous nous adressez.",
+    "dataUsageTitle": "Utilisation des données",
+    "dataUsageText": "Les données collectées sont utilisées uniquement dans le cadre de la relation commerciale et pédagogique avec nos clients, partenaires et apprenants : traitement des demandes de renseignement, gestion des inscriptions aux formations, suivi des missions d'audit et d'assistance comptable, et envoi d'informations relatives à nos activités.",
+    "dataRetentionTitle": "Conservation des données",
+    "dataRetentionText": "Vos données personnelles sont conservées pour une durée n'excédant pas celle nécessaire aux finalités pour lesquelles elles ont été collectées, conformément à la réglementation en vigueur en République Centrafricaine.",
+    "dataRightsTitle": "Droits des utilisateurs",
+    "dataRightsText": "Conformément à la réglementation applicable, vous disposez d'un droit d'accès, de rectification, d'effacement et de limitation du traitement de vos données personnelles.",
+    "cookiesTitle2": "Cookies",
+    "cookiesDetail": "Ce site n'utilise pas de cookies de traçage ou de publicité. Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être utilisés. Aucune donnée personnelle n'est collectée via des cookies sans votre consentement explicite.",
+    "securityTitle": "Sécurité",
+    "securityText": "Le Cabinet COSI Lewa-Consulting Group met en œuvre toutes les mesures techniques et organisationnelles appropriées pour garantir la sécurité et la confidentialité de vos données personnelles.",
+    "contactTitle": "Contact",
+    "contactText": "Pour toute question relative aux mentions légales ou à la protection des données, vous pouvez nous contacter :",
+    "lastUpdate": "Dernière mise à jour : juillet 2026"
   },
   "chatbot": {
     "title": "Assistant COSI",
@@ -379,6 +510,7 @@
     "chooseTopic": "Choisissez un sujet ci-dessous"
   },
   "faq": {
+    "eyebrow": "Vous avez des questions ?",
     "title": "Foire aux questions",
     "q1": "Comment s'inscrire à une formation ?",
     "r1": "Vous pouvez vous inscrire par téléphone au +236 72 69 67 00, par email à cabinetcosi29@gmail.com, ou via notre formulaire de contact en ligne. Un conseiller vous accompagnera dans le choix du module adapté à votre niveau et vos objectifs.",
@@ -392,5 +524,39 @@
     "r5": "La plupart de nos formations sont accessibles sans prérequis spécifiques. Pour les modules avancés (comme Sage Compta ou le SYCEBNL), une connaissance de base en comptabilité est recommandée. Notre équipe vous conseillera sur le parcours le plus adapté.",
     "q6": "Où se déroulent les formations ?",
     "r6": "Les formations ont lieu à notre siège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui. Nous pouvons également organiser des sessions sur site pour les entreprises et organisations."
+  },
+  "posts": {
+    "session-comptabilite-bancaire-2026": {
+      "title": "Lancement de la session de formations intensives en comptabilité bancaire",
+      "excerpt": "Le Cabinet COSI ouvre les inscriptions pour sa nouvelle session de formation en comptabilité bancaire. 20 heures de modules pratiques pour maîtriser la tenue de comptes, les opérations de caisse et la relation clientèle en milieu bancaire.",
+      "date": "15 Juin 2026",
+      "category": "Formations",
+      "imageAlt": "Formation en comptabilité bancaire",
+      "content": "Le Cabinet COSI Lewa-Consulting Group a le plaisir d'annoncer le lancement de sa nouvelle session de formation intensive en comptabilité bancaire, prévue pour le mois de juillet 2026.\n\nCette formation de 20 heures est conçue pour les professionnels et les étudiants souhaitant acquérir une maîtrise solide de la tenue de comptes bancaires, des opérations de caisse et de la relation clientèle en milieu bancaire.\n\nAu programme :\n- Techniques de tenue de comptes courants et d'épargne\n- Gestion des opérations de caisse et de guichet\n- Traitement des chèques, virements et prélèvements\n- Relation clientèle et conseil bancaire\n- Conformité réglementaire et lutte anti-blanchiment\n\nLes inscriptions sont ouvertes. Les frais de participation s'élèvent à 75 000 FCFA, payables en deux tranches. Chaque participant recevra un certificat de fin de formation et un CV professionnel.\n\nPour vous inscrire, contactez-nous au +236 72 69 67 00 ou par email à cabinetcosi29@gmail.com. Les places sont limitées."
+    },
+    "accompagnement-sycebnl-2026": {
+      "title": "Accompagnement SYCEBNL : le cabinet référencé par de nouvelles ONG",
+      "excerpt": "Deux nouvelles organisations non gouvernementales nous ont confié la tenue de leur comptabilité selon le référentiel SYCEBNL. Une reconnaissance de notre expertise dans le secteur associatif en Centrafrique.",
+      "date": "02 Juin 2026",
+      "category": "Audit & Comptabilité",
+      "imageAlt": "Accompagnement comptable SYCEBNL",
+      "content": "Le Cabinet COSI Lewa-Consulting Group étend son expertise dans le secteur associatif. Deux nouvelles organisations non gouvernementales internationales nous ont récemment confié la tenue de leur comptabilité selon le référentiel SYCEBNL (Système Comptable des Entités à But Non Lucratif).\n\nCette nouvelle collaboration témoigne de la reconnaissance de notre expertise dans l'accompagnement comptable et financier des ONG en République Centrafricaine. Notre équipe maîtrise parfaitement les spécificités du SYCEBNL, un référentiel adapté aux particularités des organisations à but non lucratif.\n\nNos services incluent :\n- Tenue complète de la comptabilité selon le SYCEBNL\n- Établissement des états financiers annuels\n- Assistance aux audits externes\n- Déclarations fiscales et sociales\n- Conseil en gestion financière et reporting bailleurs\n\nNous accompagnons également les ONG dans la formation de leurs équipes comptables au référentiel SYCEBNL, assurant ainsi une autonomie progressive et une meilleure maîtrise de leurs outils de gestion."
+    },
+    "atelier-declaration-fiscale-tpe": {
+      "title": "Atelier gratuit : les bases de la déclaration fiscale pour les TPE",
+      "excerpt": "Dans le cadre de notre engagement pour le développement économique local, le Cabinet COSI organise un atelier gratuit sur les déclarations fiscales (TVA, IRPP, CNSS) destiné aux très petites entreprises de Bangui.",
+      "date": "18 Mai 2026",
+      "category": "Événement",
+      "imageAlt": "Atelier gratuit sur les déclarations fiscales",
+      "content": "Dans le cadre de notre engagement pour le développement économique local, le Cabinet COSI Lewa-Consulting Group organise un atelier gratuit sur les déclarations fiscales destiné aux très petites entreprises (TPE) de Bangui.\n\nCet atelier pratique abordera les thèmes suivants :\n- La déclaration de la Taxe sur la Valeur Ajoutée (TVA)\n- L'Impôt sur le Revenu des Personnes Physiques (IRPP)\n- Les cotisations à la Caisse Nationale de Sécurité Sociale (CNSS)\n- Les obligations déclaratives courantes des TPE\n- Les échéances fiscales à ne pas manquer\n\nL'atelier se déroulera dans nos locaux : Avenue des Martyrs &mdash; SOCATEL, en face du Stade 20 000 Places, Bangui. Une séance de questions-réponses est prévue à l'issue de la présentation.\n\nLa participation est gratuite, mais l'inscription est obligatoire. Contactez-nous au +236 72 69 67 00 pour réserver votre place. Les places sont limitées à 20 participants."
+    },
+    "certificats-bureautique-2026": {
+      "title": "Remise des certificats aux lauréats de la session bureautique",
+      "excerpt": "12 participants ont reçu leur certificat de formation en informatique bureautique. Une promotion engagée et prête pour le marché du travail.",
+      "date": "05 Mai 2026",
+      "category": "Formations",
+      "imageAlt": "Remise des certificats de formation",
+      "content": "Le Cabinet COSI Lewa-Consulting Group a remis les certificats de fin de formation aux 12 participants de la session d'informatique bureautique, clôturant ainsi un cycle de formation de quatre semaines intensives.\n\nDurant cette formation, les participants ont acquis des compétences solides sur les logiciels essentiels du milieu professionnel :\n- Microsoft Word : mise en page, publipostage, documents longs\n- Microsoft Excel : tableaux, formules, graphiques, tableaux croisés dynamiques\n- Microsoft PowerPoint : présentations professionnelles et animées\n- Microsoft Access : bases de données et requêtes\n\nCette promotion 2026 se distingue par la diversité de ses profils : étudiants fraîchement diplômés, professionnels en reconversion et agents administratifs souhaitant renforcer leurs compétences.\n\nFélicitations à tous les lauréats ! La prochaine session est prévue pour septembre 2026. Les inscriptions sont d'ores et déjà ouvertes."
+    }
   }
 }

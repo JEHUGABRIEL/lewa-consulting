@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
+
+// Abonnement no-op : la valeur "isClient" ne change pas après hydration
+const subscribeToNothing = () => () => {};
 
 type HeroSlide = {
   src: string;
@@ -32,10 +35,13 @@ export default function HeroSlider({
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [isClient, setIsClient] = useState(false);
 
   // Évite l'hydratation mismatch (premier rendu serveur = slide 0)
-  useEffect(() => { setIsClient(true); }, []);
+  const isClient = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  );
 
   const total = slides.length;
 

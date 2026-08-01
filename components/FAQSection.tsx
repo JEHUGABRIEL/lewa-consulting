@@ -1,3 +1,7 @@
+"use client";
+
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 import Reveal from "./Reveal";
 
 export type FAQItem = {
@@ -17,6 +21,8 @@ export default function FAQSection({
   image?: string;
   imageAlt?: string;
 }) {
+  const t = useTranslations();
+
   if (items.length === 0) return null;
 
   return (
@@ -24,19 +30,19 @@ export default function FAQSection({
       <div className="text-center">
         {image && (
           <div className="relative mx-auto mb-6 h-24 w-36 overflow-hidden rounded-xl">
-            <img
-              src={image.replace("w=600&q=80", "w=300&h=200&fit=crop&q=60")}
+            <Image
+              src={image.split("?")[0]}
               alt={imageAlt ?? ""}
-              className="h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="144px"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
           </div>
         )}
         <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
           <span className="inline-block h-px w-4 bg-gold/50" />
-          Vous avez des questions ?
+          {t('faq.eyebrow')}
           <span className="inline-block h-px w-4 bg-gold/50" />
         </span>
         <h2 className="mt-4 font-display text-2xl text-navy">{title}</h2>

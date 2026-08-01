@@ -6,7 +6,6 @@ import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
 import PostIllustration from "@/components/PostIllustration";
 import HeroSlider from "@/components/HeroSlider";
-import Mark from "@/components/Mark";
 import { posts } from "@/lib/posts";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 
@@ -19,11 +18,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
+  const t = await getTranslations();
   if (!post) {
-    const t = await getTranslations();
     return { title: t('blog.notFound') };
   }
-  return { title: post.title };
+  return { title: t(`posts.${post.slug}.title`) };
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -31,13 +30,15 @@ export default async function ArticlePage({ params }: Props) {
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const t = await getTranslations();
+
   // Index dans la liste complète pour la navigation précédent/suivant
   const currentIndex = posts.findIndex((p) => p.slug === slug);
   const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
   const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
   // Découper le contenu ligne par ligne
-  const lines = post.content.split("\n");
+  const lines = t.raw(`posts.${post.slug}.content`).split("\n");
 
   // Articles similaires (même catégorie, sauf celui-ci)
   // Fallback : articles récents si aucun dans la même catégorie
@@ -48,37 +49,28 @@ export default async function ArticlePage({ params }: Props) {
     ? sameCategory
     : posts.filter((p) => p.slug !== post.slug).slice(0, 4);
   const heroBgs = getHeroBackgrounds("formations");
-  const t = await getTranslations();
 
   return (
     <main>
       {/* Hero avec slider */}
       <section className="relative overflow-hidden border-b border-navy-deep">
-        {/* Top accent bar */}
-        <div className="relative z-20 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
-
         <HeroSlider slides={heroBgs} interval={5000} />
-
-        {/* Décor géométrique */}
-        <div className="pointer-events-none absolute -right-20 -top-16 z-10 select-none text-white/[0.06]" aria-hidden="true">
-          <Mark className="h-48 w-48" />
-        </div>
 
         <Container className="relative z-10 py-24 sm:py-[7.5rem]">
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/80">
-                {post.category}
+                {t(`posts.${post.slug}.category`)}
               </span>
-              <span className="text-xs text-white/50">{post.date}</span>
+              <span className="text-xs text-white/50">{t(`posts.${post.slug}.date`)}</span>
             </div>
 
             <h1 className="mt-4 font-display text-3xl leading-tight text-white sm:text-4xl">
-              {post.title}
+              {t(`posts.${post.slug}.title`)}
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
-              {post.excerpt}
+              {t(`posts.${post.slug}.excerpt`)}
             </p>
           </div>
         </Container>
@@ -171,7 +163,7 @@ export default async function ArticlePage({ params }: Props) {
                   <div className="min-w-0">
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">{t('blog.prevArticle')}</p>
                     <p className="mt-0.5 truncate text-sm font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                      {prevPost.title}
+                      {t(`posts.${prevPost.slug}.title`)}
                     </p>
                   </div>
                 </Link>
@@ -187,7 +179,7 @@ export default async function ArticlePage({ params }: Props) {
                   <div className="min-w-0 flex-1">
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">{t('blog.nextArticle')}</p>
                     <p className="mt-0.5 truncate text-sm font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                      {nextPost.title}
+                      {t(`posts.${nextPost.slug}.title`)}
                     </p>
                   </div>
                   <svg
@@ -232,21 +224,21 @@ export default async function ArticlePage({ params }: Props) {
                         <div className="overflow-hidden rounded-xl border border-border bg-white transition-all duration-200 hover:border-navy/20 hover:shadow-sm">
                           {/* Image */}
                           <div className="relative h-28 w-full overflow-hidden">
-                            <PostIllustration category={r.category} src={r.image} alt={r.imageAlt} />
+                            <PostIllustration category={r.category} src={r.image} alt={t(`posts.${r.slug}.imageAlt`)} />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
                           </div>
                           {/* Contenu */}
                           <div className="p-3.5">
                             <span className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-navy">
-                              {r.category}
+                              {t(`posts.${r.slug}.category`)}
                             </span>
                             <p className="mt-2 text-xs font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red line-clamp-2">
-                              {r.title}
+                              {t(`posts.${r.slug}.title`)}
                             </p>
                             <p className="mt-1.5 text-[10px] text-muted leading-relaxed line-clamp-2">
-                              {r.excerpt}
+                              {t(`posts.${r.slug}.excerpt`)}
                             </p>
-                            <p className="mt-1.5 text-[9px] text-muted/60">{r.date}</p>
+                            <p className="mt-1.5 text-[9px] text-muted/60">{t(`posts.${r.slug}.date`)}</p>
                           </div>
                         </div>
                       </Link>

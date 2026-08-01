@@ -23,21 +23,24 @@ export default function ChatBot() {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Message d'accueil au premier dépliage
-  useEffect(() => {
-    if (open && !welcomeShown) {
-      setWelcomeShown(true);
-      setMessages([
-        {
-          role: "bot",
-          text: t('chatbot.greeting'),
-        },
-      ]);
-    }
-    if (open && inputRef.current) {
+  // Message d'accueil au premier dépliage (déclenché par le clic, pas par un effet)
+  const toggleChat = () => {
+    if (!open) {
+      if (!welcomeShown) {
+        setWelcomeShown(true);
+        setMessages([
+          {
+            role: "bot",
+            text: t('chatbot.greeting'),
+          },
+        ]);
+      }
+      setOpen(true);
       setTimeout(() => inputRef.current?.focus(), 300);
+    } else {
+      setOpen(false);
     }
-  }, [open, welcomeShown, t]);
+  };
 
   // Scroll en bas à chaque nouveau message ou changement de statut typing
   useEffect(() => {
@@ -78,7 +81,7 @@ export default function ChatBot() {
     <>
       {/* Bouton flottant */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={toggleChat}
         className={`fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
           open ? "bg-navy-deep rotate-45" : "bg-gold-bright"
         }`}
@@ -101,12 +104,12 @@ export default function ChatBot() {
         role="dialog"
         aria-modal="true"
         aria-label={t('chatbot.title')}
-        className={`fixed bottom-24 right-5 z-50 w-[calc(100vw-2rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-white shadow-2xl transition-all duration-300 ${
+        className={`fixed bottom-24 left-4 right-4 z-50 flex max-h-[calc(100dvh-7rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl transition-all duration-300 sm:left-auto sm:right-5 sm:w-[24rem] ${
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between bg-gradient-to-r from-navy to-navy-deep px-5 py-4">
+        <div className="flex shrink-0 items-center justify-between bg-gradient-to-r from-navy to-navy-deep px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-bright text-navy text-sm font-bold">
               C
@@ -119,7 +122,7 @@ export default function ChatBot() {
         </div>
 
         {/* Messages */}
-        <div ref={listRef} className="flex h-80 flex-col gap-3 overflow-y-auto px-5 py-4" role="log" aria-live="polite" aria-label={t('chatbot.title')}>
+        <div ref={listRef} className="flex h-80 min-h-0 flex-col gap-3 overflow-y-auto px-5 py-4" role="log" aria-live="polite" aria-label={t('chatbot.title')}>
           {messages.length === 0 && (
             <div className="flex items-center justify-center h-full">
               <div className="flex items-center gap-2 text-xs text-muted">
@@ -156,7 +159,7 @@ export default function ChatBot() {
 
         {/* Quick replies — visibles tant que l'utilisateur n'a pas tapé */}
         {!userTyped && (
-          <div className="flex flex-wrap gap-2 px-5 pb-3">
+          <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
             {knowledge.map((k) => (
               <button
                 key={k.label}
@@ -170,7 +173,7 @@ export default function ChatBot() {
         )}
 
         {/* Input */}
-        <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-border px-4 py-3">
+        <form onSubmit={handleSend} className="flex shrink-0 items-center gap-2 border-t border-border px-4 py-3">
           <input
             ref={inputRef}
             type="text"

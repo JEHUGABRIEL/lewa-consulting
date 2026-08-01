@@ -9,7 +9,10 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { comptaFinance } from "@/lib/formations";
 import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = { title: "Comptabilité & finance" };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("comptabiliteFinance") };
+}
 
 export default async function ComptabiliteFinancePage() {
   const t = await getTranslations();
@@ -52,7 +55,7 @@ export default async function ComptabiliteFinancePage() {
             </span>
             <div>
               <p>{t('formations.paymentInfo')}</p>
-              <p className="mt-2" dangerouslySetInnerHTML={{ __html: t('formations.contactInfo') }} />
+              <p className="mt-2" dangerouslySetInnerHTML={{ __html: t.raw('formations.contactInfo') }} />
             </div>
           </div>
         </Reveal>

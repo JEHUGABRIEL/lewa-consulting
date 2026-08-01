@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Container from "./Container";
-import Mark from "./Mark";
 import HeroSlider from "./HeroSlider";
 
 export default function PageHeader({
@@ -29,7 +28,6 @@ export default function PageHeader({
       ? [backgroundImage]
       : [];
   const hasSlides = slides.length > 0;
-  const hasSlider = slides.length > 1;
 
   // Texte du slide actif (fallback sur le premier texte)
   const active = texts[currentSlide] ?? texts[0] ?? { title: "" };
@@ -40,9 +38,6 @@ export default function PageHeader({
         hasSlides ? "border-navy-deep" : "border-border bg-gradient-to-b from-white to-paper"
       }`}
     >
-      {/* Top accent bar — gradient doré → rouge → navy */}
-      <div className="relative z-20 h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
-
       {/* Slider ou fond unique */}
       {hasSlides && (
         <HeroSlider
@@ -51,16 +46,6 @@ export default function PageHeader({
           onSlideChange={setCurrentSlide}
         />
       )}
-
-      {/* Décor géométrique subtil (logo en transparence) */}
-      <div
-        className={`pointer-events-none absolute -right-20 -top-16 z-10 select-none ${
-          hasSlides ? "text-white/[0.06]" : "text-navy/[0.04]"
-        }`}
-        aria-hidden="true"
-      >
-        <Mark className="h-48 w-48" />
-      </div>
 
       <Container
         className={`relative z-10 ${

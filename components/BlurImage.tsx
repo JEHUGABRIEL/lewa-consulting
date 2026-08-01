@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
 type BlurImageProps = {
   src: string;
@@ -56,15 +57,6 @@ export default function BlurImage({
     return () => observer.disconnect();
   }, []);
 
-  // Préchargement de l'image pleine taille
-  useEffect(() => {
-    if (!inView) return;
-
-    const img = new Image();
-    img.onload = () => setLoaded(true);
-    img.src = src;
-  }, [inView, src]);
-
   return (
     <div
       ref={imgRef}
@@ -87,18 +79,18 @@ export default function BlurImage({
       )}
 
       {/* Image réelle (fade in après chargement) */}
-      <img
-        src={inView ? src : undefined}
-        alt={alt}
-        width={width}
-        height={height}
-        loading="lazy"
-        decoding="async"
-        className={`h-full w-full object-cover transition-opacity duration-500 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
-        onLoad={() => setLoaded(true)}
-      />
+      {inView && (
+        <Image
+          src={src.split("?")[0]}
+          alt={alt}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`object-cover transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
     </div>
   );
 }

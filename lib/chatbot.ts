@@ -19,7 +19,7 @@ export const knowledge: QuickReply[] = [
   {
     label: "Nous contacter",
     answer:
-      "Vous pouvez nous joindre par :\n\nTéléphone : +236 72 69 67 00 / +236 75 34 37 19\nEmail : cabinetcosi29@gmail.com\nSiège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui\n\nOu utilisez notre formulaire de contact en ligne.",
+      "Vous pouvez nous joindre par :\n\nTéléphone : +236 72 69 67 00\nEmail : cabinetcosi29@gmail.com\nSiège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui\n\nOu utilisez notre formulaire de contact en ligne.",
   },
   {
     label: "Horaires",

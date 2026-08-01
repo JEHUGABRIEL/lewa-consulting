@@ -31,18 +31,12 @@ export default function Footer() {
 
   return (
     <footer className="mt-auto border-t border-border bg-navy-deep text-paper/80">
-      {/* Accent bar */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-gold-bright via-red to-navy" />
-
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-8 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-4">
         {/* Colonne 1 — Marque */}
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
             <Mark className="h-9 w-9 shrink-0" />
             <div>
-              <span className="block text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-gold-bright/70">
-                {t('common.cabinet')}
-              </span>
               <span className="block font-display text-base leading-tight text-paper">
                 COSI LEWA
               </span>
@@ -55,7 +49,9 @@ export default function Footer() {
             </span>
             <div className="flex items-center gap-2">
               <a
-                href="#"
+                href="https://www.facebook.com/share/p/1HF9MirmNj/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-paper/15 text-paper/40 transition hover:border-gold-bright/40 hover:text-gold-bright"
                 aria-label="Facebook"
               >
@@ -75,7 +71,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://wa.me/23672696700"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-paper/15 text-paper/40 transition hover:border-gold-bright/40 hover:text-gold-bright"
                 aria-label="WhatsApp"
               >
@@ -161,8 +159,8 @@ export default function Footer() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('footer.services')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/services" className="transition hover:text-gold-bright">{t('services.expertiseComptable')}</Link></li>
-            <li><Link href="/services" className="transition hover:text-gold-bright">{t('services.conseil')}</Link></li>
+            <li><Link href="/services/expertise-comptable" className="transition hover:text-gold-bright">{t('services.items.expertise-comptable.title')}</Link></li>
+            <li><Link href="/services/conseil-aux-entreprises" className="transition hover:text-gold-bright">{t('services.items.conseil-aux-entreprises.title')}</Link></li>
             <li><Link href="/formations/comptabilite-finance" className="transition hover:text-gold-bright">{t('nav.formations')}</Link></li>
           </ul>
         </div>
