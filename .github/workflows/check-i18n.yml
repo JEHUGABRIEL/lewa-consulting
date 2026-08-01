@@ -1,0 +1,28 @@
+name: check-i18n
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: check-i18n-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  parity:
+    name: Parité fr/en
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Le script n'utilise que des modules Node natifs (aucune dépendance) :
+      # pas besoin de npm ci, le check s'exécute directement.
+      - name: Vérifier la parité fr/en
+        run: node scripts/check-i18n.mjs

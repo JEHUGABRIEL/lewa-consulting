@@ -6,7 +6,15 @@ import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
 import CTASection from "@/components/CTASection";
 import HeroSlider from "@/components/HeroSlider";
-import { servicesData, getServiceBySlug } from "@/lib/services";
+import ServiceTOC from "@/components/ServiceTOC";
+import LevelBadge from "@/components/LevelBadge";
+import BlurImage from "@/components/BlurImage";
+import {
+  servicesData,
+  getServiceBySlug,
+  serviceFormations,
+} from "@/lib/services";
+import { getFormationBySlug } from "@/lib/formations";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { getTranslations } from "next-intl/server";
 
@@ -35,12 +43,30 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   const related = servicesData.filter((s) => s.slug !== service.slug);
 
+  // Formations liées au domaine (via la carte serviceFormations de lib/services.ts)
+  const relatedFormations = (serviceFormations[service.slug] ?? [])
+    .map((fSlug) => getFormationBySlug(fSlug))
+    .filter((f): f is NonNullable<typeof f> => f !== undefined);
+
   const heroBgs = getHeroBackgrounds("services");
+
+  // Étapes du bloc « Comment ça marche » (partagées par tous les domaines)
+  const steps = [1, 2, 3, 4] as const;
+
+  const tocItems = [
+    { id: "a-propos", label: t('services.tocAbout') },
+    { id: "prestations", label: t('services.servicesList') },
+    { id: "benefices", label: t('services.tocBenefits') },
+    { id: "comment-ca-marche", label: t('services.howItWorksTitle') },
+    ...(relatedFormations.length > 0
+      ? [{ id: "formations-liees", label: t('services.relatedFormationsTitle') }]
+      : []),
+  ];
 
   return (
     <main>
       {/* Hero avec slider */}
-      <section className="relative overflow-hidden border-b border-navy-deep">
+      <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
 
         <Container className="relative z-10 py-24 sm:py-[7.5rem]">
@@ -75,20 +101,23 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-[1fr_320px]">
           {/* Colonne principale */}
           <div>
+            {/* À propos */}
             <Reveal as="div">
-              <h2 className="font-display text-xl text-navy">
-                {t('services.aboutTitle')}
-              </h2>
-              <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink/75">
-                {t(`services.items.${service.slug}.details`).split("\n").map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
+              <section id="a-propos" className="scroll-mt-28">
+                <h2 className="font-display text-xl text-navy">
+                  {t('services.aboutTitle')}
+                </h2>
+                <div className="mt-4 space-y-4 text-sm leading-relaxed text-ink/75">
+                  {t(`services.items.${service.slug}.details`).split("\n").map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </section>
             </Reveal>
 
-            {/* Points clés */}
+            {/* Prestations */}
             <Reveal as="div" delay={100}>
-              <div className="mt-8 rounded-xl border border-border bg-white p-6">
+              <section id="prestations" className="mt-8 scroll-mt-28 rounded-xl bg-white p-6 shadow-sm">
                 <h3 className="font-display text-base font-semibold text-navy mb-4">
                   {t('services.servicesList')}
                 </h3>
@@ -100,27 +129,126 @@ export default async function ServiceDetailPage({ params }: Props) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </section>
             </Reveal>
 
             {/* Bénéfices */}
             <Reveal as="div" delay={150}>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {t(`services.items.${service.slug}.benefits`).split("\n").map((b) => (
-                  <div key={b} className="flex items-start gap-3 rounded-lg bg-navy/[0.02] p-4 text-sm leading-relaxed text-ink/70">
-                    <svg className="mt-0.5 h-4 w-4 shrink-0 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>{b}</span>
-                  </div>
-                ))}
-              </div>
+              <section id="benefices" className="mt-10 scroll-mt-28">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  <span className="inline-block h-px w-4 bg-gold/50" />
+                  {t('services.benefitsTitle')}
+                </div>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {t(`services.items.${service.slug}.benefits`).split("\n").map((b) => (
+                    <div key={b} className="flex items-start gap-3 rounded-lg bg-navy/[0.02] p-4 text-sm leading-relaxed text-ink/70">
+                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>{b}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </Reveal>
+
+            {/* Comment ça marche */}
+            <Reveal as="div" delay={100}>
+              <section id="comment-ca-marche" className="mt-10 scroll-mt-28">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  <span className="inline-block h-px w-4 bg-gold/50" />
+                  {t('services.howItWorksTitle')}
+                </div>
+                <p className="mt-2 max-w-xl text-sm text-muted">
+                  {t('services.howItWorksLead')}
+                </p>
+                <ol className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {steps.map((n) => (
+                    <li
+                      key={n}
+                      className="group relative overflow-hidden rounded-xl border border-transparent bg-white p-5 shadow-sm transition hover:border-navy/20 hover:shadow-md"
+                    >
+                      {/* Numéro en filigrane */}
+                      <span
+                        className="pointer-events-none absolute -right-2 -top-4 select-none font-display text-7xl font-semibold text-navy/[0.04] transition-colors duration-300 group-hover:text-gold/[0.08]"
+                        aria-hidden="true"
+                      >
+                        {n}
+                      </span>
+                      <div className="relative">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-gold to-gold-bright text-xs font-semibold text-white shadow-sm">
+                          {n}
+                        </span>
+                        <h3 className="mt-3 font-display text-sm font-semibold text-navy">
+                          {t(`services.howStep${n}Title`)}
+                        </h3>
+                        <p className="mt-1.5 text-xs leading-relaxed text-ink/70">
+                          {t(`services.howStep${n}Desc`)}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            </Reveal>
+
+            {/* Formations liées */}
+            {relatedFormations.length > 0 && (
+              <Reveal as="div" delay={150}>
+                <section id="formations-liees" className="mt-10 scroll-mt-28">
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                    <span className="inline-block h-px w-4 bg-gold/50" />
+                    {t('services.relatedFormationsTitle')}
+                  </div>
+                  <p className="mt-2 max-w-xl text-sm text-muted">
+                    {t('services.relatedFormationsLead')}
+                  </p>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {relatedFormations.map((f) => (
+                      <Link
+                        key={f.slug}
+                        href={`/formations/${f.slug}`}
+                        className="group block"
+                      >
+                        <div className="overflow-hidden rounded-xl border border-transparent bg-white shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md">
+                          <div className="relative h-28 w-full overflow-hidden">
+                            <BlurImage
+                              src={f.image}
+                              alt={t(`formations.items.${f.slug}.imageAlt`)}
+                              className="h-full w-full transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
+                          </div>
+                          <div className="p-3.5">
+                            <div className="flex items-center gap-2">
+                              {f.level && <LevelBadge level={f.level} />}
+                              <span className="font-mono text-[9px] text-muted/60 tabular">
+                                {f.price} FCFA
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red line-clamp-2">
+                              {t(`formations.items.${f.slug}.name`)}
+                            </p>
+                            <p className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
+                              <span>{t('services.viewFormation')}</span>
+                              <span className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              </Reveal>
+            )}
           </div>
 
-          {/* Sidebar — Services liés */}
+          {/* Sidebar — Sommaire + Services liés */}
           <Reveal as="div" delay={150}>
-            <div className="sticky top-28 space-y-4">
+            <div className="sticky top-28 max-h-[calc(100vh-7rem)] space-y-4 overflow-y-auto pr-1">
+              {/* Sommaire ancré */}
+              <ServiceTOC title={t('services.tocTitle')} items={tocItems} />
+
               {related.length > 0 && (
                 <>
                   {/* Titre avec séparateurs dorés */}
@@ -138,7 +266,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                         href={`/services/${r.slug}`}
                         className="group block"
                       >
-                        <div className="overflow-hidden rounded-xl border border-border bg-white transition-all duration-200 hover:border-navy/20 hover:shadow-sm">
+                        <div className="overflow-hidden rounded-xl border border-transparent bg-white shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md">
                           {/* Image */}
                           <div className="relative h-28 w-full overflow-hidden">
                             <Image

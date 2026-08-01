@@ -47,7 +47,7 @@ export const comptaFinance: FormationRow[] = [
   { slug: "comptabilite-bancaire", category: "compta", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80", price: "75 000", level: "intermediaire" },
   { slug: "systeme-comptable-des-ong-sycebnl", category: "compta", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80", price: "75 000", level: "intermediaire" },
   { slug: "pratique-en-caissiere-bancaire", category: "compta", image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80", price: "70 000", level: "debutant" },
-  { slug: "comptabilite-d-entreprise", category: "compta", image: "https://images.unsplash.com/photo-1554224154-26032dfc0dbe?w=600&q=80", price: "65 000", level: "intermediaire" },
+  { slug: "comptabilite-d-entreprise", category: "compta", image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80", price: "65 000", level: "intermediaire" },
   { slug: "comptabilite-d-entreprise-sur-sage-compta", category: "compta", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80", price: "65 000", level: "avance" },
   { slug: "ressources-humaines-sage-paie", category: "compta", image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80", price: "65 000", level: "intermediaire" },
   { slug: "mission-d-audit", category: "compta", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80", price: "60 000", level: "avance" },

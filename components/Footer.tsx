@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Mark from "./Mark";
+import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 
 export default function Footer() {
   const t = useTranslations();
@@ -30,12 +31,15 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mt-auto border-t border-border bg-navy-deep text-paper/80">
+    <footer className="mt-auto bg-navy-deep text-paper/80">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-8 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-4">
         {/* Colonne 1 — Marque */}
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
-            <Mark className="h-9 w-9 shrink-0" />
+            {/* Logo sur fond navy : cadre blanc arrondi pour le rendre lisible */}
+            <span className="flex h-10 w-auto shrink-0 items-center rounded-xl bg-white p-1.5 shadow-sm">
+              <Mark className="h-7 w-auto" />
+            </span>
             <div>
               <span className="block font-display text-base leading-tight text-paper">
                 COSI LEWA
@@ -71,7 +75,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://wa.me/23672696700"
+                href={toWhatsAppHref(t('common.phone'))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-paper/15 text-paper/40 transition hover:border-gold-bright/40 hover:text-gold-bright"
@@ -159,8 +163,8 @@ export default function Footer() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('footer.services')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/services/expertise-comptable" className="transition hover:text-gold-bright">{t('services.items.expertise-comptable.title')}</Link></li>
-            <li><Link href="/services/conseil-aux-entreprises" className="transition hover:text-gold-bright">{t('services.items.conseil-aux-entreprises.title')}</Link></li>
+            <li><Link href="/services/audit-et-assurance" className="transition hover:text-gold-bright">{t('services.items.audit-et-assurance.title')}</Link></li>
+            <li><Link href="/services/expertise-comptable-finance" className="transition hover:text-gold-bright">{t('services.items.expertise-comptable-finance.title')}</Link></li>
             <li><Link href="/formations/comptabilite-finance" className="transition hover:text-gold-bright">{t('nav.formations')}</Link></li>
           </ul>
         </div>
@@ -181,8 +185,8 @@ export default function Footer() {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <div className="min-w-0">
-                <a href="tel:+23672696700" className="block truncate transition hover:text-gold-bright">+236 72 69 67 00</a>
-                <a href="tel:+23672696700" className="block truncate text-paper/50 transition hover:text-gold-bright">+236 72 69 67 00</a>
+                <a href={toTelHref(t('common.phone'))} className="block truncate transition hover:text-gold-bright">{t('common.phone')}</a>
+                <a href={toTelHref(t('common.phone2'))} className="block truncate text-paper/50 transition hover:text-gold-bright">{t('common.phone2')}</a>
               </div>
             </li>
             <li className="flex items-start gap-3">

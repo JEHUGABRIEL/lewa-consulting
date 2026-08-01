@@ -65,7 +65,7 @@ export default async function FormationDetailPage({ params }: Props) {
   return (
     <main>
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-navy-deep">
+      <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
 
         <Container className="relative z-10 py-24 sm:py-[7.5rem]">
@@ -154,7 +154,7 @@ export default async function FormationDetailPage({ params }: Props) {
             </Reveal>
 
             <Reveal as="div" delay={100}>
-              <div className="mt-8 flex items-start gap-3 rounded-lg border border-border p-5 text-sm">
+              <div className="mt-8 flex items-start gap-3 rounded-lg bg-navy/[0.02] p-5 text-sm">
                 <svg
                   className="mt-0.5 h-5 w-5 shrink-0 text-gold"
                   viewBox="0 0 24 24"
@@ -200,7 +200,7 @@ export default async function FormationDetailPage({ params }: Props) {
                         href={`/formations/${r.slug}`}
                         className="group block"
                       >
-                        <div className="overflow-hidden rounded-xl border border-border bg-white transition-all duration-200 hover:border-navy/20 hover:shadow-sm">
+                        <div className="overflow-hidden rounded-xl border border-transparent bg-white shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md">
                           {/* Image */}
                           <div className="relative h-24 w-full overflow-hidden">
                             <BlurImage

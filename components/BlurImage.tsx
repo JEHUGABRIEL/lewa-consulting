@@ -10,6 +10,8 @@ type BlurImageProps = {
   className?: string;
   width?: number;
   height?: number;
+  /** Charge immédiatement (image LCP / au-dessus de la ligne de flottaison) */
+  eager?: boolean;
 };
 
 /**
@@ -32,14 +34,17 @@ export default function BlurImage({
   className = "",
   width,
   height,
+  eager = false,
 }: BlurImageProps) {
   const [loaded, setLoaded] = useState(false);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(eager);
   const imgRef = useRef<HTMLDivElement>(null);
   const blurUrl = placeholderSrc ?? makeUnsplashBlurUrl(src);
 
-  // Intersection Observer pour ne charger que quand visible
+  // Intersection Observer pour ne charger que quand visible (sauf eager/LCP)
   useEffect(() => {
+    if (eager) return;
+
     const el = imgRef.current;
     if (!el) return;
 
@@ -55,7 +60,7 @@ export default function BlurImage({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [eager]);
 
   return (
     <div
@@ -85,6 +90,8 @@ export default function BlurImage({
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : undefined}
           className={`object-cover transition-opacity duration-500 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}

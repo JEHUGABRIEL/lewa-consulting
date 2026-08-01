@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Container from "./Container";
 import Reveal from "./Reveal";
+import { toTelHref } from "@/lib/phone";
 
 type PageKey = "home" | "services" | "formations" | "aPropos" | "contact";
 
@@ -23,7 +24,7 @@ export default function CTASection({ page }: { page: PageKey }) {
   const primaryLabel = prefix ? t(`cta.${prefix}Primary`) : t('cta.contact');
   const secondaryLabel = prefix ? t(`cta.${prefix}Secondary`) : t('cta.services');
 
-  const primaryHref = page === "contact" ? "tel:+23672696700" : "/contact";
+  const primaryHref = page === "contact" ? toTelHref(t('common.phone')) : "/contact";
   const secondaryHref = page === "formations" ? "/services" : "/formations/comptabilite-finance";
 
   return (

@@ -48,7 +48,7 @@ export default async function BureautiqueDeveloppementPage() {
 
         <FormationCards rows={bureautiqueDev} />
 
-        <Reveal as="div" className="mt-12 border-t border-border pt-8 text-sm text-ink/70">
+        <Reveal as="div" className="mt-12 pt-8 text-sm text-ink/70">
           <div className="flex items-start gap-3 rounded-lg bg-navy/[0.02] p-5">
             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 text-xs font-semibold text-gold">
               i

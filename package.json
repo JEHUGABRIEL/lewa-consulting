@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:images": "node scripts/check-images.mjs",
+    "check:lib": "node scripts/check-lib-fields.mjs"
   },
   "dependencies": {
     "next": "16.2.10",

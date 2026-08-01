@@ -17,7 +17,7 @@ export default function FormationCards({ rows }: { rows: FormationRow[] }) {
         {rows.map((r, i) => (
           <Reveal key={r.slug} as="div" delay={i * 60}>
             <Link href={`/formations/${r.slug}`}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
                 {/* Image Unsplash en haut */}
                 <div className="relative h-32 w-full overflow-hidden">
                   <BlurImage

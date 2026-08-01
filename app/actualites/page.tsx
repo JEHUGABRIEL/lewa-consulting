@@ -42,7 +42,7 @@ export default async function ActualitesPage() {
             <Link
               key={post.slug}
               href={`/actualites/${post.slug}`}
-              className="group flex h-full flex-col rounded-xl border border-border bg-white p-5 hover-lift lg:p-7"
+              className="group flex h-full flex-col rounded-xl bg-white p-5 shadow-sm hover-lift lg:p-7"
             >
               {/* Illustration */}
               <div className="mb-3 h-40 w-full overflow-hidden rounded-lg">
@@ -85,7 +85,7 @@ export default async function ActualitesPage() {
 
         {/* À lire aussi — articles recommandés (ordre différent pour varier) */}
         {posts.length > 1 && (
-          <section className="mt-14 border-t border-border pt-10">
+          <section className="mt-14 pt-10">
             <h2 className="font-display text-xl text-navy">
               {t('blog.alsoRead')}
             </h2>
@@ -98,7 +98,7 @@ export default async function ActualitesPage() {
                 <Link
                   key={post.slug}
                   href={`/actualites/${post.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-white p-5 hover-lift lg:p-7"
+                  className="group flex h-full flex-col rounded-xl bg-white p-5 shadow-sm hover-lift lg:p-7"
                 >
                   <div className="mb-3 h-24 w-full overflow-hidden rounded-lg">
                     <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />

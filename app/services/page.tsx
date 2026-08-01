@@ -34,15 +34,6 @@ const expertiseIcon = (icon: string) => {
           <path d="M12 6v6l4 2" />
         </svg>
       );
-    case "rh":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-      );
     case "formation":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -51,17 +42,29 @@ const expertiseIcon = (icon: string) => {
           <path d="M8 11h6" />
         </svg>
       );
-    case "privee":
+    case "audit":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <path d="M21 12a9 9 0 1 1-9-9" />
+          <polyline points="21 3 12 12 14 12 14 16 11 16" />
+          <path d="M21 3h-4" />
         </svg>
       );
-    case "juridique":
+    case "briefcase":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+      );
+    case "event":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <polyline points="9 15 11 17 15 13" />
         </svg>
       );
     default:
@@ -96,7 +99,7 @@ export default async function ServicesPage() {
           {servicesData.map((s) => (
             <Link key={s.slug} href={`/services/${s.slug}`}>
               <Reveal as="div">
-                <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
                   {/* Image Unsplash en haut avec blur-up */}
                   <div className="relative h-36 w-full overflow-hidden rounded-t-xl">
                     <BlurImage
@@ -147,7 +150,7 @@ export default async function ServicesPage() {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-border pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-3 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="text-ink/70">
             {t('services.servicesPageSeeDetail')}
           </p>

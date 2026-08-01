@@ -9,7 +9,7 @@ export const knowledge: QuickReply[] = [
   {
     label: "Nos services",
     answer:
-      "Le Cabinet COSI Lewa-Consulting Group propose trois grands domaines d'intervention :\n\n1. Audit — Mission d'audit comptable et financier, contrôle interne.\n2. Assistance comptable et fiscale — Tenue de comptabilité, déclarations TVA/IRPP/CNSS, accompagnement SYCEBNL.\n3. Formations professionnelles — Modules pratiques en comptabilité, audit, RH, bureautique et art oratoire.",
+      "Le Cabinet COSI Lewa-Consulting Group intervient dans six grands domaines d'expertise :\n\n1. Audit et Assurance — Audit financier, comptable, organisationnel, interne, de conformité, évaluation du contrôle interne et gestion des risques.\n2. Expertise Comptable et Finance — Tenue comptable, états financiers, assistance fiscale, digitalisation et déploiement de logiciels de gestion (SAGE et ERP).\n3. Conseil en Gouvernance et Développement Organisationnel — Diagnostic institutionnel, manuels de procédures, planification stratégique, suivi-évaluation.\n4. Formation et Renforcement des Capacités — Formations en audit, comptabilité, finance, informatique, bureautique, SAGE, gestion des ONG et gestion de projets.\n5. Accompagnement des Entreprises et Entrepreneurs — Création d'entreprises, business plans, études de faisabilité et recherche de financement.\n6. Organisation d'Événements Professionnels — Forums économiques, conférences internationales, séminaires, ateliers et salons.",
   },
   {
     label: "Tarifs formations",
@@ -19,7 +19,7 @@ export const knowledge: QuickReply[] = [
   {
     label: "Nous contacter",
     answer:
-      "Vous pouvez nous joindre par :\n\nTéléphone : +236 72 69 67 00\nEmail : cabinetcosi29@gmail.com\nSiège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui\n\nOu utilisez notre formulaire de contact en ligne.",
+      "Vous pouvez nous joindre par :\n\nTéléphone : +236 72 69 67 00 / +236 75 34 37 19\nEmail : cabinetcosi29@gmail.com\nSiège : Avenue des Martyrs — SOCATEL, en face du Stade 20 000 Places, Bangui\n\nOu utilisez notre formulaire de contact en ligne.",
   },
   {
     label: "Horaires",
@@ -34,7 +34,7 @@ export const knowledge: QuickReply[] = [
 ];
 
 export const fallback =
-  "Je suis désolé, je n'ai pas encore la réponse à cette question. N'hésitez pas à nous contacter directement par téléphone au +236 72 69 67 00 ou par email à cabinetcosi29@gmail.com pour une réponse personnalisée.";
+  "Je suis désolé, je n'ai pas encore la réponse à cette question. N'hésitez pas à nous contacter directement par téléphone au +236 72 69 67 00 ou au +236 75 34 37 19, ou par email à cabinetcosi29@gmail.com pour une réponse personnalisée.";
 
 export function normalize(str: string): string {
   return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");

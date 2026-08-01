@@ -10,7 +10,10 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
-  return { title: t("aPropos") };
+  return {
+    title: t("aPropos"),
+    description: t("aProposDescription"),
+  };
 }
 
 export default async function AboutPage() {
@@ -65,9 +68,10 @@ export default async function AboutPage() {
             <div className="sticky top-28">
               <div className="relative h-96 w-full overflow-hidden rounded-2xl">
                 <BlurImage
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80"
+                  src="/images/devanture_cabinet/devanture.png"
                   alt={t('about.title')}
                   className="h-full w-full object-cover"
+                  eager
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
@@ -79,7 +83,7 @@ export default async function AboutPage() {
                   { value: t('about.stat2Value'), label: t('about.stat2Label') },
                   { value: t('about.stat3Value'), label: t('about.stat3Label') },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl border border-border bg-navy/[0.02] p-4 text-center">
+                  <div key={s.label} className="rounded-xl bg-navy/[0.02] p-4 text-center">
                     <p className="font-display text-2xl font-bold text-navy tabular">{s.value}</p>
                     <p className="mt-1 text-[11px] leading-tight text-muted">{s.label}</p>
                   </div>
@@ -88,6 +92,62 @@ export default async function AboutPage() {
             </div>
           </Reveal>
         </div>
+
+        {/* Direction générale */}
+        <section className="mt-16 sm:mt-20">
+          <Reveal as="div">
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                <span className="inline-block h-px w-4 bg-gold/50" />
+                {t('about.directionEyebrow')}
+                <span className="inline-block h-px w-4 bg-gold/50" />
+              </span>
+              <h2 className="mt-4 font-display text-2xl leading-tight text-navy sm:text-3xl">
+                {t('about.directionTitle')}
+              </h2>
+            </div>
+          </Reveal>
+
+          <Reveal as="div" delay={100}>
+            <div className="relative mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl bg-white p-8 shadow-sm sm:p-10">
+              {/* Décor géométrique discret */}
+              <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
+                <svg className="absolute -right-10 -top-10 h-44 w-44 opacity-[0.05]" viewBox="0 0 200 200" fill="none">
+                  <circle cx="100" cy="100" r="80" stroke="#C99A2E" strokeWidth="1" />
+                  <circle cx="100" cy="100" r="55" stroke="#C99A2E" strokeWidth="0.5" />
+                </svg>
+                <span className="absolute bottom-6 right-8 select-none font-display text-7xl font-semibold text-navy/[0.04]" aria-hidden="true">
+                  L
+                </span>
+              </div>
+
+              <div className="relative">
+                {/* Bandeau nom + rôle */}
+                <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+                      {t('about.directionLead')}
+                    </p>
+                    <h3 className="mt-1.5 font-display text-2xl font-semibold text-navy sm:text-3xl">
+                      {t('about.directorName')}
+                    </h3>
+                  </div>
+                  <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
+                    {t('about.directorRole')}
+                  </span>
+                </div>
+
+                {/* Bio */}
+                <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink/75">
+                  <p>{t('about.directorBio1')}</p>
+                  <p className="border-l-2 border-gold/40 pl-4 text-ink/85">
+                    {t('about.directorBio2')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </section>
       </Container>
 
       <CTASection page="aPropos" />

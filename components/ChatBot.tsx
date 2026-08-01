@@ -104,7 +104,7 @@ export default function ChatBot() {
         role="dialog"
         aria-modal="true"
         aria-label={t('chatbot.title')}
-        className={`fixed bottom-24 left-4 right-4 z-50 flex max-h-[calc(100dvh-7rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-2xl transition-all duration-300 sm:left-auto sm:right-5 sm:w-[24rem] ${
+        className={`fixed bottom-24 left-4 right-4 z-50 flex max-h-[calc(100dvh-7rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl bg-white shadow-2xl transition-all duration-300 sm:left-auto sm:right-5 sm:w-[24rem] ${
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >

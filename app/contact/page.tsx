@@ -7,10 +7,14 @@ import Reveal from "@/components/Reveal";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
+import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
-  return { title: t("contact") };
+  return {
+    title: t("contact"),
+    description: t("contactDescription"),
+  };
 }
 
 export default async function ContactPage() {
@@ -39,7 +43,7 @@ export default async function ContactPage() {
       <Container className="py-14 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="stagger-children">
-            <dl className="divide-y divide-border border-y border-border">
+            <dl className="divide-y divide-border">
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
@@ -56,13 +60,17 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1553729459-afe8f2e0e21a" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.phoneLabel')}
                 </dt>
                 <dd className="mt-2 ml-11 flex flex-col gap-1 text-sm">
-                  <a href="tel:+23672696700" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
-                    +236 72 69 67 00
+                  <a href={toTelHref(t('common.phone'))} className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
+                    {t('common.phone')}
+                    <span className="inline-block h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100 group-hover/link:translate-x-0.5" aria-hidden="true">→</span>
+                  </a>
+                  <a href={toTelHref(t('common.phone2'))} className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
+                    {t('common.phone2')}
                     <span className="inline-block h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100 group-hover/link:translate-x-0.5" aria-hidden="true">→</span>
                   </a>
                 </dd>
@@ -70,7 +78,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1596526131083-e8c4e8c0f9f6" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.emailLabel')}
                 </dt>
@@ -89,8 +97,8 @@ export default async function ContactPage() {
                   {t('contact.online')}
                 </dt>
                 <dd className="mt-1.5 flex flex-col gap-2 text-sm">
-                  <a href="https://wa.me/23672696700" target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
-                    {t('contact.whatsapp')} — +236 72 69 67 00
+                  <a href={toWhatsAppHref(t('common.phone'))} target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
+                    {t('contact.whatsapp')} — {t('common.phone')}
                     <svg className="h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
                   </a>
                   <a href="https://www.facebook.com/share/p/1HF9MirmNj/" target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
@@ -102,7 +110,7 @@ export default async function ContactPage() {
             </dl>
           </div>
 
-          <Reveal as="div" className="overflow-hidden rounded-lg border border-border shadow-xs transition-shadow duration-300 hover:shadow-md">
+          <Reveal as="div" className="overflow-hidden rounded-lg shadow-xs transition-shadow duration-300 hover:shadow-md">
             <iframe
               title={t('contact.office')}
               className="h-full min-h-[420px] w-full"

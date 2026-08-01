@@ -1,13 +1,14 @@
 import { getTranslations } from "next-intl/server";
+import { toTelHref } from "@/lib/phone";
 
 export default async function CallButton() {
   const t = await getTranslations("common");
 
   return (
     <a
-      href="tel:+23672696700"
-      aria-label={`${t("callUs")} — ${t("phone")}`}
-      className="group fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gold-bright shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+      href={toTelHref(t("phone"))}
+      aria-label={`${t("callUs")} — ${t("phone")} / ${t("phone2")}`}
+      className="group fixed left-5 top-1/2 z-40 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-gold-bright shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
     >
       {/* Halo pulsant */}
       <span
@@ -33,7 +34,7 @@ export default async function CallButton() {
         className="pointer-events-none absolute left-full ml-3 -translate-x-1 whitespace-nowrap rounded-lg bg-navy px-3 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
         aria-hidden="true"
       >
-        {t("phone")}
+        {t("phone")} / {t("phone2")}
       </span>
     </a>
   );

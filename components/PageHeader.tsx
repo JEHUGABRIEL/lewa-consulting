@@ -34,8 +34,8 @@ export default function PageHeader({
 
   return (
     <div
-      className={`relative overflow-hidden border-b ${
-        hasSlides ? "border-navy-deep" : "border-border bg-gradient-to-b from-white to-paper"
+      className={`relative overflow-hidden ${
+        hasSlides ? "" : "bg-gradient-to-b from-white to-paper"
       }`}
     >
       {/* Slider ou fond unique */}

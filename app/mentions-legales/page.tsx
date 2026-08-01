@@ -4,10 +4,14 @@ import { getTranslations } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
+import { toTelHref } from "@/lib/phone";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
-  return { title: t("legal.title") };
+  return {
+    title: t("legal.title"),
+    description: t("legal.metaDescription"),
+  };
 }
 
 export default async function MentionsLegalesPage() {
@@ -41,8 +45,12 @@ export default async function MentionsLegalesPage() {
               </p>
               <p>
                 {t('common.phone')} :{" "}
-                <a href="tel:+23672696700" className="text-navy underline transition hover:text-red">
-                  +236 72 69 67 00
+                <a href={toTelHref(t('common.phone'))} className="text-navy underline transition hover:text-red">
+                  {t('common.phone')}
+                </a>
+                {" / "}
+                <a href={toTelHref(t('common.phone2'))} className="text-navy underline transition hover:text-red">
+                  {t('common.phone2')}
                 </a>
               </p>
               <p>
@@ -145,10 +153,17 @@ export default async function MentionsLegalesPage() {
               <li>
                 <strong>{t('common.phone')} : </strong>
                 <a
-                  href="tel:+23672696700"
+                  href={toTelHref(t('common.phone'))}
                   className="text-navy underline transition hover:text-red"
                 >
-                  +236 72 69 67 00
+                  {t('common.phone')}
+                </a>
+                {" / "}
+                <a
+                  href={toTelHref(t('common.phone2'))}
+                  className="text-navy underline transition hover:text-red"
+                >
+                  {t('common.phone2')}
                 </a>
               </li>
               <li>
@@ -158,7 +173,7 @@ export default async function MentionsLegalesPage() {
           </section>
 
           {/* Date de mise à jour */}
-          <div className="border-t border-border pt-6 text-xs text-muted">
+          <div className="pt-6 text-xs text-muted">
             <p>{t('legal.lastUpdate')}</p>
           </div>
 

@@ -27,7 +27,7 @@ const backgrounds: Record<PageKey, string[]> = {
   contact: [
     `https://images.unsplash.com/photo-1497366754035-f200968a6e72?${QUALITY}`, // hall d'entrée
     `https://images.unsplash.com/photo-1423666639041-f56000c27a9a?${QUALITY}`, // téléphone
-    `https://images.unsplash.com/photo-1431540014944-4dc6b61c6e8c?${QUALITY}`, // bâtiments ville
+    `https://images.unsplash.com/photo-1449824913935-59a10b8d2000?${QUALITY}`, // bâtiments ville
   ],
   home: [
     `https://images.unsplash.com/photo-1497366216548-37526070297c?${QUALITY}`, // hall moderne

@@ -11,7 +11,7 @@ export function SkeletonBox({ className = "" }: { className?: string }) {
 
 export function SkeletonCard() {
   return (
-    <div className="rounded-xl border border-border bg-white p-5" aria-hidden="true">
+    <div className="rounded-xl bg-white p-5 shadow-sm" aria-hidden="true">
       <SkeletonBox className="mb-3 h-1 w-8 rounded-full" />
       <SkeletonBox className="mb-2 h-4 w-3/4" />
       <SkeletonBox className="mb-1 h-3 w-full" />

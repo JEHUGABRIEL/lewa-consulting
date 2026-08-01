@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -39,15 +39,6 @@ const expertiseIcon = (icon: string) => {
           <path d="M12 6v6l4 2" />
         </svg>
       );
-    case "rh":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-      );
     case "formation":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -56,17 +47,29 @@ const expertiseIcon = (icon: string) => {
           <path d="M8 11h6" />
         </svg>
       );
-    case "privee":
+    case "audit":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <path d="M21 12a9 9 0 1 1-9-9" />
+          <polyline points="21 3 12 12 14 12 14 16 11 16" />
+          <path d="M21 3h-4" />
         </svg>
       );
-    case "juridique":
+    case "briefcase":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+      );
+    case "event":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <polyline points="9 15 11 17 15 13" />
         </svg>
       );
     default:
@@ -76,65 +79,172 @@ const expertiseIcon = (icon: string) => {
 
 // ---- Composant carousel de témoignages ----
 
-function TestimonialCard({ testimonial, idx, tr }: { testimonial: (typeof testimonials)[number]; idx: number; tr: (key: string) => string }) {
+// `tr` reçoit `t` (useTranslations) — accepte les valeurs d'interpolation
+// {current}/{total} pour des clés comme `testimonials.page`.
+type TrFn = (key: string, values?: Record<string, string | number>) => string;
+
+function TestimonialCard({ testimonial, idx, tr }: { testimonial: (typeof testimonials)[number]; idx: number; tr: TrFn }) {
   return (
-    <div className="relative flex h-full flex-col rounded-xl border border-border bg-white p-6">
-      <div className="absolute -top-3 -left-2 text-5xl leading-none text-gold/15 select-none pointer-events-none" aria-hidden="true">
+    <figure className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-transparent bg-white px-7 py-9 text-center shadow-[0_1px_3px_rgba(12,35,64,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_18px_44px_rgba(12,35,64,0.10)] sm:px-8">
+      {/* Accent doré en haut */}
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true" />
+
+      {/* Grand guillemet décoratif */}
+      <span className="pointer-events-none absolute -top-6 right-5 select-none font-display text-[6.5rem] leading-none text-gold/[0.07] transition-colors duration-500 group-hover:text-gold/[0.12]" aria-hidden="true">
         &ldquo;
-      </div>
-      <div className="mb-3 flex items-center gap-0.5">
+      </span>
+
+      {/* Étoiles */}
+      <div className="relative mb-5 flex items-center justify-center gap-1">
         {[...Array(5)].map((_, i) => (
-          <svg key={i} className="h-3.5 w-3.5 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <svg key={i} className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
         ))}
       </div>
-      <blockquote className="text-sm leading-relaxed text-ink/80 flex-1">
+
+      <blockquote className="relative flex-1 text-sm leading-relaxed text-ink/80 sm:text-[15px] sm:leading-7">
         &ldquo;{tr(`testimonials.quote${idx}`)}&rdquo;
       </blockquote>
-      <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
-        <BlurImage
-          src={testimonial.image}
-          alt={testimonial.imageAlt}
-          className="h-9 w-9 shrink-0 rounded-full object-cover"
-        />
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-navy">{tr(`testimonials.name${idx}`)}</p>
-          <p className="truncate text-xs text-muted">{tr(`testimonials.role${idx}`)}, {tr(`testimonials.org${idx}`)}</p>
-        </div>
-      </div>
-    </div>
+
+      <figcaption className="relative mt-7 flex flex-col items-center gap-3 border-t border-border/70 pt-6">
+        <span className="relative">
+          <span className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-gold via-gold-bright/60 to-gold/20" aria-hidden="true" />
+          <BlurImage
+            src={testimonial.image}
+            alt={testimonial.imageAlt}
+            className="relative h-14 w-14 shrink-0 rounded-full object-cover ring-[3px] ring-white"
+          />
+        </span>
+        <span>
+          <p className="font-display text-sm font-semibold text-navy">{tr(`testimonials.name${idx}`)}</p>
+          <p className="mt-1 text-xs text-muted">{tr(`testimonials.role${idx}`)}</p>
+          <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-gold">{tr(`testimonials.org${idx}`)}</p>
+        </span>
+      </figcaption>
+    </figure>
   );
 }
 
-function TestimonialCarousel({ tr }: { tr: (key: string) => string }) {
+function TestimonialCarousel({ tr }: { tr: TrFn }) {
+  const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const duplicated = [...testimonials, ...testimonials];
+  // Mobile-first : 1 par slide au premier rendu (pas de flash d'hydratation
+  // sur mobile), le matchMedia bascule ensuite vers 2/3 sur écrans larges.
+  const [perView, setPerView] = useState(1); // 1 mobile · 2 tablette · 3 desktop
+
+  // Nombre de témoignages par slide selon la largeur d'écran
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 639px)");
+    const tablet = window.matchMedia("(min-width: 640px) and (max-width: 1023px)");
+    const update = () => setPerView(mobile.matches ? 1 : tablet.matches ? 2 : 3);
+    update();
+    mobile.addEventListener("change", update);
+    tablet.addEventListener("change", update);
+    return () => {
+      mobile.removeEventListener("change", update);
+      tablet.removeEventListener("change", update);
+    };
+  }, []);
+
+  // Pages : groupes de `perView` témoignages (idx conservé pour les clés i18n)
+  const pages = [];
+  for (let i = 0; i < testimonials.length; i += perView) {
+    pages.push(testimonials.map((tm, idx) => ({ tm, idx })).slice(i, i + perView));
+  }
+  const pageCount = pages.length;
+  // `current` est clampé au rendu : si le viewport rétrécit (ex. rotation,
+  // redimensionnement), une valeur d'index obsolète ne casse pas la piste.
+  const current = Math.min(index, pageCount - 1);
+
+  // Défilement automatique (pause au survol, reset après navigation manuelle)
+  useEffect(() => {
+    if (paused || pageCount <= 1) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % pageCount), 6000);
+    return () => clearInterval(id);
+  }, [paused, pageCount, index]);
+
+  const goTo = (i: number) => setIndex(((i % pageCount) + pageCount) % pageCount);
+
+  // Flèches masquées sur mobile (hidden sm:flex) : à l'étroit elles
+  // chevaucheraient le bord des cartes — les dots suffisent sur mobile,
+  // les flèches apparaissent sur écrans larges (sm+).
+  const arrowCls =
+    "absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-white text-navy shadow-[0_4px_16px_rgba(12,35,64,0.08)] transition-all duration-300 hover:scale-105 hover:border-navy hover:bg-navy hover:text-gold-bright hover:shadow-lg active:scale-95 sm:flex sm:h-12 sm:w-12";
 
   return (
     <div
-      className="relative mt-10 overflow-hidden"
+      className="relative mx-auto mt-12 max-w-6xl px-4 sm:px-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Dégradés de bord pour fondu */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-navy/[0.02] via-navy/[0.01] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-navy/[0.02] via-navy/[0.01] to-transparent" />
-
-      <div
-        className="flex"
-        style={{
-          animation: `marquee ${testimonials.length * 8}s linear infinite`,
-          animationPlayState: paused ? "paused" : "running",
-          width: "fit-content",
-        }}
-      >
-        {duplicated.map((tm, i) => (
-          <div key={`${tm.name}-${i}`} className="w-[90vw] max-w-[420px] shrink-0 px-3">
-            <TestimonialCard testimonial={tm} idx={i % testimonials.length} tr={tr} />
-          </div>
-        ))}
+      {/* Piste défilante.
+          ⚠ Le padding latéral vit sur le wrapper (px-4 sm:px-16), PAS sur ce
+          conteneur overflow : s'il était ici, translateX(-current*100%) se
+          calculerait sur la piste réduite et les bords des cartes voisines
+          resteraient visibles de chaque côté (fuite = bug visuel signalé). */}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {pages.map((page, i) => (
+            <div key={i} className="w-full shrink-0 px-2 sm:px-3" aria-hidden={i !== current}>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                {page.map(({ tm, idx }) => (
+                  <TestimonialCard key={tm.name} testimonial={tm} idx={idx} tr={tr} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Flèches prev / next (masquées si une seule page) */}
+      {pageCount > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={() => goTo(current - 1)}
+            aria-label={tr('testimonials.prev')}
+            className={`${arrowCls} left-0 sm:-left-2`}
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => goTo(current + 1)}
+            aria-label={tr('testimonials.next')}
+            className={`${arrowCls} right-0 sm:-right-2`}
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Indicateurs (masqués si une seule page) */}
+      {pageCount > 1 && (
+        <div className="mt-8 flex items-center justify-center gap-2.5">
+          {pages.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={tr('testimonials.page', { current: i + 1, total: pageCount })}
+              aria-pressed={i === current}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                i === current
+                  ? "w-8 bg-gold shadow-[0_2px_8px_rgba(184,137,44,0.5)]"
+                  : "w-2.5 bg-navy/20 hover:scale-125 hover:bg-navy/40"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -143,7 +253,7 @@ function TestimonialCarousel({ tr }: { tr: (key: string) => string }) {
 
 function PartnerCard({ p }: { p: (typeof partners)[number] }) {
   return (
-    <div className="flex flex-col items-center rounded-xl border border-border bg-white p-4 text-center w-40 shrink-0">
+    <div className="flex flex-col items-center rounded-xl bg-white p-4 shadow-sm text-center w-40 shrink-0">
       <div className="relative mb-3 flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-navy/[0.03] to-navy/[0.06]">
         <Image
           src={p.image.split("?")[0]}
@@ -212,7 +322,7 @@ function StatCarousel({ stats }: { stats: { value: string; label: string }[] }) 
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/90 px-4 py-3 text-center shadow-lg backdrop-blur-sm">
+      <div className="relative overflow-hidden rounded-xl bg-white/90 px-4 py-3 text-center shadow-lg backdrop-blur-sm">
         {/* Valeur animée */}
         <div className="relative min-h-[60px]">
           {stats.map((s, i) => (
@@ -264,7 +374,7 @@ export default function Home() {
       {/* ================================================
            HERO — section principale avec slider
            ================================================ */}
-      <section className="relative overflow-hidden border-b border-navy-deep">
+      <section className="relative overflow-hidden">
         {/* Slider d'arrière-plans */}
         <HeroSlider slides={backgrounds} interval={5000} onSlideChange={setCurrentSlide} />
 
@@ -316,7 +426,7 @@ export default function Home() {
       {/* ================================================
            QUI SOMMES-NOUS
            ================================================ */}
-      <section className="border-b border-border bg-navy/[0.02]">
+      <section className="bg-navy/[0.02]">
         <Container className="py-14 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-5">
             {/* Texte */}
@@ -355,11 +465,11 @@ export default function Home() {
             {/* Stats + image */}
             <Reveal as="div" delay={100} className="lg:col-span-2">
               <div className="sticky top-28">
-                {/* Image du cabinet avec chiffres clés superposés */}
+                {/* Devanture du cabinet avec chiffres clés superposés */}
                 <div className="relative h-96 w-full overflow-hidden rounded-2xl">
                   <BlurImage
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80"
-                    alt="Bureau du Cabinet COSI Lewa-Consulting Group"
+                    src="/images/devanture_cabinet/devanture.png"
+                    alt="Devanture du Cabinet COSI Lewa-Consulting Group"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -384,7 +494,7 @@ export default function Home() {
       {/* ================================================
            DOMAINES D'INTERVENTION — les 6 expertises
            ================================================ */}
-      <section className="border-b border-border">
+      <section>
         <Container className="py-14 sm:py-16">
           <h2 className="font-display text-2xl text-navy animate-fade-in">
             {t('services.title')}
@@ -393,7 +503,7 @@ export default function Home() {
             {servicesData.map((s, i) => (
               <Link key={s.slug} href={`/services/${s.slug}`}>
                 <Reveal as="div" delay={i * 60}>
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
                     {/* Image Unsplash en haut avec blur-up */}
                     <div className="relative h-44 w-full overflow-hidden rounded-t-xl">
                       <BlurImage
@@ -440,7 +550,7 @@ export default function Home() {
       {/* ================================================
            NOTRE MISSION
            ================================================ */}
-      <section className="relative border-b border-border bg-gradient-to-br from-navy to-navy-deep text-paper">
+      <section className="relative bg-gradient-to-br from-navy to-navy-deep text-paper">
         {/* Fond image subtile */}
         <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
           <Image
@@ -469,7 +579,7 @@ export default function Home() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {ourMission.items.map((item, i) => (
               <Reveal key={item.title} as="div" delay={i * 80}>
-                <div className="group h-full rounded-xl border border-paper/15 bg-white/[0.04] p-6 backdrop-blur-sm transition-colors duration-300 hover:bg-white/[0.07]">
+                <div className="group h-full rounded-xl bg-white/[0.04] p-6 backdrop-blur-sm transition-colors duration-300 hover:bg-white/[0.07]">
                   <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gold-bright/15 text-gold-bright">
                     {item.icon === "shield" && (
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -515,7 +625,7 @@ export default function Home() {
       {/* ================================================
            FORMATIONS VEDETTES
            ================================================ */}
-      <section className="border-b border-border">
+      <section>
         <Container className="py-14 sm:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -542,7 +652,7 @@ export default function Home() {
             {featuredFormations.map((f, idx) => (
               <Reveal key={f.slug} as="div">
                 <Link href={`/formations/${f.slug}`}>
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
                     {/* Image Unsplash en haut */}
                     <div className="relative h-40 w-full overflow-hidden">
                       <BlurImage
@@ -606,7 +716,7 @@ export default function Home() {
       {/* ================================================
            ACTUALITÉS / BLOG
            ================================================ */}
-      <section className="border-b border-border">
+      <section className="bg-navy/[0.02]">
         <Container className="py-14 sm:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -627,7 +737,7 @@ export default function Home() {
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 stagger-children">
             {posts.map((post, i) => (
               <Reveal key={post.slug} as="div" delay={i * 60}>
-                <div className="group relative flex h-full flex-col rounded-xl border border-border bg-white p-5 hover-lift lg:p-7">
+                <div className="group relative flex h-full flex-col rounded-xl bg-white p-5 shadow-sm hover-lift lg:p-7">
                   {/* Illustration */}
                   <div className="mb-3 h-40 w-full overflow-hidden rounded-lg">
                     <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
@@ -679,7 +789,7 @@ export default function Home() {
       {/* ================================================
            PARTENAIRES — carousel autodéfilant
            ================================================ */}
-      <section className="border-b border-border">
+      <section className="bg-navy/[0.02]">
         <Container className="py-14 sm:py-16">
           <div>              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                 <span className="inline-block h-px w-4 bg-gold/50" />
@@ -702,7 +812,7 @@ export default function Home() {
       {/* ================================================
            TÉMOIGNAGES — carousel 3/2/1
            ================================================ */}
-      <section className="border-b border-border bg-navy/[0.02]">
+      <section>
         <Container className="py-14 sm:py-16">
           <div>              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                 <span className="inline-block h-px w-4 bg-gold/50" />

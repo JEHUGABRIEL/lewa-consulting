@@ -48,7 +48,7 @@ export default function FAQSection({
         <h2 className="mt-4 font-display text-2xl text-navy">{title}</h2>
       </div>
 
-      <div className="mt-8 divide-y divide-border border-t border-border">
+      <div className="mt-8 divide-y divide-border">
         {items.map((item, i) => (
           <Reveal as="div" key={item.q} delay={i * 80}>
             <details className="group py-4">

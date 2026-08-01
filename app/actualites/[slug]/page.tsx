@@ -22,7 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) {
     return { title: t('blog.notFound') };
   }
-  return { title: t(`posts.${post.slug}.title`) };
+  return {
+    title: t(`posts.${post.slug}.title`),
+    description: t(`posts.${post.slug}.excerpt`),
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -53,7 +56,7 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <main>
       {/* Hero avec slider */}
-      <section className="relative overflow-hidden border-b border-navy-deep">
+      <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
 
         <Container className="relative z-10 py-24 sm:py-[7.5rem]">
@@ -146,7 +149,7 @@ export default async function ArticlePage({ params }: Props) {
               {prevPost ? (
                 <Link
                   href={`/actualites/${prevPost.slug}`}
-                  className="group flex flex-1 items-center gap-2 rounded-lg border border-border bg-white p-3 transition-all duration-200 hover:border-navy/20 hover:shadow-sm"
+                  className="group flex flex-1 items-center gap-2 rounded-lg border border-transparent bg-white p-3 shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md"
                 >
                   <svg
                     className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 group-hover:-translate-x-1"
@@ -174,7 +177,7 @@ export default async function ArticlePage({ params }: Props) {
               {nextPost ? (
                 <Link
                   href={`/actualites/${nextPost.slug}`}
-                  className="group flex flex-1 items-center gap-2 rounded-lg border border-border bg-white p-3 text-right transition-all duration-200 hover:border-navy/20 hover:shadow-sm"
+                  className="group flex flex-1 items-center gap-2 rounded-lg border border-transparent bg-white p-3 text-right transition-all duration-200 hover:border-navy/20 hover:shadow-sm"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">{t('blog.nextArticle')}</p>
@@ -221,7 +224,7 @@ export default async function ArticlePage({ params }: Props) {
                         href={`/actualites/${r.slug}`}
                         className="group block"
                       >
-                        <div className="overflow-hidden rounded-xl border border-border bg-white transition-all duration-200 hover:border-navy/20 hover:shadow-sm">
+                        <div className="overflow-hidden rounded-xl border border-transparent bg-white shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md">
                           {/* Image */}
                           <div className="relative h-28 w-full overflow-hidden">
                             <PostIllustration category={r.category} src={r.image} alt={t(`posts.${r.slug}.imageAlt`)} />

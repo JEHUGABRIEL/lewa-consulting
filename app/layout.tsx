@@ -35,6 +35,12 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${t("suffix")}`,
     },
     description: t("description"),
+    icons: {
+      icon: [
+        { url: "/images/favicon_lewa-512.png", sizes: "512x512", type: "image/png" },
+        { url: "/images/favicon_lewa-64.png", sizes: "64x64", type: "image/png" },
+      ],
+    },
   };
 }
 

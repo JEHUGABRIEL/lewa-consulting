@@ -118,15 +118,12 @@ export default function FormationsFilter({
         ))}
       </div>
 
-      {/* Separator */}
-      <hr className="my-6 border-border" />
-
       {/* Cards grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {displayed.map((r, i) => (
           <Reveal key={r.slug} as="div" delay={i * 60}>
             <Link href={`/formations/${r.slug}`}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white hover-lift">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
                 {/* Image Unsplash en haut */}
                 <div className="relative h-32 w-full overflow-hidden">
                   <BlurImage

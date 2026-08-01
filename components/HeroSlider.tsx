@@ -79,6 +79,11 @@ export default function HeroSlider({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      {/* Preload de la 1ʳᵉ slide (LCP) : fonds CSS non optimisés par next/image */}
+      {items[0] && (
+        <link rel="preload" as="image" href={items[0].src} fetchPriority="high" />
+      )}
+
       {/* Slides empilés — seul le slide actif est visible */}
       {items.map((slide, i) => (
         <div

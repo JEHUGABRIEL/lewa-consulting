@@ -1,15 +1,18 @@
 import Mark from "./Mark";
 
-export default function Loader() {
+export default function Loader({ label }: { label: string }) {
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-navy" role="status" aria-label="Chargement de la page">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-navy" role="status" aria-label={label}>
       {/* Accent bar top */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-gold-bright via-red to-navy" />
 
       {/* Animated logo */}
       <div className="relative animate-float">
         <div className="absolute inset-0 animate-ping-slow rounded-full bg-gold-bright/10" />
-        <Mark className="relative h-16 w-16 text-paper/90" />
+        {/* Logo sur fond navy : cadre blanc arrondi */}
+        <div className="relative rounded-2xl bg-white p-3 shadow-2xl">
+          <Mark className="h-14 w-auto" />
+        </div>
       </div>
 
       {/* Text */}

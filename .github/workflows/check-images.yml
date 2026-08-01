@@ -1,0 +1,28 @@
+name: check-images
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: check-images-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  urls:
+    name: URLs d'images vivantes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Le script n'utilise que des modules Node natifs (aucune dépendance) :
+      # pas besoin de npm ci, le check s'exécute directement.
+      - name: Vérifier que les URLs Unsplash répondent 200
+        run: node scripts/check-images.mjs
