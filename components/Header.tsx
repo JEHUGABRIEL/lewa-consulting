@@ -459,7 +459,8 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
                 scrolled ? "text-sm" : "text-base sm:text-lg"
               }`}
             >
-              COSI LEWA
+              {/* « COSI » masqué sur mobile (seul « LEWA » reste à côté du logo) */}
+              <span className="hidden sm:inline">COSI </span>LEWA
             </span>
           </span>
         </Link>
@@ -803,31 +804,59 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
           </Link>
         </div>
 
-        {/* Bouton menu mobile */}
-        <button
-          ref={menuButtonRef}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-xl border border-border bg-paper transition hover:border-navy/30 hover:bg-navy/[0.04] active:scale-95 md:hidden"
-          onClick={() => setOpen((o) => !o)}
-          aria-label={t('nav.openMenu')}
-          aria-expanded={open}
-          aria-controls="mobile-drawer"
-        >
-          <span
-            className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
-              open ? "translate-y-[6.5px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
-              open ? "-translate-y-[6.5px] -rotate-45" : ""
-            }`}
-          />
-        </button>
+        {/* Actions mobiles — langue + hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          {/* Sélecteur de langue mobile (rapide, à côté du hamburger) */}
+          <div className="relative">
+            <select
+              value={locale}
+              onChange={(e) => switchLocale(e.target.value)}
+              aria-label={t('common.language')}
+              className="cursor-pointer appearance-none rounded-full border border-navy/20 bg-paper py-1.5 pl-3 pr-7 text-xs font-semibold text-navy outline-none transition hover:border-navy/40 focus:border-navy/60 focus:ring-2 focus:ring-navy/10"
+            >
+              <option value="fr">FR</option>
+              <option value="en">EN</option>
+            </select>
+            {/* Chevron décoratif (le select natif masque le sien) */}
+            <svg
+              className="pointer-events-none absolute right-2.5 top-1/2 h-3 w-3 -translate-y-1/2 text-navy/50"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 4.5L6 7.5L9 4.5" />
+            </svg>
+          </div>
+
+          <button
+            ref={menuButtonRef}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-xl border border-border bg-paper transition hover:border-navy/30 hover:bg-navy/[0.04] active:scale-95"
+            onClick={() => setOpen((o) => !o)}
+            aria-label={t('nav.openMenu')}
+            aria-expanded={open}
+            aria-controls="mobile-drawer"
+          >
+            <span
+              className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
+                open ? "translate-y-[6.5px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
+                open ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`h-[1.5px] w-5 bg-navy transition-all duration-300 ${
+                open ? "-translate-y-[6.5px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Menu mobile — overlay */}
@@ -1028,40 +1057,8 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
           </nav>
         </div>
 
-        {/* Drawer footer — langue + coordonnées */}
+        {/* Drawer footer — coordonnées */}
         <div className="shrink-0 border-t border-border bg-paper px-5 py-4">
-          {/* Sélecteur de langue déroulant */}
-          <div className="mb-4">
-            <label htmlFor="mobile-locale-select" className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-muted">
-              {t('common.language')}
-            </label>
-            <div className="relative">
-              <select
-                id="mobile-locale-select"
-                value={locale}
-                onChange={(e) => switchLocale(e.target.value)}
-                aria-label={t('common.language')}
-                className="w-full cursor-pointer appearance-none rounded-xl border border-navy/20 bg-paper py-2.5 pl-4 pr-10 text-sm font-semibold text-navy outline-none transition hover:border-navy/40 focus:border-navy/60 focus:ring-2 focus:ring-navy/10"
-              >
-                <option value="fr">Français</option>
-                <option value="en">English</option>
-              </select>
-              {/* Chevron décoratif (le select natif masque le sien) */}
-              <svg
-                className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-navy/50"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 4.5L6 7.5L9 4.5" />
-              </svg>
-            </div>
-          </div>
-
           {/* Coordonnées */}
           <div className="space-y-2.5">
             <a
