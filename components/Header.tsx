@@ -1028,26 +1028,38 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
           </nav>
         </div>
 
-        {/* Drawer footer — langue segmentée + coordonnées */}
+        {/* Drawer footer — langue + coordonnées */}
         <div className="shrink-0 border-t border-border bg-paper px-5 py-4">
-          {/* Sélecteur de langue segmenté */}
-          <div
-            className="mb-4 flex items-center rounded-full border border-border bg-navy/[0.03] p-1"
-            role="group"
-            aria-label={t('common.language')}
-          >
-            {(["fr", "en"] as const).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => switchLocale(lang)}
-                aria-pressed={locale === lang}
-                className={`flex-1 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
-                  locale === lang ? "bg-navy text-paper shadow-sm" : "text-muted hover:text-navy"
-                }`}
+          {/* Sélecteur de langue déroulant */}
+          <div className="mb-4">
+            <label htmlFor="mobile-locale-select" className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-muted">
+              {t('common.language')}
+            </label>
+            <div className="relative">
+              <select
+                id="mobile-locale-select"
+                value={locale}
+                onChange={(e) => switchLocale(e.target.value)}
+                aria-label={t('common.language')}
+                className="w-full cursor-pointer appearance-none rounded-xl border border-navy/20 bg-paper py-2.5 pl-4 pr-10 text-sm font-semibold text-navy outline-none transition hover:border-navy/40 focus:border-navy/60 focus:ring-2 focus:ring-navy/10"
               >
-                {lang}
-              </button>
-            ))}
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+              </select>
+              {/* Chevron décoratif (le select natif masque le sien) */}
+              <svg
+                className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-navy/50"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 4.5L6 7.5L9 4.5" />
+              </svg>
+            </div>
           </div>
 
           {/* Coordonnées */}
