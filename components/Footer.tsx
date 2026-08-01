@@ -64,7 +64,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/moctar-lewa-286232217"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-paper/15 text-paper/40 transition hover:border-gold-bright/40 hover:text-gold-bright"
                 aria-label="LinkedIn"
               >
