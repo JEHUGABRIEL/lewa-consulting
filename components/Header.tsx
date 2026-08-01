@@ -842,7 +842,6 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
       <div
         id="mobile-drawer"
         ref={drawerRef}
-        tabIndex={-1}
         inert={!open}
         className={`fixed inset-y-0 right-0 z-50 flex w-[86vw] max-w-sm flex-col bg-paper shadow-2xl md:hidden transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "translate-x-full"
