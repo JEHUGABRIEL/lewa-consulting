@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 /**
- * Logo officiel du Cabinet (logo_lewa.png).
- * Bannière horizontale sur fond blanc — affichée en `object-contain`.
+ * Logo officiel du Cabinet (favicon_lewa.png).
+ * Bannière horizontale à fond transparent — affichée en `object-contain`.
  */
 export default function Mark({
   className = "h-10 w-auto",
@@ -13,10 +13,10 @@ export default function Mark({
 }) {
   return (
     <Image
-      src="/images/logo_lewa.png"
+      src="/images/favicon_lewa.png"
       alt="Logo COSI Lewa-Consulting Group"
-      width={1241}
-      height={848}
+      width={1144}
+      height={491}
       loading={priority ? "eager" : "lazy"}
       className={`${className} object-contain`}
     />
