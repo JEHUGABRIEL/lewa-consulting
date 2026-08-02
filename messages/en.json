@@ -112,8 +112,6 @@
     "allExpertises": "All our expertise",
     "tocTitle": "Table of contents",
     "tocAbout": "About",
-    "tocBenefits": "Benefits",
-    "benefitsTitle": "Benefits for your organization",
     "howItWorksTitle": "How it works",
     "howItWorksLead": "A structured four-step approach, from first contact to the delivery of results.",
     "howStep1Title": "Get in touch",
@@ -152,8 +150,7 @@
         "imageAlt": "Audit and assurance",
         "tags": "Financial audit\nInternal audit\nCompliance\nRisk",
         "points": "Financial audit\nAccounting audit\nOrganizational audit\nInstitutional audit\nOperational audit\nInternal audit\nCompliance audit\nAudit of projects funded by technical and financial partners\nEvaluation of internal control systems\nRisk mapping and management\nFinancial reviews\nAssurance engagements",
-        "details": "COSI Lewa-Consulting Group carries out audit and assurance engagements for public, private and non-profit organizations. Our auditors review your financial statements, processes and organization to ensure their reliability and compliance.\nWe cover the full audit spectrum: financial, accounting, organizational, institutional, operational, internal and compliance audit, including the audit of projects funded by technical and financial partners.\nOur teams also evaluate your internal control systems, map and manage your risks, and conduct financial reviews and assurance engagements.",
-        "benefits": "Securing your financial statements and processes\nCompliance with applicable standards and frameworks\nRisk and internal control management\nQuality assurance for your partners and donors"
+        "details": "COSI Lewa-Consulting Group carries out audit and assurance engagements for public, private and non-profit organizations. Our auditors review your financial statements, processes and organization to ensure their reliability and compliance.\nWe cover the full audit spectrum: financial, accounting, organizational, institutional, operational, internal and compliance audit, including the audit of projects funded by technical and financial partners.\nOur teams also evaluate your internal control systems, map and manage your risks, and conduct financial reviews and assurance engagements."
       },
       "expertise-comptable-finance": {
         "title": "Accounting Expertise & Finance",
@@ -162,8 +159,7 @@
         "imageAlt": "Accounting expertise and finance",
         "tags": "Accounting\nFinancial statements\nTax\nDigitalization",
         "points": "Bookkeeping and accounting supervision\nPreparation of financial statements\nAssistance with year-end closing\nAccounting organization\nTax assistance\nSetting up administrative and financial procedures\nDigitalization of accounting\nDeployment of management software (SAGE and other ERPs)",
-        "details": "The firm handles the bookkeeping and accounting supervision of your organization, the preparation of your financial statements and assistance with year-end closing, in accordance with applicable frameworks.\nWe organize your accounting, provide tax assistance and set up administrative and financial procedures adapted to your structure.\nWe also support you in digitalizing your accounting and deploying management software (SAGE and other ERPs) to secure and modernize your tools.",
-        "benefits": "Reliable accounting compliant with frameworks\nFinancial statements prepared on time\nOptimized administrative and financial procedures\nDigitalized accounting"
+        "details": "The firm handles the bookkeeping and accounting supervision of your organization, the preparation of your financial statements and assistance with year-end closing, in accordance with applicable frameworks.\nWe organize your accounting, provide tax assistance and set up administrative and financial procedures adapted to your structure.\nWe also support you in digitalizing your accounting and deploying management software (SAGE and other ERPs) to secure and modernize your tools."
       },
       "conseil-gouvernance-organisationnel": {
         "title": "Governance Consulting & Organizational Development",
@@ -172,8 +168,7 @@
         "imageAlt": "Governance consulting and organizational development",
         "tags": "Governance\nProcedures\nStrategy\nMonitoring & evaluation",
         "points": "Institutional diagnosis\nDevelopment of procedure manuals\nAssociative governance\nStrengthening internal control\nStrategic planning\nResults-based management\nMonitoring and evaluation\nFinancial management of projects",
-        "details": "The firm supports organizations in their institutional and organizational development: institutional diagnosis, development of procedure manuals and strengthening of associative governance.\nWe support you in strengthening your internal control, strategic planning and results-based management.\nOur experts also assist you with monitoring and evaluation and the financial management of your projects to ensure performance and accountability.",
-        "benefits": "Clarified governance and formalized procedures\nStrengthened internal control\nResults-based strategic management\nSecured financial management of projects"
+        "details": "The firm supports organizations in their institutional and organizational development: institutional diagnosis, development of procedure manuals and strengthening of associative governance.\nWe support you in strengthening your internal control, strategic planning and results-based management.\nOur experts also assist you with monitoring and evaluation and the financial management of your projects to ensure performance and accountability."
       },
       "formation-renforcement-capacites": {
         "title": "Training & Capacity Building",
@@ -182,8 +177,7 @@
         "imageAlt": "Training and capacity building",
         "tags": "Accounting\nFinance\nOffice automation\nManagement",
         "points": "Audit\nAccounting\nFinance\nIT\nOffice automation\nSAGE Accounting\nNGO management\nTransport and Logistics\nHuman resources management\nProcurement\nEntrepreneurship\nLeadership\nProject management",
-        "details": "The firm organizes professional training in the following areas: audit, accounting, finance, IT, office automation, SAGE Accounting, NGO management, transport and logistics, human resources management, procurement, entrepreneurship, leadership and project management.\nOur training courses are delivered by experienced professionals and designed to be practical and immediately operational.\nAt the end of each training, you receive a certificate of participation and an attestation showcasing your new skills.",
-        "benefits": "Practical, certified training\nExperienced professional trainers\nCertificate and attestation included\nModules adapted to organizations' needs"
+        "details": "The firm organizes professional training in the following areas: audit, accounting, finance, IT, office automation, SAGE Accounting, NGO management, transport and logistics, human resources management, procurement, entrepreneurship, leadership and project management.\nOur training courses are delivered by experienced professionals and designed to be practical and immediately operational.\nAt the end of each training, you receive a certificate of participation and an attestation showcasing your new skills."
       },
       "accompagnement-entreprises": {
         "title": "Business & Entrepreneurship Support",
@@ -192,8 +186,7 @@
         "imageAlt": "Business and entrepreneurship support",
         "tags": "Business creation\nBusiness plan\nStrategy\nFinancing",
         "points": "Business creation\nBusiness plans\nFeasibility studies\nStrategic advice\nFormalization of businesses\nSupport in seeking financing",
-        "details": "The firm supports entrepreneurs and businesses at every stage of their development: business creation, business plans and feasibility studies.\nWe provide strategic advice, support you in formalizing your business and in seeking financing.\nPersonalized support to turn your projects into lasting successes.",
-        "benefits": "Structured and viable projects\nSolid business plans\nEasier access to financing\nPersonalized strategic advice"
+        "details": "The firm supports entrepreneurs and businesses at every stage of their development: business creation, business plans and feasibility studies.\nWe provide strategic advice, support you in formalizing your business and in seeking financing.\nPersonalized support to turn your projects into lasting successes."
       },
       "evenements-professionnels": {
         "title": "Professional Events Organization",
@@ -202,8 +195,7 @@
         "imageAlt": "Professional events organization",
         "tags": "Forums\nConferences\nSeminars\nTrade shows",
         "points": "Economic forums\nInternational conferences\nSeminars\nWorkshops\nB2B meetings\nAwards and official ceremonies\nTrade shows",
-        "details": "The firm designs and organizes large-scale professional events: economic forums, international conferences, seminars, workshops and B2B meetings.\nWe also handle awards and official ceremonies as well as trade shows.\nFrom design to delivery, we ensure rigorous organization for events that meet your ambitions.",
-        "benefits": "Large-scale professional events\nTurnkey organization\nIncreased visibility and networking\nPolished ceremonies and trade shows"
+        "details": "The firm designs and organizes large-scale professional events: economic forums, international conferences, seminars, workshops and B2B meetings.\nWe also handle awards and official ceremonies as well as trade shows.\nFrom design to delivery, we ensure rigorous organization for events that meet your ambitions."
       }
     },
     "notFound": "Service not found",
@@ -251,8 +243,6 @@
     "catBureautiqueLead3": "Each training concludes with a certificate and a professional CV to enhance your achievements.",
     "catBureautiqueSectionTitle": "Office & Professional Development training",
     "catBureautiqueCount": "{count} training program available to strengthen your business skills.",
-    "paymentInfo": "Amount payable in weekly installments. Flexible training available on weekdays, evenings or weekends.",
-    "contactInfo": "To register, contact us at <a href=\"tel:+23672696700\" class=\"group font-medium text-navy transition hover:text-red\"><span>+236 72 69 67 00</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a> or at <a href=\"tel:+23675343719\" class=\"group font-medium text-navy transition hover:text-red\"><span>+236 75 34 37 19</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a>, or via our <a href=\"/contact\" class=\"group font-medium text-navy transition hover:text-red\"><span>contact page</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a>.",
     "levelInfoTitle": "Level {level}",
     "levelInfoDebutant": "No prerequisites needed. This training is accessible to everyone, regardless of background.",
     "levelInfoIntermediaire": "Basic knowledge in the field is recommended to get the most out of this training.",

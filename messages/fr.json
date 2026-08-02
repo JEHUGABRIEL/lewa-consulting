@@ -112,8 +112,6 @@
     "allExpertises": "Toutes nos expertises",
     "tocTitle": "Sommaire",
     "tocAbout": "À propos",
-    "tocBenefits": "Bénéfices",
-    "benefitsTitle": "Bénéfices pour votre organisation",
     "howItWorksTitle": "Comment ça marche",
     "howItWorksLead": "Un accompagnement structuré en quatre étapes, de la prise de contact à la livraison des résultats.",
     "howStep1Title": "Prise de contact",
@@ -152,8 +150,7 @@
         "imageAlt": "Audit et assurance",
         "tags": "Audit financier\nAudit interne\nConformité\nRisques",
         "points": "Audit financier\nAudit comptable\nAudit organisationnel\nAudit institutionnel\nAudit opérationnel\nAudit interne\nAudit de conformité\nAudit des projets financés par les partenaires techniques et financiers\nÉvaluation des systèmes de contrôle interne\nCartographie et gestion des risques\nRevues financières\nMissions d'assurance",
-        "details": "Le Cabinet COSI Lewa-Consulting Group réalise des missions d'audit et d'assurance auprès des organisations publiques, privées et associatives. Nos auditeurs examinent vos états financiers, vos processus et votre organisation pour garantir leur fiabilité et leur conformité.\nNous intervenons sur l'ensemble du spectre de l'audit : financier, comptable, organisationnel, institutionnel, opérationnel, interne et de conformité, y compris l'audit des projets financés par les partenaires techniques et financiers.\nNos équipes évaluent également vos systèmes de contrôle interne, cartographient et gèrent vos risques, et conduisent des revues financières et des missions d'assurance.",
-        "benefits": "Sécurisation de vos états financiers et de vos processus\nConformité aux normes et référentiels en vigueur\nMaîtrise des risques et du contrôle interne\nAssurance qualité pour vos partenaires et bailleurs"
+        "details": "Le Cabinet COSI Lewa-Consulting Group réalise des missions d'audit et d'assurance auprès des organisations publiques, privées et associatives. Nos auditeurs examinent vos états financiers, vos processus et votre organisation pour garantir leur fiabilité et leur conformité.\nNous intervenons sur l'ensemble du spectre de l'audit : financier, comptable, organisationnel, institutionnel, opérationnel, interne et de conformité, y compris l'audit des projets financés par les partenaires techniques et financiers.\nNos équipes évaluent également vos systèmes de contrôle interne, cartographient et gèrent vos risques, et conduisent des revues financières et des missions d'assurance."
       },
       "expertise-comptable-finance": {
         "title": "Expertise Comptable et Finance",
@@ -162,8 +159,7 @@
         "imageAlt": "Expertise comptable et finance",
         "tags": "Comptabilité\nÉtats financiers\nFiscalité\nDigitalisation",
         "points": "Tenue et supervision comptable\nÉlaboration des états financiers\nAssistance à la clôture des comptes\nOrganisation comptable\nAssistance fiscale\nMise en place des procédures administratives et financières\nDigitalisation de la comptabilité\nDéploiement de logiciels de gestion (SAGE et autres ERP)",
-        "details": "Le Cabinet assure la tenue et la supervision comptable de votre organisation, l'élaboration de vos états financiers et l'assistance à la clôture de vos comptes, conformément aux référentiels en vigueur.\nNous organisons votre comptabilité, vous assistons sur le plan fiscal et mettons en place des procédures administratives et financières adaptées à votre structure.\nNous vous accompagnons également dans la digitalisation de votre comptabilité et le déploiement de logiciels de gestion (SAGE et autres ERP) pour fiabiliser et moderniser vos outils.",
-        "benefits": "Comptabilité fiable et conforme aux référentiels\nÉtats financiers élaborés dans les délais\nOptimisation de vos procédures administratives et financières\nDigitalisation de votre comptabilité"
+        "details": "Le Cabinet assure la tenue et la supervision comptable de votre organisation, l'élaboration de vos états financiers et l'assistance à la clôture de vos comptes, conformément aux référentiels en vigueur.\nNous organisons votre comptabilité, vous assistons sur le plan fiscal et mettons en place des procédures administratives et financières adaptées à votre structure.\nNous vous accompagnons également dans la digitalisation de votre comptabilité et le déploiement de logiciels de gestion (SAGE et autres ERP) pour fiabiliser et moderniser vos outils."
       },
       "conseil-gouvernance-organisationnel": {
         "title": "Conseil en Gouvernance et Développement Organisationnel",
@@ -172,8 +168,7 @@
         "imageAlt": "Conseil en gouvernance et développement organisationnel",
         "tags": "Gouvernance\nProcédures\nStratégie\nSuivi-évaluation",
         "points": "Diagnostic institutionnel\nÉlaboration de manuels de procédures\nGouvernance associative\nRenforcement du contrôle interne\nPlanification stratégique\nGestion axée sur les résultats\nSuivi-évaluation\nGestion financière des projets",
-        "details": "Le Cabinet accompagne les organisations dans leur développement institutionnel et organisationnel : diagnostic institutionnel, élaboration de manuels de procédures et renforcement de la gouvernance associative.\nNous vous appuyons dans le renforcement de votre contrôle interne, la planification stratégique et la gestion axée sur les résultats.\nNos experts vous assistent également dans le suivi-évaluation et la gestion financière de vos projets pour garantir performance et redevabilité.",
-        "benefits": "Gouvernance clarifiée et procédures formalisées\nContrôle interne renforcé\nPilotage stratégique par les résultats\nGestion financière sécurisée des projets"
+        "details": "Le Cabinet accompagne les organisations dans leur développement institutionnel et organisationnel : diagnostic institutionnel, élaboration de manuels de procédures et renforcement de la gouvernance associative.\nNous vous appuyons dans le renforcement de votre contrôle interne, la planification stratégique et la gestion axée sur les résultats.\nNos experts vous assistent également dans le suivi-évaluation et la gestion financière de vos projets pour garantir performance et redevabilité."
       },
       "formation-renforcement-capacites": {
         "title": "Formation et Renforcement des Capacités",
@@ -182,8 +177,7 @@
         "imageAlt": "Formation et renforcement des capacités",
         "tags": "Comptabilité\nFinance\nBureautique\nGestion",
         "points": "Audit\nComptabilité\nFinance\nInformatique\nBureautique\nSAGE Comptabilité\nGestion des ONG\nTransport et Logistique\nGestion des ressources humaines\nPassation des marchés\nEntrepreneuriat\nLeadership\nGestion de projets",
-        "details": "Le Cabinet organise des formations professionnelles dans les domaines suivants : audit, comptabilité, finance, informatique, bureautique, SAGE Comptabilité, gestion des ONG, transport et logistique, gestion des ressources humaines, passation des marchés, entrepreneuriat, leadership et gestion de projets.\nNos formations sont animées par des professionnels expérimentés et conçues pour être pratiques et immédiatement opérationnelles.\nÀ l'issue de chaque formation, vous recevez un certificat de participation et une attestation valorisant vos nouvelles compétences.",
-        "benefits": "Formations pratiques et certifiantes\nFormateurs professionnels expérimentés\nCertificat et attestation à la clé\nModules adaptés aux besoins des organisations"
+        "details": "Le Cabinet organise des formations professionnelles dans les domaines suivants : audit, comptabilité, finance, informatique, bureautique, SAGE Comptabilité, gestion des ONG, transport et logistique, gestion des ressources humaines, passation des marchés, entrepreneuriat, leadership et gestion de projets.\nNos formations sont animées par des professionnels expérimentés et conçues pour être pratiques et immédiatement opérationnelles.\nÀ l'issue de chaque formation, vous recevez un certificat de participation et une attestation valorisant vos nouvelles compétences."
       },
       "accompagnement-entreprises": {
         "title": "Accompagnement des Entreprises et Entrepreneurs",
@@ -192,8 +186,7 @@
         "imageAlt": "Accompagnement des entreprises et entrepreneurs",
         "tags": "Création\nBusiness plan\nStratégie\nFinancement",
         "points": "Création d'entreprises\nBusiness plans\nÉtudes de faisabilité\nConseils stratégiques\nFormalisation des entreprises\nAccompagnement à la recherche de financement",
-        "details": "Le Cabinet accompagne les entrepreneurs et les entreprises à chaque étape de leur développement : création d'entreprises, élaboration de business plans et études de faisabilité.\nNous apportons des conseils stratégiques, vous accompagnons dans la formalisation de votre entreprise et dans la recherche de financement.\nUn accompagnement personnalisé pour transformer vos projets en réussites durables.",
-        "benefits": "Projets structurés et viables\nBusiness plans solides\nAccès facilité au financement\nConseils stratégiques personnalisés"
+        "details": "Le Cabinet accompagne les entrepreneurs et les entreprises à chaque étape de leur développement : création d'entreprises, élaboration de business plans et études de faisabilité.\nNous apportons des conseils stratégiques, vous accompagnons dans la formalisation de votre entreprise et dans la recherche de financement.\nUn accompagnement personnalisé pour transformer vos projets en réussites durables."
       },
       "evenements-professionnels": {
         "title": "Organisation d'Événements Professionnels",
@@ -202,8 +195,7 @@
         "imageAlt": "Organisation d'événements professionnels",
         "tags": "Forums\nConférences\nSéminaires\nSalons",
         "points": "Forums économiques\nConférences internationales\nSéminaires\nAteliers\nRencontres B2B\nDistinctions et cérémonies officielles\nSalons professionnels",
-        "details": "Le Cabinet conçoit et organise des événements professionnels d'envergure : forums économiques, conférences internationales, séminaires, ateliers et rencontres B2B.\nNous prenons également en charge les distinctions et cérémonies officielles ainsi que les salons professionnels.\nDe la conception à la réalisation, nous assurons une organisation rigoureuse pour des événements à la hauteur de vos ambitions.",
-        "benefits": "Événements professionnels d'envergure\nOrganisation clé en main\nVisibilité et réseautage accrus\nCérémonies et salons soignés"
+        "details": "Le Cabinet conçoit et organise des événements professionnels d'envergure : forums économiques, conférences internationales, séminaires, ateliers et rencontres B2B.\nNous prenons également en charge les distinctions et cérémonies officielles ainsi que les salons professionnels.\nDe la conception à la réalisation, nous assurons une organisation rigoureuse pour des événements à la hauteur de vos ambitions."
       }
     },
     "notFound": "Service introuvable",
@@ -251,8 +243,6 @@
     "catBureautiqueLead3": "Chaque formation conclue par un certificat et un CV professionnel pour valoriser vos acquis.",
     "catBureautiqueSectionTitle": "Formations en bureautique & développement pro.",
     "catBureautiqueCount": "{count} formation(s) disponible(s) pour renforcer vos compétences en entreprise.",
-    "paymentInfo": "Montant payable par tranche, chaque semaine. Formations flexibles, accessibles en semaine, le soir ou le week-end.",
-    "contactInfo": "Pour vous inscrire, contactez-nous au <a href=\"tel:+23672696700\" class=\"group font-medium text-navy transition hover:text-red\"><span>+236 72 69 67 00</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a> ou au <a href=\"tel:+23675343719\" class=\"group font-medium text-navy transition hover:text-red\"><span>+236 75 34 37 19</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a>, ou via notre <a href=\"/contact\" class=\"group font-medium text-navy transition hover:text-red\"><span>page de contact</span><span class=\"block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full\"></span></a>.",
     "levelInfoTitle": "Niveau {level}",
     "levelInfoDebutant": "Aucun prérequis nécessaire. Cette formation est accessible à tous, quel que soit votre parcours.",
     "levelInfoIntermediaire": "Une connaissance de base dans le domaine est recommandée pour tirer le meilleur parti de cette formation.",

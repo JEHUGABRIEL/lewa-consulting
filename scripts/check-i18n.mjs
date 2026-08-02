@@ -11,8 +11,8 @@
  *      référencées dans le code (app/, components/, lib/, src/).
  *   3. CLÉS MANQUANTES — clés utilisées dans le code mais absentes des messages.
  *   4. RÉSOLUTION services.items.* — pour chaque slug de lib/services.ts, les
- *      champs attendus (title, short, desc, imageAlt, tags, details, points,
- *      benefits) doivent exister et être non vides dans les deux locales.
+ *      champs attendus (title, short, desc, imageAlt, tags, details, points)
+ *      doivent exister et être non vides dans les deux locales.
  *      Détecte un domaine ajouté sans traduction, un champ manquant ou vide,
  *      ou un cache de traduction périmé (serveur dev qui sert d'anciens messages).
  *
@@ -51,7 +51,6 @@ const SERVICE_ITEM_FIELDS = [
   "tags",
   "details",
   "points",
-  "benefits",
 ];
 
 /** Aplatit un objet imbriqué en un ensemble de chemins de clés "a.b.c". */

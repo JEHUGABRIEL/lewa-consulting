@@ -650,7 +650,7 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
                   {/* Dropdown — Formations : mega menu avec sidebar */}
                   {hoveredDropdown === l.href && l.key === "formations" && (
                     <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2 animate-slide-down">
-                      <div className="flex w-[720px] overflow-hidden rounded-xl bg-paper shadow-lg">
+                      <div className="flex max-h-[calc(100vh-6rem)] w-[720px] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-xl bg-paper shadow-lg">
                         {/* Sidebar — catégories */}
                         <div className="w-44 shrink-0 border-r border-border bg-navy/[0.02]">
                           <div className="px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
@@ -685,7 +685,7 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
                         </div>
 
                         {/* Panneau — formations de la catégorie survolée */}
-                        <div className="flex-1 p-4">
+                        <div className="min-w-0 flex-1 p-4">
                           <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
                             {hoveredCategory
                               ? t(categoryTitleKey(hoveredCategory))

@@ -30,8 +30,8 @@ const backgrounds: Record<PageKey, string[]> = {
     `https://images.unsplash.com/photo-1449824913935-59a10b8d2000?${QUALITY}`, // bâtiments ville
   ],
   home: [
-    `https://images.unsplash.com/photo-1497366216548-37526070297c?${QUALITY}`, // hall moderne
-    `https://images.unsplash.com/photo-1522071820081-009f0129c71c?${QUALITY}`, // équipe collaborative
+    `https://res.cloudinary.com/dwmrzp61c/image/upload/images/devanture_cabinet/devanture.png?f=auto&q=auto&w=1600`, // devanture du cabinet
+    `https://res.cloudinary.com/dwmrzp61c/image/upload/images/remises_diplomes/remise-3.png?f=auto&q=auto&w=1600`, // remise de diplômes
     `https://images.unsplash.com/photo-1559136555-9303baea8ebd?${QUALITY}`,   // salle de réunion
   ],
 };

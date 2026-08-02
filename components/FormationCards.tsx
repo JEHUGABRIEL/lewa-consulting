@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
-import LevelLegend from "./LevelLegend";
 import BlurImage from "./BlurImage";
 import type { FormationRow } from "@/lib/formations";
 
@@ -98,8 +97,6 @@ export default function FormationCards({ rows }: { rows: FormationRow[] }) {
           );
         })}
       </div>
-
-      <LevelLegend />
     </>
   );
 }

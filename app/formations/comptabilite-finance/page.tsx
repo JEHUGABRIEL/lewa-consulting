@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import FormationCards from "@/components/FormationCards";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
@@ -48,17 +47,6 @@ export default async function ComptabiliteFinancePage() {
 
         <FormationCards rows={comptaFinance} />
 
-        <Reveal as="div" className="mt-12 pt-8 text-sm text-ink/70">
-          <div className="flex items-start gap-3 rounded-lg bg-navy/[0.02] p-5">
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold/20 text-xs font-semibold text-gold">
-              i
-            </span>
-            <div>
-              <p>{t('formations.paymentInfo')}</p>
-              <p className="mt-2" dangerouslySetInnerHTML={{ __html: t.raw('formations.contactInfo') }} />
-            </div>
-          </div>
-        </Reveal>
 
         <FAQSection
           title={t('faq.title')}

@@ -56,7 +56,6 @@ export default async function ServiceDetailPage({ params }: Props) {
   const tocItems = [
     { id: "a-propos", label: t('services.tocAbout') },
     { id: "prestations", label: t('services.servicesList') },
-    { id: "benefices", label: t('services.tocBenefits') },
     { id: "comment-ca-marche", label: t('services.howItWorksTitle') },
     ...(relatedFormations.length > 0
       ? [{ id: "formations-liees", label: t('services.relatedFormationsTitle') }]
@@ -129,26 +128,6 @@ export default async function ServiceDetailPage({ params }: Props) {
                     </li>
                   ))}
                 </ul>
-              </section>
-            </Reveal>
-
-            {/* Bénéfices */}
-            <Reveal as="div" delay={150}>
-              <section id="benefices" className="mt-10 scroll-mt-28">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                  <span className="inline-block h-px w-4 bg-gold/50" />
-                  {t('services.benefitsTitle')}
-                </div>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {t(`services.items.${service.slug}.benefits`).split("\n").map((b) => (
-                    <div key={b} className="flex items-start gap-3 rounded-lg bg-navy/[0.02] p-4 text-sm leading-relaxed text-ink/70">
-                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span>{b}</span>
-                    </div>
-                  ))}
-                </div>
               </section>
             </Reveal>
 
@@ -245,7 +224,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
           {/* Sidebar — Sommaire + Services liés */}
           <Reveal as="div" delay={150}>
-            <div className="sticky top-28 max-h-[calc(100vh-7rem)] space-y-4 overflow-y-auto pr-1">
+            <div className="sticky top-28 space-y-4">
               {/* Sommaire ancré */}
               <ServiceTOC title={t('services.tocTitle')} items={tocItems} />
 
@@ -260,7 +239,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
                   {/* Cartes */}
                   <div className="space-y-4">
-                    {related.slice(0, 3).map((r) => (
+                    {related.slice(0, 1).map((r) => (
                       <Link
                         key={r.slug}
                         href={`/services/${r.slug}`}

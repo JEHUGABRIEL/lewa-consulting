@@ -15,7 +15,6 @@ const SERVICE_ITEM_FIELDS = [
   "tags",
   "details",
   "points",
-  "benefits",
 ];
 
 /** Locales déjà signalées (anti-spam des logs en production). */
