@@ -63,10 +63,10 @@ export const bureautiqueDev: FormationRow[] = [
 // ---- Formations vedettes (extrait pour la page d'accueil) ----
 
 export const featuredFormations: FeaturedFormation[] = [
-  { slug: "comptabilite-bancaire", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif", price: "75 000", level: "intermediaire" },
+  { slug: "comptabilite-bancaire", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif", price: "75 000", level: "intermediaire" },
   { slug: "pratique-en-caissiere-bancaire", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/gestionnaire-tablette.avif", price: "70 000", level: "debutant" },
   { slug: "informatique-bureautique", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-1.jpg", price: "35 000", level: "debutant" },
-  { slug: "mission-d-audit", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif", price: "60 000", level: "avance" },
+  { slug: "mission-d-audit", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/presentation-statistiques.avif", price: "60 000", level: "avance" },
 ];
 
 // ---- Concaténation complète ----
