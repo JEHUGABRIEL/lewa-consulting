@@ -1,22 +1,36 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import PostIllustration from "@/components/PostIllustration";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { posts } from "@/lib/posts";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   const title = t("actualites");
   const description = t("actualitesDescription");
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/actualites`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/actualites",
+        en: "https://www.lewaconsultingroup.com/en/actualites",
+        "x-default": "https://www.lewaconsultingroup.com/fr/actualites",
+      },
+    },
     openGraph: {
       type: "website",
-      url: "https://www.lewaconsultingroup.com/actualites",
+      url: `https://www.lewaconsultingroup.com/${locale}/actualites`,
       title,
       description,
     },
@@ -28,7 +42,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ActualitesPage() {
+export default async function ActualitesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   return (

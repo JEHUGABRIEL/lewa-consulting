@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
@@ -504,7 +504,7 @@ export default function Home() {
               <Link key={s.slug} href={`/services/${s.slug}`}>
                 <Reveal as="div" delay={i * 60}>
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                    {/* Image Unsplash en haut avec blur-up */}
+                    {/* Image en haut avec blur-up */}
                     <div className="relative h-44 w-full overflow-hidden rounded-t-xl">
                       <BlurImage
                         src={s.image}
@@ -554,7 +554,7 @@ export default function Home() {
         {/* Fond image subtile */}
         <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
           <Image
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
+            src="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-travail.avif"
             alt=""
             fill
             sizes="100vw"
@@ -653,7 +653,7 @@ export default function Home() {
               <Reveal key={f.slug} as="div">
                 <Link href={`/formations/${f.slug}`}>
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                    {/* Image Unsplash en haut */}
+                    {/* Image en haut */}
                     <div className="relative h-40 w-full overflow-hidden">
                       <BlurImage
                         src={f.image}

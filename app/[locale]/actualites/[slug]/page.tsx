@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/Container";
@@ -8,15 +8,20 @@ import PostIllustration from "@/components/PostIllustration";
 import HeroSlider from "@/components/HeroSlider";
 import { posts } from "@/lib/posts";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
+import { routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+  return routing.locales.flatMap((locale) =>
+    posts.map((p) => ({ locale, slug: p.slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = posts.find((p) => p.slug === slug);
   const t = await getTranslations();
   if (!post) {
@@ -29,9 +34,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/actualites/${post.slug}`,
+      languages: {
+        fr: `https://www.lewaconsultingroup.com/fr/actualites/${post.slug}`,
+        en: `https://www.lewaconsultingroup.com/en/actualites/${post.slug}`,
+        "x-default": `https://www.lewaconsultingroup.com/fr/actualites/${post.slug}`,
+      },
+    },
     openGraph: {
       type: "article",
-      url: `https://www.lewaconsultingroup.com/actualites/${post.slug}`,
+      url: `https://www.lewaconsultingroup.com/${locale}/actualites/${post.slug}`,
       title,
       description,
       images: [{ url: image, alt: title }],
@@ -46,7 +59,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 

@@ -4,57 +4,81 @@ import { allFormations, formationCategories } from "@/lib/formations";
 import { posts } from "@/lib/posts";
 
 const BASE_URL = "https://www.lewaconsultingroup.com";
+const LOCALES = ["fr", "en"] as const;
 const NOW = new Date();
+
+type PageDef = {
+  path: string;
+  lastModified?: Date;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  priority: number;
+};
+
+/** Génère l'entrée de chaque page pour les deux locales, avec hreflang. */
+function localized(defs: PageDef[]): MetadataRoute.Sitemap {
+  return defs.flatMap((d) => {
+    const path = d.path === "/" ? "" : d.path;
+    return LOCALES.map((locale) => ({
+      url: `${BASE_URL}/${locale}${path}`,
+      lastModified: d.lastModified ?? NOW,
+      changeFrequency: d.changeFrequency,
+      priority: d.priority,
+      alternates: {
+        languages: {
+          fr: `${BASE_URL}/fr${path}`,
+          en: `${BASE_URL}/en${path}`,
+          "x-default": `${BASE_URL}/fr${path}`,
+        },
+      },
+    }));
+  });
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Pages statiques (les pages catégories de formations sont générées plus bas,
   // depuis formationCategories, pour éviter les doublons)
-  const staticPages: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`, lastModified: NOW, changeFrequency: "monthly", priority: 1 },
-    { url: `${BASE_URL}/services`, lastModified: NOW, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/actualites`, lastModified: NOW, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/a-propos`, lastModified: NOW, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/contact`, lastModified: NOW, changeFrequency: "yearly", priority: 0.6 },
-    { url: `${BASE_URL}/mentions-legales`, lastModified: NOW, changeFrequency: "yearly", priority: 0.2 },
+  const staticPages: PageDef[] = [
+    { path: "/", changeFrequency: "monthly", priority: 1 },
+    { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+    { path: "/actualites", changeFrequency: "weekly", priority: 0.8 },
+    { path: "/a-propos", changeFrequency: "monthly", priority: 0.7 },
+    { path: "/contact", changeFrequency: "yearly", priority: 0.6 },
+    { path: "/mentions-legales", changeFrequency: "yearly", priority: 0.2 },
   ];
 
   // Pages services dynamiques (6 domaines)
-  const servicePages: MetadataRoute.Sitemap = servicesData.map((s) => ({
-    url: `${BASE_URL}/services/${s.slug}`,
-    lastModified: NOW,
+  const servicePages: PageDef[] = servicesData.map((s) => ({
+    path: `/services/${s.slug}`,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
   // Pages formations dynamiques (toutes les formations)
-  const formationPages: MetadataRoute.Sitemap = allFormations.map((f) => ({
-    url: `${BASE_URL}/formations/${f.slug}`,
-    lastModified: NOW,
+  const formationPages: PageDef[] = allFormations.map((f) => ({
+    path: `/formations/${f.slug}`,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
   // Catégories de formations (routes dérivées des slugs de catégorie)
-  const formationCategoryPages: MetadataRoute.Sitemap = formationCategories.map((c) => ({
-    url: `${BASE_URL}/formations/${c.slug}`,
-    lastModified: NOW,
+  const formationCategoryPages: PageDef[] = formationCategories.map((c) => ({
+    path: `/formations/${c.slug}`,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
   // Pages actualités dynamiques
-  const postPages: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${BASE_URL}/actualites/${p.slug}`,
-    lastModified: NOW,
+  const postPages: PageDef[] = posts.map((p) => ({
+    path: `/actualites/${p.slug}`,
     changeFrequency: "monthly",
     priority: 0.6,
   }));
 
-  return [
+  return localized([
     ...staticPages,
     ...servicePages,
     ...formationCategoryPages,
     ...formationPages,
     ...postPages,
-  ];
+  ]);
 }

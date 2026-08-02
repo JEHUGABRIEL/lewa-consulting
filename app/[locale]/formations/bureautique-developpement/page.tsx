@@ -7,18 +7,32 @@ import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { bureautiqueDev } from "@/lib/formations";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   const title = t("bureautiqueDeveloppement");
   const description = t("formationsDescription");
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/formations/bureautique-developpement`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/formations/bureautique-developpement",
+        en: "https://www.lewaconsultingroup.com/en/formations/bureautique-developpement",
+        "x-default": "https://www.lewaconsultingroup.com/fr/formations/bureautique-developpement",
+      },
+    },
     openGraph: {
       type: "website",
-      url: "https://www.lewaconsultingroup.com/formations/bureautique-developpement",
+      url: `https://www.lewaconsultingroup.com/${locale}/formations/bureautique-developpement`,
       title,
       description,
     },
@@ -30,7 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function BureautiqueDeveloppementPage() {
+export default async function BureautiqueDeveloppementPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
   return (
     <main>
@@ -77,7 +97,7 @@ export default async function BureautiqueDeveloppementPage() {
         />
         <FAQSection
           title={t('faq.title')}
-          image="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80"
+          image="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-1.jpg"
           imageAlt="Bureautique et développement professionnel"
           items={[
             { q: t('faq.q1'), r: t('faq.r1') },

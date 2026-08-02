@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
@@ -7,7 +7,8 @@ import LevelBadge from "@/components/LevelBadge";
 import HeroSlider from "@/components/HeroSlider";
 import BlurImage from "@/components/BlurImage";
 import CTASection from "@/components/CTASection";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import {
   getFormationBySlug,
@@ -16,14 +17,17 @@ import {
   formationCategories,
 } from "@/lib/formations";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
-  return allFormations.map((f) => ({ slug: f.slug }));
+  return routing.locales.flatMap((locale) =>
+    allFormations.map((f) => ({ locale, slug: f.slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const formation = getFormationBySlug(slug);
   const t = await getTranslations();
   if (!formation) return { title: t("formations.notFound") };
@@ -34,9 +38,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/formations/${formation.slug}`,
+      languages: {
+        fr: `https://www.lewaconsultingroup.com/fr/formations/${formation.slug}`,
+        en: `https://www.lewaconsultingroup.com/en/formations/${formation.slug}`,
+        "x-default": `https://www.lewaconsultingroup.com/fr/formations/${formation.slug}`,
+      },
+    },
     openGraph: {
       type: "website",
-      url: `https://www.lewaconsultingroup.com/formations/${formation.slug}`,
+      url: `https://www.lewaconsultingroup.com/${locale}/formations/${formation.slug}`,
       title,
       description,
       images: [{ url: image, alt: title }],
@@ -51,8 +63,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function FormationDetailPage({ params }: Props) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
-  const { slug } = await params;
   const formation = getFormationBySlug(slug);
   if (!formation) notFound();
 

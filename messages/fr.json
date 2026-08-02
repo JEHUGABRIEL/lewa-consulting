@@ -31,6 +31,12 @@
     "backToHome": "Retour à l'accueil",
     "loading": "Chargement de la page"
   },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "La page que vous recherchez n'existe pas ou a été déplacée. Vous pouvez revenir à l'accueil ou nous contacter.",
+    "homeLink": "Retour à l'accueil",
+    "contactLink": "Nous contacter"
+  },
   "nav": {
     "home": "Accueil",
     "about": "À propos",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
@@ -10,15 +10,35 @@ import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   return {
     title: t("contact"),
     description: t("contactDescription"),
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/contact`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/contact",
+        en: "https://www.lewaconsultingroup.com/en/contact",
+        "x-default": "https://www.lewaconsultingroup.com/fr/contact",
+      },
+    },
   };
 }
 
-export default async function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   return (
@@ -48,7 +68,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1560179707-f14e90ef3623" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-internationale.avif" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.office')}
                 </dt>
@@ -61,7 +81,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/presentation-statistiques.avif" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.phoneLabel')}
                 </dt>
@@ -79,7 +99,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.emailLabel')}
                 </dt>
@@ -93,7 +113,7 @@ export default async function ContactPage() {
               <Reveal as="div" className="py-6 group">
                 <dt className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-muted">
                   <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-                    <Image src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6" alt="" fill sizes="32px" className="object-cover" />
+                    <Image src="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-travail.avif" alt="" fill sizes="32px" className="object-cover" />
                   </span>
                   {t('contact.online')}
                 </dt>
@@ -137,7 +157,7 @@ export default async function ContactPage() {
         />
         <FAQSection
           title={t('contact.faqTitle')}
-          image="https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=600&q=80"
+          image="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-briefing.jpg"
           imageAlt={t('contact.faqTitle')}
           items={[
             { q: t('contact.faqQ1'), r: t('contact.faqR1') },

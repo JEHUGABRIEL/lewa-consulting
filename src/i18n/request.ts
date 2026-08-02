@@ -1,6 +1,10 @@
 import { getRequestConfig } from "next-intl/server";
-import { cookies } from "next/headers";
 import { servicesData } from "@/lib/services";
+import fr from "../../messages/fr.json";
+import en from "../../messages/en.json";
+
+/** Messages pré-chargés : imports statiques (pas d'`await import` à chaque requête). */
+const messagesByLocale: Record<string, typeof fr> = { fr, en };
 
 /**
  * Champs attendus par la page détail /services/[slug] pour chaque domaine.
@@ -69,11 +73,15 @@ function assertServiceItemsResolve(messages: unknown, locale: string) {
   }
 }
 
-export default getRequestConfig(async () => {
-  const store = await cookies();
-  const locale = store.get("locale")?.value || "fr";
+export default getRequestConfig(async ({ requestLocale }) => {
+  // La locale vient désormais de l'URL (/fr, /en) via le proxy —
+  // plus aucun cookie : rendu statique par locale possible.
+  let locale = (await requestLocale) as string | undefined;
+  if (!locale || !messagesByLocale[locale]) {
+    locale = "fr";
+  }
 
-  const messages = (await import(`../../messages/${locale}.json`)).default;
+  const messages = messagesByLocale[locale] ?? fr;
 
   assertServiceItemsResolve(messages, locale);
 

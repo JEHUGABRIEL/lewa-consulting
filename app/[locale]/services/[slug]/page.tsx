@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
@@ -16,16 +16,20 @@ import {
 } from "@/lib/services";
 import { getFormationBySlug } from "@/lib/formations";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
-  return servicesData.map((s) => ({ slug: s.slug }));
+  return routing.locales.flatMap((locale) =>
+    servicesData.map((s) => ({ locale, slug: s.slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const service = getServiceBySlug(slug);
   const t = await getTranslations();
   if (!service) return { title: t('services.notFound') };
@@ -36,9 +40,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/services/${service.slug}`,
+      languages: {
+        fr: `https://www.lewaconsultingroup.com/fr/services/${service.slug}`,
+        en: `https://www.lewaconsultingroup.com/en/services/${service.slug}`,
+        "x-default": `https://www.lewaconsultingroup.com/fr/services/${service.slug}`,
+      },
+    },
     openGraph: {
       type: "website",
-      url: `https://www.lewaconsultingroup.com/services/${service.slug}`,
+      url: `https://www.lewaconsultingroup.com/${locale}/services/${service.slug}`,
       title,
       description,
       images: [{ url: image, alt: title }],
@@ -53,8 +65,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServiceDetailPage({ params }: Props) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
-  const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) notFound();
 

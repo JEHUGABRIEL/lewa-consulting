@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -7,15 +7,35 @@ import CTASection from "@/components/CTASection";
 import BlurImage from "@/components/BlurImage";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   return {
     title: t("aPropos"),
     description: t("aProposDescription"),
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/a-propos`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/a-propos",
+        en: "https://www.lewaconsultingroup.com/en/a-propos",
+        "x-default": "https://www.lewaconsultingroup.com/fr/a-propos",
+      },
+    },
   };
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   return (

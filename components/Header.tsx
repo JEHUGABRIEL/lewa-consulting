@@ -1,16 +1,15 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Mark from "./Mark";
 import { servicesData } from "@/lib/services";
 import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 import { formationCategories, comptaFinance, bureautiqueDev, featuredFormations } from "@/lib/formations";
 
-// Lookup rapide image Unsplash par slug de service
+// Lookup rapide image par slug de service
 const serviceImageMap = new Map<string, string>(
   servicesData.map((s) => [s.slug, s.image]),
 );
@@ -314,14 +313,14 @@ const links: NavLink[] = [
   { href: "/a-propos", key: "about" },
 ];
 
-export default function Header({ initialLocale = "fr" }: { initialLocale?: string }) {
+export default function Header() {
   const t = useTranslations();
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(formationCategories[0]?.id ?? null);
-  const [locale, setLocale] = useState(initialLocale);
   const pathname = usePathname();
   const router = useRouter();
   const formationsRef = useRef<HTMLDivElement>(null);
@@ -331,10 +330,11 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
+  // Changer de langue : navigue vers la même page préfixée par la nouvelle
+  // locale (/fr/… ⇄ /en/…). `usePathname`/`useRouter` viennent de
+  // @/i18n/navigation → le pathname est sans préfixe, la locale est injectée.
   const switchLocale = (lang: string) => {
-    document.cookie = `locale=${lang};path=/;max-age=31536000`;
-    setLocale(lang);
-    router.refresh();
+    router.replace(pathname, { locale: lang as "fr" | "en" });
   };
 
   useEffect(() => {
@@ -439,6 +439,7 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
   };
 
   return (
+    <>
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
@@ -858,11 +859,15 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Menu mobile — overlay */}
+      {/* Menu mobile — overlay + drawer placés HORS du <header> :
+          le backdrop-filter appliqué au header dès qu'on scrolle créerait
+          un containing block qui casserait le position:fixed du drawer
+          (son contenu devenait alors visible au swipe). */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-navy/50 backdrop-blur-sm md:hidden animate-fade-in"
+          className="fixed inset-0 z-[60] bg-navy/50 backdrop-blur-sm md:hidden animate-fade-in"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
@@ -872,8 +877,8 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
         id="mobile-drawer"
         ref={drawerRef}
         inert={!open}
-        className={`fixed inset-y-0 right-0 z-50 flex w-[86vw] max-w-sm flex-col bg-paper shadow-2xl md:hidden transition-transform duration-300 ease-out ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-y-0 right-0 z-[70] flex w-[86vw] max-w-sm flex-col bg-paper shadow-2xl md:hidden transition-transform duration-300 ease-out ${
+          open ? "translate-x-0" : "translate-x-full pointer-events-none"
         }`}
         role="dialog"
         aria-modal="true"
@@ -1094,6 +1099,6 @@ export default function Header({ initialLocale = "fr" }: { initialLocale?: strin
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }

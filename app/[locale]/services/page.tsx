@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -9,18 +9,32 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import { servicesData } from "@/lib/services";
 import FAQJsonLd from "@/components/FAQJsonLd";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   const title = t("services");
   const description = t("servicesDescription");
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/services`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/services",
+        en: "https://www.lewaconsultingroup.com/en/services",
+        "x-default": "https://www.lewaconsultingroup.com/fr/services",
+      },
+    },
     openGraph: {
       type: "website",
-      url: "https://www.lewaconsultingroup.com/services",
+      url: `https://www.lewaconsultingroup.com/${locale}/services`,
       title,
       description,
     },
@@ -89,7 +103,13 @@ const expertiseIcon = (icon: string) => {
   }
 };
 
-export default async function ServicesPage() {
+export default async function ServicesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
   return (
     <main>
@@ -117,7 +137,7 @@ export default async function ServicesPage() {
             <Link key={s.slug} href={`/services/${s.slug}`}>
               <Reveal as="div">
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                  {/* Image Unsplash en haut avec blur-up */}
+                  {/* Image en haut avec blur-up */}
                   <div className="relative h-36 w-full overflow-hidden rounded-t-xl">
                     <BlurImage
                       src={s.image}
@@ -188,7 +208,7 @@ export default async function ServicesPage() {
         />
         <FAQSection
           title={t('services.servicesPageFaqTitle')}
-          image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"
+          image="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-internationale.avif"
           imageAlt={t('services.faqImageAlt')}
           items={[
             { q: t('services.faqQ1'), r: t('services.faqR1') },

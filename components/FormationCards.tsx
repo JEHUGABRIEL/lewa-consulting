@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
 import BlurImage from "./BlurImage";

@@ -7,18 +7,32 @@ import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { comptaFinance } from "@/lib/formations";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Metadata");
   const title = t("comptabiliteFinance");
   const description = t("formationsDescription");
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/formations/comptabilite-finance`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/formations/comptabilite-finance",
+        en: "https://www.lewaconsultingroup.com/en/formations/comptabilite-finance",
+        "x-default": "https://www.lewaconsultingroup.com/fr/formations/comptabilite-finance",
+      },
+    },
     openGraph: {
       type: "website",
-      url: "https://www.lewaconsultingroup.com/formations/comptabilite-finance",
+      url: `https://www.lewaconsultingroup.com/${locale}/formations/comptabilite-finance`,
       title,
       description,
     },
@@ -30,7 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ComptabiliteFinancePage() {
+export default async function ComptabiliteFinancePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
   return (
     <main>
@@ -77,7 +97,7 @@ export default async function ComptabiliteFinancePage() {
         />
         <FAQSection
           title={t('faq.title')}
-          image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80"
+          image="https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif"
           imageAlt="Comptabilité et finance"
           items={[
             { q: t('faq.q1'), r: t('faq.r1') },

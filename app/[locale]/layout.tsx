@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
-import "./globals.css";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
@@ -27,10 +29,30 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
+const BASE_URL = "https://www.lewaconsultingroup.com";
+
+/**
+ * Rendu statique : génère les deux locales (/fr, /en) au build,
+ * ce qui permet un cache CDN complet (plus de rendu à la demande).
+ */
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+// Aucune locale hors liste n'est rendue à la demande : les pages valides
+// sont 100 % statiques (cache CDN), les slugs/locales inconnus → 404.
+export const dynamicParams = false;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations("Metadata");
   const tLegal = await getTranslations("legal");
-  const locale = await getLocale();
 
   // Image de partage (photo de la devanture Cloudinary — recadrée 1200×630, ratio recommandé par les réseaux sociaux).
   const ogImage = {
@@ -41,15 +63,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    metadataBase: new URL("https://www.lewaconsultingroup.com"),
+    metadataBase: new URL(BASE_URL),
     title: {
       default: t("title"),
       template: `%s | ${t("suffix")}`,
     },
     description: t("description"),
+    alternates: {
+      canonical: `${BASE_URL}/${locale}`,
+      languages: {
+        fr: `${BASE_URL}/fr`,
+        en: `${BASE_URL}/en`,
+        "x-default": `${BASE_URL}/fr`,
+      },
+    },
     openGraph: {
       type: "website",
-      url: "https://www.lewaconsultingroup.com",
+      url: `${BASE_URL}/${locale}`,
       siteName: tLegal("companyName"),
       locale: locale === "fr" ? "fr_FR" : "en_US",
       title: t("title"),
@@ -74,12 +104,21 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const locale = await getLocale();
+  const { locale } = await params;
+
+  // Locale invalide (ex. /zz) → 404 au lieu d'une erreur de traduction.
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    notFound();
+  }
+  setRequestLocale(locale);
+
   const messages = await getMessages();
   const tMetadata = await getTranslations("Metadata");
   const tCommon = await getTranslations("common");
@@ -91,7 +130,7 @@ export default async function RootLayout({
     "@type": ["ProfessionalService", "LocalBusiness"],
     name: tLegal("companyName"),
     description: tMetadata("description"),
-    url: "https://www.lewaconsultingroup.com",
+    url: `${BASE_URL}/${locale}`,
     logo: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
     image: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
     telephone: tCommon("phone"),
@@ -134,6 +173,9 @@ export default async function RootLayout({
       lang={locale}
       className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} h-full antialiased`}
     >
+      {/* Preconnect vers le CDN d'images : démarre la connexion TCP/TLS en
+          parallèle du chargement de la page → images visibles plus tôt. */}
+      <link rel="preconnect" href="https://res.cloudinary.com" />
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <script
           type="application/ld+json"
@@ -143,7 +185,7 @@ export default async function RootLayout({
           }}
         />
         <NextIntlClientProvider messages={messages}>
-          <Header initialLocale={locale} />
+          <Header />
           {children}
           <Footer />
           <CallButton />

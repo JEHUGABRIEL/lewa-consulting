@@ -1,20 +1,40 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { toTelHref } from "@/lib/phone";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
   return {
     title: t("legal.title"),
     description: t("legal.metaDescription"),
+    alternates: {
+      canonical: `https://www.lewaconsultingroup.com/${locale}/mentions-legales`,
+      languages: {
+        fr: "https://www.lewaconsultingroup.com/fr/mentions-legales",
+        en: "https://www.lewaconsultingroup.com/en/mentions-legales",
+        "x-default": "https://www.lewaconsultingroup.com/fr/mentions-legales",
+      },
+    },
   };
 }
 
-export default async function MentionsLegalesPage() {
+export default async function MentionsLegalesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations();
 
   return (

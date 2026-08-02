@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
 import LevelLegend from "./LevelLegend";
@@ -124,7 +124,7 @@ export default function FormationsFilter({
           <Reveal key={r.slug} as="div" delay={i * 60}>
             <Link href={`/formations/${r.slug}`}>
               <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                {/* Image Unsplash en haut */}
+                {/* Image en haut */}
                 <div className="relative h-32 w-full overflow-hidden">
                   <BlurImage
                     src={r.image}
