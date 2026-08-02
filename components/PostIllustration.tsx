@@ -32,7 +32,7 @@ export default function PostIllustration({
   alt,
 }: {
   category: string;
-  /** URL d'une image réelle (Unsplash) pour remplacer l'illustration SVG */
+  /** URL d'une image réelle pour remplacer l'illustration SVG */
   src?: string;
   alt?: string;
 }) {

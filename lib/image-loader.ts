@@ -13,15 +13,13 @@ type ImageLoaderProps = {
  *  - Cloudinary (res.cloudinary.com) : insère les transformations
  *    `f_auto,q_auto,w_<width>` après `/image/upload/` → format auto,
  *    compression auto et redimensionnement côté CDN.
- *  - Unsplash : `?w=&q=` natifs, ce qui contourne l'optimiseur serveur
- *    `/_next/image` (timeout 500 dans certains environnements).
  *  - Chemins locaux (public/) : propagation du paramètre width pour
  *    satisfaire le contrôle de next/image (le serveur statique ignore
  *    la query string et sert le fichier tel quel).
  *
  * Configuré dans next.config.ts via `images.loader` + `images.loaderFile`.
  */
-export default function imageLoader({ src, width, quality }: ImageLoaderProps): string {
+export default function imageLoader({ src, width }: ImageLoaderProps): string {
   const base = src.split("?")[0];
 
   // Cloudinary : transformations en query params (?f=auto&q=auto&w=<width>).
@@ -32,11 +30,6 @@ export default function imageLoader({ src, width, quality }: ImageLoaderProps): 
   // public_id, dossiers ou non.
   if (base.includes("res.cloudinary.com") && base.includes("/image/upload/")) {
     return `${base}?f=auto&q=auto&w=${width}`;
-  }
-
-  // Images du CDN Unsplash : reconstruction des paramètres (w/q natifs)
-  if (base.includes("images.unsplash.com")) {
-    return `${base}?w=${width}&q=${quality || 75}`;
   }
 
   // Chemins locaux (public/)

@@ -27,7 +27,7 @@ export type FormationRow = {
   slug: string;
   /** Identifiant de la catégorie parente ("compta" | "bureautique") */
   category: string;
-  /** Image Unsplash */
+  /** Image du cabinet (Cloudinary) */
   image: string;
   price: string;
   level?: Level;
@@ -35,7 +35,7 @@ export type FormationRow = {
 
 export type FeaturedFormation = {
   slug: string;
-  /** Image Unsplash */
+  /** Image du cabinet (Cloudinary) */
   image: string;
   price: string;
   level?: Level;
@@ -44,29 +44,29 @@ export type FeaturedFormation = {
 // ---- Données complètes pour la grille tarifaire ----
 
 export const comptaFinance: FormationRow[] = [
-  { slug: "comptabilite-bancaire", category: "compta", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80", price: "75 000", level: "intermediaire" },
-  { slug: "systeme-comptable-des-ong-sycebnl", category: "compta", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80", price: "75 000", level: "intermediaire" },
-  { slug: "pratique-en-caissiere-bancaire", category: "compta", image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80", price: "70 000", level: "debutant" },
-  { slug: "comptabilite-d-entreprise", category: "compta", image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80", price: "65 000", level: "intermediaire" },
-  { slug: "comptabilite-d-entreprise-sur-sage-compta", category: "compta", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80", price: "65 000", level: "avance" },
-  { slug: "ressources-humaines-sage-paie", category: "compta", image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80", price: "65 000", level: "intermediaire" },
-  { slug: "mission-d-audit", category: "compta", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80", price: "60 000", level: "avance" },
-  { slug: "gestion-de-caisse", category: "compta", image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80", price: "60 000", level: "debutant" },
+  { slug: "comptabilite-bancaire", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif", price: "75 000", level: "intermediaire" },
+  { slug: "systeme-comptable-des-ong-sycebnl", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif", price: "75 000", level: "intermediaire" },
+  { slug: "pratique-en-caissiere-bancaire", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/gestionnaire-tablette.avif", price: "70 000", level: "debutant" },
+  { slug: "comptabilite-d-entreprise", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif", price: "65 000", level: "intermediaire" },
+  { slug: "comptabilite-d-entreprise-sur-sage-compta", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/presentation-statistiques.avif", price: "65 000", level: "avance" },
+  { slug: "ressources-humaines-sage-paie", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-internationale.avif", price: "65 000", level: "intermediaire" },
+  { slug: "mission-d-audit", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif", price: "60 000", level: "avance" },
+  { slug: "gestion-de-caisse", category: "compta", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/gestionnaire-tablette.avif", price: "60 000", level: "debutant" },
 ];
 
 export const bureautiqueDev: FormationRow[] = [
-  { slug: "assistante-de-direction", category: "bureautique", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80", price: "60 000", level: "intermediaire" },
-  { slug: "informatique-bureautique", category: "bureautique", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80", price: "35 000", level: "debutant" },
-  { slug: "art-oratoire", category: "bureautique", image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80", price: "30 000", level: "debutant" },
+  { slug: "assistante-de-direction", category: "bureautique", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/presentation-statistiques.avif", price: "60 000", level: "intermediaire" },
+  { slug: "informatique-bureautique", category: "bureautique", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-1.jpg", price: "35 000", level: "debutant" },
+  { slug: "art-oratoire", category: "bureautique", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-2.jpg", price: "30 000", level: "debutant" },
 ];
 
 // ---- Formations vedettes (extrait pour la page d'accueil) ----
 
 export const featuredFormations: FeaturedFormation[] = [
-  { slug: "comptabilite-bancaire", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80", price: "75 000", level: "intermediaire" },
-  { slug: "pratique-en-caissiere-bancaire", image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80", price: "70 000", level: "debutant" },
-  { slug: "informatique-bureautique", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80", price: "35 000", level: "debutant" },
-  { slug: "mission-d-audit", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80", price: "60 000", level: "avance" },
+  { slug: "comptabilite-bancaire", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif", price: "75 000", level: "intermediaire" },
+  { slug: "pratique-en-caissiere-bancaire", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/gestionnaire-tablette.avif", price: "70 000", level: "debutant" },
+  { slug: "informatique-bureautique", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-1.jpg", price: "35 000", level: "debutant" },
+  { slug: "mission-d-audit", image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif", price: "60 000", level: "avance" },
 ];
 
 // ---- Concaténation complète ----

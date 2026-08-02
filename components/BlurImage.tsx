@@ -15,19 +15,6 @@ type BlurImageProps = {
 };
 
 /**
- * Génère une miniature floutée pour Unsplash via le paramètre `?w=`
- * Exemple : https://images.unsplash.com/photo-xxx?w=600&q=80
- *   → miniature : https://images.unsplash.com/photo-xxx?w=20&q=30&blur
- */
-function makeUnsplashBlurUrl(src: string): string | null {
-  if (!src.includes("images.unsplash.com")) return null;
-
-  // Supprime les paramètres existants pour les remplacer
-  const base = src.split("?")[0];
-  return `${base}?w=20&q=30&blur`;
-}
-
-/**
  * Génère une miniature floutée Cloudinary via les query params.
  * Exemple : https://res.cloudinary.com/<cloud>/image/upload/<public_id>
  *   → miniature : …/<public_id>?w=20&q=20&e=blur:1000
@@ -57,7 +44,7 @@ export default function BlurImage({
   const [loaded, setLoaded] = useState(false);
   const [inView, setInView] = useState(eager);
   const imgRef = useRef<HTMLDivElement>(null);
-  const blurUrl = placeholderSrc ?? makeUnsplashBlurUrl(src) ?? makeCloudinaryBlurUrl(src);
+  const blurUrl = placeholderSrc ?? makeCloudinaryBlurUrl(src);
 
   // Intersection Observer pour ne charger que quand visible (sauf eager/LCP)
   useEffect(() => {

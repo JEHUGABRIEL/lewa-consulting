@@ -10,32 +10,32 @@ export const servicesData: ServiceItem[] = [
   {
     slug: "audit-et-assurance",
     icon: "audit",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif",
   },
   {
     slug: "expertise-comptable-finance",
     icon: "compta",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif",
   },
   {
     slug: "conseil-gouvernance-organisationnel",
     icon: "conseil",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-internationale.avif",
   },
   {
     slug: "formation-renforcement-capacites",
     icon: "formation",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-1.jpg",
   },
   {
     slug: "accompagnement-entreprises",
     icon: "briefcase",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/gestionnaire-tablette.avif",
   },
   {
     slug: "evenements-professionnels",
     icon: "event",
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-briefing.jpg",
   },
 ];
 

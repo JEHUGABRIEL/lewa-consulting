@@ -6,7 +6,7 @@ export type Post = {
   slug: string;
   /** Clé de catégorie stable (utilisée pour l'illustration et le filtrage FR/EN) */
   category: PostCategoryKey;
-  /** Image Unsplash associée à l'article */
+  /** Image associée à l'article */
   image: string;
 };
 
@@ -20,21 +20,21 @@ export const posts: Post[] = [
   {
     slug: "session-comptabilite-bancaire-2026",
     category: "formations",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/equipe-kpi.avif",
   },
   {
     slug: "accompagnement-sycebnl-2026",
     category: "audit",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/rapport-financier.avif",
   },
   {
     slug: "atelier-declaration-fiscale-tpe",
     category: "evenement",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/reunion-briefing.jpg",
   },
   {
     slug: "certificats-bureautique-2026",
     category: "formations",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/comptabilite/etudiants/etudiants-4.jpg",
   },
 ];
