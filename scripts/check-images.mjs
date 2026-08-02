@@ -49,7 +49,10 @@ const MESSAGES_DIR = "messages";
 const TS_RE = /\.(ts|tsx)$/;
 const JSON_RE = /\.json$/;
 const URL_RE = /https:\/\/images\.unsplash\.com\/photo-[a-zA-Z0-9-]+/g;
-const CLOUDINARY_RE = /https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9_-]+\/image\/upload\/[a-zA-Z0-9_/.-]+/g;
+// NB : la classe de caractères inclut la virgule — les transformations
+// Cloudinary en forme « chemin » (…/upload/w_1200,h_630,c_fill,…/<public_id>)
+// sont séparées par des virgules (ex. og:image de app/layout.tsx).
+const CLOUDINARY_RE = /https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9_-]+\/image\/upload\/[a-zA-Z0-9_,/.-]+/g;
 const PLACEHOLDER_RE = /photo-xxx/;
 const LOCAL_IMG_RE = /\/[a-zA-Z0-9_/.-]+\.(png|jpe?g|webp|avif|gif|svg)/gi;
 

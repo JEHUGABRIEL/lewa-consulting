@@ -29,9 +29,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = getServiceBySlug(slug);
   const t = await getTranslations();
   if (!service) return { title: t('services.notFound') };
+  const title = t(`services.items.${service.slug}.title`);
+  const description = t(`services.items.${service.slug}.desc`);
+  // Recadrage paysage 1200×630 (ratio 1.91:1) pour des cartes de partage propres.
+  const image = `${service.image.split("?")[0]}?w=1200&h=630&fit=crop&crop=faces`;
   return {
-    title: t(`services.items.${service.slug}.title`),
-    description: t(`services.items.${service.slug}.desc`),
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: `https://www.lewaconsultingroup.com/services/${service.slug}`,
+      title,
+      description,
+      images: [{ url: image, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
   };
 }
 

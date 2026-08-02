@@ -32,11 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const tLegal = await getTranslations("legal");
   const locale = await getLocale();
 
-  // Image de partage (logo officiel Cloudinary — bannière 1144×491).
+  // Image de partage (photo de la devanture Cloudinary — recadrée 1200×630, ratio recommandé par les réseaux sociaux).
   const ogImage = {
-    url: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
-    width: 1144,
-    height: 491,
+    url: "https://res.cloudinary.com/dwmrzp61c/image/upload/w_1200,h_630,c_fill,f_auto,q_auto/images/devanture_cabinet/devanture.png",
+    width: 1200,
+    height: 630,
     alt: tLegal("companyName"),
   };
 

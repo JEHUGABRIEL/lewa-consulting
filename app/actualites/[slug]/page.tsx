@@ -22,9 +22,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) {
     return { title: t('blog.notFound') };
   }
+  const title = t(`posts.${post.slug}.title`);
+  const description = t(`posts.${post.slug}.excerpt`);
+  // Recadrage paysage 1200×630 (ratio 1.91:1) pour des cartes de partage propres.
+  const image = `${post.image.split("?")[0]}?w=1200&h=630&fit=crop&crop=faces`;
   return {
-    title: t(`posts.${post.slug}.title`),
-    description: t(`posts.${post.slug}.excerpt`),
+    title,
+    description,
+    openGraph: {
+      type: "article",
+      url: `https://www.lewaconsultingroup.com/actualites/${post.slug}`,
+      title,
+      description,
+      images: [{ url: image, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
   };
 }
 

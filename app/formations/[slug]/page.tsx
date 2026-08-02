@@ -27,9 +27,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const formation = getFormationBySlug(slug);
   const t = await getTranslations();
   if (!formation) return { title: t("formations.notFound") };
+  const title = t(`formations.items.${formation.slug}.name`);
+  const description = t(`formations.items.${formation.slug}.desc`);
+  // Recadrage paysage 1200×630 (ratio 1.91:1) pour des cartes de partage propres.
+  const image = `${formation.image.split("?")[0]}?w=1200&h=630&fit=crop&crop=faces`;
   return {
-    title: t(`formations.items.${formation.slug}.name`),
-    description: t(`formations.items.${formation.slug}.desc`),
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: `https://www.lewaconsultingroup.com/formations/${formation.slug}`,
+      title,
+      description,
+      images: [{ url: image, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
   };
 }
 

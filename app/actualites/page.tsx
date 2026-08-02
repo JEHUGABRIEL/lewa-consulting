@@ -9,7 +9,23 @@ import { posts } from "@/lib/posts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
-  return { title: t("actualites") };
+  const title = t("actualites");
+  const description = t("actualitesDescription");
+  return {
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: "https://www.lewaconsultingroup.com/actualites",
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
 }
 
 export default async function ActualitesPage() {
