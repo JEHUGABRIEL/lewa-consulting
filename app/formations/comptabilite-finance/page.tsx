@@ -3,6 +3,7 @@ import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import FormationCards from "@/components/FormationCards";
 import FAQSection from "@/components/FAQSection";
+import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { comptaFinance } from "@/lib/formations";
@@ -48,6 +49,16 @@ export default async function ComptabiliteFinancePage() {
         <FormationCards rows={comptaFinance} />
 
 
+        <FAQJsonLd
+          items={[
+            { q: t('faq.q1'), r: t('faq.r1') },
+            { q: t('faq.q2'), r: t('faq.r2') },
+            { q: t('faq.q3'), r: t('faq.r3') },
+            { q: t('faq.q4'), r: t('faq.r4') },
+            { q: t('faq.q5'), r: t('faq.r5') },
+            { q: t('faq.q6'), r: t('faq.r6') },
+          ]}
+        />
         <FAQSection
           title={t('faq.title')}
           image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80"

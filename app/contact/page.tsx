@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
+import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 
@@ -122,6 +123,14 @@ export default async function ContactPage() {
         </div>
 
         {/* FAQ Contact */}
+        <FAQJsonLd
+          items={[
+            { q: t('contact.faqQ1'), r: t('contact.faqR1') },
+            { q: t('contact.faqQ2'), r: t('contact.faqR2') },
+            { q: t('contact.faqQ3'), r: t('contact.faqR3') },
+            { q: t('contact.faqQ4'), r: t('contact.faqR4') },
+          ]}
+        />
         <FAQSection
           title={t('contact.faqTitle')}
           image="https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=600&q=80"

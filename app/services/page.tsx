@@ -8,6 +8,7 @@ import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import { servicesData } from "@/lib/services";
+import FAQJsonLd from "@/components/FAQJsonLd";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -161,6 +162,14 @@ export default async function ServicesPage() {
         </div>
 
         {/* FAQ Services */}
+        <FAQJsonLd
+          items={[
+            { q: t('services.faqQ1'), r: t('services.faqR1') },
+            { q: t('services.faqQ2'), r: t('services.faqR2') },
+            { q: t('services.faqQ3'), r: t('services.faqR3') },
+            { q: t('services.faqQ4'), r: t('services.faqR4') },
+          ]}
+        />
         <FAQSection
           title={t('services.servicesPageFaqTitle')}
           image="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"

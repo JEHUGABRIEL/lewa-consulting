@@ -29,6 +29,17 @@ const plexMono = IBM_Plex_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
+  const tLegal = await getTranslations("legal");
+  const locale = await getLocale();
+
+  // Image de partage (logo officiel Cloudinary — bannière 1144×491).
+  const ogImage = {
+    url: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
+    width: 1144,
+    height: 491,
+    alt: tLegal("companyName"),
+  };
+
   return {
     metadataBase: new URL("https://www.lewaconsultingroup.com"),
     title: {
@@ -36,6 +47,24 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${t("suffix")}`,
     },
     description: t("description"),
+    openGraph: {
+      type: "website",
+      url: "https://www.lewaconsultingroup.com",
+      siteName: tLegal("companyName"),
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      title: t("title"),
+      description: t("description"),
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: [ogImage.url],
+    },
+    verification: {
+      google: "-Gq0huJ6mkjUMz9GozQIL5UOW3QpMN9vV9QCDR7rIes",
+    },
     icons: {
       icon: [
         { url: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa-512.png", sizes: "512x512", type: "image/png" },
@@ -52,6 +81,52 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const tMetadata = await getTranslations("Metadata");
+  const tCommon = await getTranslations("common");
+  const tLegal = await getTranslations("legal");
+
+  // Balisage Schema.org (JSON-LD) pour enrichir les résultats Google.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    name: tLegal("companyName"),
+    description: tMetadata("description"),
+    url: "https://www.lewaconsultingroup.com",
+    logo: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
+    image: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
+    telephone: tCommon("phone"),
+    email: tCommon("email"),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: tLegal("companyAddress"),
+      addressLocality: "Bangui",
+      addressCountry: "CF",
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "08:00",
+      closes: "18:00",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: tCommon("phone"),
+      contactType: "customer service",
+      areaServed: "CF",
+      availableLanguage: ["fr", "en"],
+    },
+    sameAs: [
+      "https://www.facebook.com/share/p/1HF9MirmNj/",
+      "https://sn.linkedin.com/in/moctar-lewa-286232217",
+    ],
+  };
 
   return (
     <html
@@ -59,6 +134,13 @@ export default async function RootLayout({
       className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            // Échappement pour éviter tout breakout `</script>`.
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           <Header initialLocale={locale} />
           {children}
