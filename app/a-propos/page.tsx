@@ -72,35 +72,14 @@ export default async function AboutPage() {
                 </div>
 
                 <div>
-                  {/* Bandeau nom + rôle */}
-                  <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-muted">
-                        {t('about.directionLead')}
-                      </p>
-                      <h3 className="mt-1.5 font-display text-2xl font-semibold text-navy sm:text-3xl">
-                        {t('about.directorName')}
-                      </h3>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-3">
-                      <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
-                        {t('about.directorRole')}
-                      </span>
-                      <a
-                        href="https://www.linkedin.com/in/moctar-lewa-286232217"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/10 text-navy/60 transition duration-200 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold"
-                        aria-label="LinkedIn"
-                        title="LinkedIn"
-                      >
-                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                          <rect x="2" y="9" width="4" height="12" />
-                          <circle cx="4" cy="4" r="2" />
-                        </svg>
-                      </a>
-                    </div>
+                  {/* Bandeau nom */}
+                  <div className="border-b border-border pb-6">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+                      {t('about.directionLead')}
+                    </p>
+                    <h3 className="mt-1.5 font-display text-2xl font-semibold text-navy sm:text-3xl">
+                      {t('about.directorName')}
+                    </h3>
                   </div>
 
                   {/* Bio */}
@@ -109,6 +88,27 @@ export default async function AboutPage() {
                     <p className="border-l-2 border-gold/40 pl-4 text-ink/85">
                       {t('about.directorBio2')}
                     </p>
+                  </div>
+
+                  {/* Badge rôle + LinkedIn sous la bio */}
+                  <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+                    <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
+                      {t('about.directorRole')}
+                    </span>
+                    <a
+                      href="https://www.linkedin.com/in/moctar-lewa-286232217"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/10 text-navy/60 transition duration-200 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold"
+                      aria-label="LinkedIn"
+                      title="LinkedIn"
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </div>
