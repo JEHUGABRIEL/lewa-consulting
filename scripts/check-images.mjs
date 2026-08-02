@@ -2,7 +2,8 @@
 /**
  * Vérifie les images référencées dans le code :
  *  1. les URLs d'images Unsplash sont vivantes (statut HTTP 200) ;
- *  2. les chemins d'images locales (public/*) existent sur disque.
+ *  2. les URLs d'images Cloudinary (res.cloudinary.com) sont vivantes ;
+ *  3. les chemins d'images locales (public/*) existent sur disque.
  *
  * Usage :
  *   npm run check:images
@@ -15,12 +16,21 @@
  *   - concurrency limitée (6 requêtes en parallèle) + timeout 15 s par requête
  *   - ignore le placeholder « photo-xxx » (exemple dans les commentaires)
  *
+ * Fonctionnement (URLs Cloudinary) :
+ *   - scanne les mêmes répertoires pour les URLs
+ *     https://res.cloudinary.com/<cloud>/image/upload/…
+ *   - teste chaque URL avec des query params miniatures
+ *     (?w=20&q=30) pour limiter le poids — la forme « chemin »
+ *     (…/w_20,q_30/<public_id>) renverrait un 400 quand le dossier du
+ *     public_id ressemble à un paramètre (ex. « qui_sommes_nous/ »)
+ *
  * Fonctionnement (images locales) :
  *   - scanne les mêmes répertoires (code + messages/*.json pour les contenus
  *     de blog traduits) pour les chemins racine `/…` se terminant
  *     par une extension image (.png, .jpeg, .jpg, .webp, .avif, .gif, .svg)
  *   - ignore les URLs externes (https://…, //…, data:, blob:) ainsi que les
- *     chemins encastrés dans une URL externe (ex. cdn.example.com/logo.png)
+ *     chemins encastrés dans une URL externe (ex. cdn.example.com/logo.png
+ *     ou res.cloudinary.com/…/images/logo.png)
  *   - vérifie que chaque chemin existe sous public/ (sensible à la casse,
  *     ce qui détecte les fautes de casse type « ONFP.png » vs « onfp.png »)
  *
@@ -31,6 +41,7 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import https from "node:https";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CODE_DIRS = ["app", "components", "lib", "src"];
@@ -38,6 +49,7 @@ const MESSAGES_DIR = "messages";
 const TS_RE = /\.(ts|tsx)$/;
 const JSON_RE = /\.json$/;
 const URL_RE = /https:\/\/images\.unsplash\.com\/photo-[a-zA-Z0-9-]+/g;
+const CLOUDINARY_RE = /https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9_-]+\/image\/upload\/[a-zA-Z0-9_/.-]+/g;
 const PLACEHOLDER_RE = /photo-xxx/;
 const LOCAL_IMG_RE = /\/[a-zA-Z0-9_/.-]+\.(png|jpe?g|webp|avif|gif|svg)/gi;
 
@@ -95,9 +107,26 @@ function extractLocalPaths(src) {
     if (prev && /[\w.]/.test(prev)) {
       continue;
     }
+    // Exclut les segments d'une URL Cloudinary (res.cloudinary.com/…/upload/…)
+    // — sinon « /images/logo.png » serait faussement considéré comme local.
+    const before = src.slice(Math.max(0, m.index - 60), m.index);
+    if (before.includes("res.cloudinary.com")) {
+      continue;
+    }
     paths.add(raw.split("?")[0]);
   }
   return [...paths];
+}
+
+/** Extrait les URLs Cloudinary uniques d'un fichier (sans query params). */
+function extractCloudinaryUrls(src) {
+  const urls = new Set();
+  CLOUDINARY_RE.lastIndex = 0;
+  let m;
+  while ((m = CLOUDINARY_RE.exec(src)) !== null) {
+    urls.add(m[0]);
+  }
+  return [...urls];
 }
 
 /** Exécute fn sur les items avec une limite de parallélisme. */
@@ -140,6 +169,49 @@ async function checkUrl(base) {
   }
 }
 
+/**
+ * Teste une URL Cloudinary : ajoute des query params miniatures
+ * (?w=20&q=30) pour limiter le poids du téléchargement.
+ *
+ * Utilise https.get avec family: 4 (IPv4 forcé) : res.cloudinary.com publie
+ * des enregistrements AAAA (IPv6) dont le routage échoue dans certains
+ * environnements (CI, réseaux sans IPv6) — undici/fetch timeout alors que
+ * curl et https.get passent en IPv4. Le CDN reste joignable en IPv4 partout.
+ */
+function checkCloudinaryUrl(base) {
+  const clean = base.split("?")[0];
+  const url = `${clean}?w=20&q=30`;
+
+  return new Promise((resolve) => {
+    let timer;
+    const req = https.get(
+      url,
+      {
+        family: 4,
+        headers: { "user-agent": "lewa-consulting check-images (CI)" },
+      },
+      (res) => {
+        clearTimeout(timer);
+        // Consomme le corps pour libérer la connexion
+        res.resume();
+        res.on("end", () =>
+          resolve({
+            base,
+            ok: res.statusCode >= 200 && res.statusCode < 300,
+            status: res.statusCode,
+            error: null,
+          }),
+        );
+      },
+    );
+    req.on("error", (err) => {
+      clearTimeout(timer);
+      resolve({ base, ok: false, status: 0, error: err.message });
+    });
+    timer = setTimeout(() => req.destroy(new Error("timeout (15s)")), 15000);
+  });
+}
+
 async function main() {
   const files = [
     ...CODE_DIRS.flatMap((d) => walk(path.join(ROOT, d))),
@@ -173,6 +245,34 @@ async function main() {
     }
   } else {
     console.log("✓ Aucune URL d'image Unsplash détectée dans le code.");
+  }
+
+  // ---- 1bis. URLs Cloudinary ----
+  const cloudSet = new Set();
+  for (const file of files) {
+    for (const u of extractCloudinaryUrls(readFileSync(file, "utf8"))) cloudSet.add(u);
+  }
+  const clouds = [...cloudSet].sort();
+
+  if (clouds.length > 0) {
+    console.log(`Vérification de ${clouds.length} URL(s) d'images Cloudinary…\n`);
+    const results = await mapLimit(clouds, 6, checkCloudinaryUrl);
+    const dead = results.filter((r) => !r.ok);
+
+    if (dead.length > 0) {
+      for (const d of dead) {
+        console.error(`✗ ${d.base} → ${d.status || d.error}`);
+      }
+      console.error(
+        `\n✗ ${dead.length} URL(s) Cloudinary morte(s) détectée(s) sur ${clouds.length}.`,
+      );
+      console.error("Vérifiez le cloud/public_id puis relancez `npm run check:images`.");
+      fail = true;
+    } else {
+      console.log(`✓ Toutes les ${clouds.length} URL(s) Cloudinary sont vivantes (200).`);
+    }
+  } else {
+    console.log("✓ Aucune URL d'image Cloudinary détectée dans le code.");
   }
 
   // ---- 2. Images locales (public/*) ----

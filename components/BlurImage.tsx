@@ -27,6 +27,24 @@ function makeUnsplashBlurUrl(src: string): string | null {
   return `${base}?w=20&q=30&blur`;
 }
 
+/**
+ * Génère une miniature floutée Cloudinary via les query params.
+ * Exemple : https://res.cloudinary.com/<cloud>/image/upload/<public_id>
+ *   → miniature : …/<public_id>?w=20&q=20&e=blur:1000
+ *
+ * NB : la forme « chemin » (…/w_20,q_20,e_blur:1000/<public_id>) renvoie un
+ * HTTP 400 quand le dossier du public_id ressemble à un paramètre de
+ * transformation (ex. « qui_sommes_nous/ ») — la forme query params est
+ * robuste pour tous les public_id.
+ */
+function makeCloudinaryBlurUrl(src: string): string | null {
+  if (!src.includes("res.cloudinary.com") || !src.includes("/image/upload/")) {
+    return null;
+  }
+  const base = src.split("?")[0];
+  return `${base}?w=20&q=20&e=blur:1000`;
+}
+
 export default function BlurImage({
   src,
   alt,
@@ -39,7 +57,7 @@ export default function BlurImage({
   const [loaded, setLoaded] = useState(false);
   const [inView, setInView] = useState(eager);
   const imgRef = useRef<HTMLDivElement>(null);
-  const blurUrl = placeholderSrc ?? makeUnsplashBlurUrl(src);
+  const blurUrl = placeholderSrc ?? makeUnsplashBlurUrl(src) ?? makeCloudinaryBlurUrl(src);
 
   // Intersection Observer pour ne charger que quand visible (sauf eager/LCP)
   useEffect(() => {

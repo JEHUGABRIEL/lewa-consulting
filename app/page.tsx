@@ -468,7 +468,7 @@ export default function Home() {
                 {/* Devanture du cabinet avec chiffres clés superposés */}
                 <div className="relative h-96 w-full overflow-hidden rounded-2xl">
                   <BlurImage
-                    src="/images/devanture_cabinet/devanture.png"
+                    src="https://res.cloudinary.com/dwmrzp61c/image/upload/images/devanture_cabinet/devanture.png"
                     alt="Devanture du Cabinet COSI Lewa-Consulting Group"
                     className="h-full w-full object-cover"
                   />

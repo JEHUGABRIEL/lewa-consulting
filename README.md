@@ -37,7 +37,7 @@ natifs — aucune dépendance à installer.
 # 1. Traductions : parité fr/en, clés inutilisées ou manquantes, résolution services.items.*
 npm run check:i18n
 
-# 2. Images : URLs Unsplash vivantes (HTTP 200) + chemins d'images locales existants sous public/
+# 2. Images : URLs Unsplash et Cloudinary vivantes (HTTP 200) + chemins d'images locales existants sous public/
 npm run check:images
 
 # 3. Données : chaque champ des objets de données de lib/*.ts est consommé par le code
@@ -52,7 +52,8 @@ Chaque contrôle se termine avec `exit code 1` en cas d'échec — ce qui bloque
 | Commande | Script | Contrôles effectués |
 |---|---|---|
 | `npm run check:i18n` | `scripts/check-i18n.mjs` | Parité fr/en ; clés définies mais jamais référencées ; clés utilisées mais absentes ; résolution des clés dynamiques `services.items.*` pour chaque slug de `lib/services.ts` |
-| `npm run check:images` | `scripts/check-images.mjs` | URLs `images.unsplash.com` répondent 200 (concurrency limitée) ; chemins locaux `/…` (code + `messages/*.json`) existent sous `public/` |
+| `npm run check:images` | `scripts/check-images.mjs` | URLs `images.unsplash.com` **et** `res.cloudinary.com` répondent 200 (concurrency limitée) ; chemins locaux `/…` (code + `messages/*.json`) existent sous `public/` |
+| `npm run upload:images` | `scripts/upload-cloudinary.mjs` | Upload des images locales de `public/` vers Cloudinary (public_id déterministes, idempotent) |
 | `npm run check:lib` | `scripts/check-lib-fields.mjs` | Champs des exports de données de `lib/*.ts` référencés ailleurs dans le code (hors fichier de définition) ; ignore les `Record<…>` indexés par clé |
 
 ## Structure

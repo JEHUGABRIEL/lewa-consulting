@@ -63,7 +63,7 @@ export default async function AboutPage() {
                 {/* Photo du directeur */}
                 <div className="relative mx-auto w-full max-w-[300px] overflow-hidden rounded-xl shadow-sm sm:mx-0">
                   <BlurImage
-                    src="/qui_sommes_nous/directeur.png"
+                    src="https://res.cloudinary.com/dwmrzp61c/image/upload/qui_sommes_nous/directeur.png"
                     alt={t('about.directorName')}
                     className="aspect-[4/5] w-full"
                     eager
@@ -82,9 +82,25 @@ export default async function AboutPage() {
                         {t('about.directorName')}
                       </h3>
                     </div>
-                    <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
-                      {t('about.directorRole')}
-                    </span>
+                    <div className="flex shrink-0 items-center gap-3">
+                      <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
+                        {t('about.directorRole')}
+                      </span>
+                      <a
+                        href="https://www.linkedin.com/in/moctar-lewa-286232217"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/10 text-navy/60 transition duration-200 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold"
+                        aria-label="LinkedIn"
+                        title="LinkedIn"
+                      >
+                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                          <rect x="2" y="9" width="4" height="12" />
+                          <circle cx="4" cy="4" r="2" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
 
                   {/* Bio */}

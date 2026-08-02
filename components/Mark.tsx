@@ -13,7 +13,7 @@ export default function Mark({
 }) {
   return (
     <Image
-      src="/images/favicon_lewa.png"
+      src="https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png"
       alt="Logo COSI Lewa-Consulting Group"
       width={1144}
       height={491}
