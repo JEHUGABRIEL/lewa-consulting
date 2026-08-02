@@ -124,6 +124,7 @@ export default async function RootLayout({
     },
     sameAs: [
       "https://www.facebook.com/share/p/1HF9MirmNj/",
+      "https://www.instagram.com/explore/locations/640425439772028/cabinet-lewa-consulting-group/",
       "https://sn.linkedin.com/in/moctar-lewa-286232217",
     ],
   };

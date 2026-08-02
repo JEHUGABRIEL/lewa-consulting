@@ -106,6 +106,10 @@ export default async function ContactPage() {
                     {t('contact.facebook')} — Cabinet COSI Lewa-Consulting Group
                     <svg className="h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
                   </a>
+                  <a href="https://www.instagram.com/explore/locations/640425439772028/cabinet-lewa-consulting-group/" target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-1 text-navy transition hover:text-red">
+                    {t('contact.instagram')} — Cabinet COSI Lewa-Consulting Group
+                    <svg className="h-3 w-3 opacity-0 transition-all duration-200 group-hover/link:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+                  </a>
                 </dd>
               </Reveal>
             </dl>
