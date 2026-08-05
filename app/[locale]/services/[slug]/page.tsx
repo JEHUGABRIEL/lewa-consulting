@@ -9,12 +9,12 @@ import HeroSlider from "@/components/HeroSlider";
 import ServiceTOC from "@/components/ServiceTOC";
 import LevelBadge from "@/components/LevelBadge";
 import BlurImage from "@/components/BlurImage";
+import { serviceFormations } from "@/lib/services";
 import {
-  servicesData,
-  getServiceBySlug,
-  serviceFormations,
-} from "@/lib/services";
-import { getFormationBySlug } from "@/lib/formations";
+  getPublicServiceBySlug,
+  getPublicServices,
+} from "@/lib/admin/public";
+import { getPublicFormationBySlug } from "@/lib/admin/public";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -22,20 +22,21 @@ import { routing } from "@/i18n/routing";
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
+  const services = await getPublicServices();
   return routing.locales.flatMap((locale) =>
-    servicesData.map((s) => ({ locale, slug: s.slug })),
+    services.map((s) => ({ locale, slug: s.slug })),
   );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const service = getServiceBySlug(slug);
-  const t = await getTranslations();
+  const service = await getPublicServiceBySlug(slug);
+  const t = await getTranslations({ locale });
   if (!service) return { title: t('services.notFound') };
   const title = t(`services.items.${service.slug}.title`);
   const description = t(`services.items.${service.slug}.desc`);
-  // Recadrage paysage 1200×630 (ratio 1.91:1) pour des cartes de partage propres.
+
   const image = `${service.image.split("?")[0]}?w=1200&h=630&fit=crop&crop=faces`;
   return {
     title,
@@ -68,19 +69,23 @@ export default async function ServiceDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-  const service = getServiceBySlug(slug);
+  const service = await getPublicServiceBySlug(slug);
   if (!service) notFound();
 
-  const related = servicesData.filter((s) => s.slug !== service.slug);
+  const related = (await getPublicServices()).filter((s) => s.slug !== service.slug);
 
-  // Formations liées au domaine (via la carte serviceFormations de lib/services.ts)
-  const relatedFormations = (serviceFormations[service.slug] ?? [])
-    .map((fSlug) => getFormationBySlug(fSlug))
-    .filter((f): f is NonNullable<typeof f> => f !== undefined);
+
+  const relatedFormations = (
+    await Promise.all(
+      (serviceFormations[service.slug] ?? []).map((fSlug) =>
+        getPublicFormationBySlug(fSlug),
+      ),
+    )
+  ).filter((f): f is NonNullable<typeof f> => f !== undefined);
 
   const heroBgs = getHeroBackgrounds("services");
 
-  // Étapes du bloc « Comment ça marche » (partagées par tous les domaines)
+
   const steps = [1, 2, 3, 4] as const;
 
   const tocItems = [
@@ -94,7 +99,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   return (
     <main>
-      {/* Hero avec slider */}
+      { }
       <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
 
@@ -125,12 +130,12 @@ export default async function ServiceDetailPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* Contenu principal */}
+      { }
       <Container className="py-14 sm:py-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_320px]">
-          {/* Colonne principale */}
-          <div>
-            {/* À propos */}
+          { }
+          <div className="min-w-0">
+            { }
             <Reveal as="div">
               <section id="a-propos" className="scroll-mt-28">
                 <h2 className="font-display text-xl text-navy">
@@ -144,7 +149,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               </section>
             </Reveal>
 
-            {/* Prestations */}
+            { }
             <Reveal as="div" delay={100}>
               <section id="prestations" className="mt-8 scroll-mt-28 rounded-xl bg-white p-6 shadow-sm">
                 <h3 className="font-display text-base font-semibold text-navy mb-4">
@@ -161,7 +166,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               </section>
             </Reveal>
 
-            {/* Comment ça marche */}
+            { }
             <Reveal as="div" delay={100}>
               <section id="comment-ca-marche" className="mt-10 scroll-mt-28">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
@@ -177,7 +182,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                       key={n}
                       className="group relative overflow-hidden rounded-xl border border-transparent bg-white p-5 shadow-sm transition hover:border-navy/20 hover:shadow-md"
                     >
-                      {/* Numéro en filigrane */}
+                      { }
                       <span
                         className="pointer-events-none absolute -right-2 -top-4 select-none font-display text-7xl font-semibold text-navy/[0.04] transition-colors duration-300 group-hover:text-gold/[0.08]"
                         aria-hidden="true"
@@ -201,7 +206,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               </section>
             </Reveal>
 
-            {/* Formations liées */}
+            { }
             {relatedFormations.length > 0 && (
               <Reveal as="div" delay={150}>
                 <section id="formations-liees" className="mt-10 scroll-mt-28">
@@ -252,22 +257,22 @@ export default async function ServiceDetailPage({ params }: Props) {
             )}
           </div>
 
-          {/* Sidebar — Sommaire + Services liés */}
-          <Reveal as="div" delay={150}>
-            <div className="sticky top-28 space-y-4">
-              {/* Sommaire ancré */}
+          { }
+          <Reveal as="div" delay={150} className="min-w-0">
+            <div className="sticky top-28 max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain [scrollbar-width:thin] space-y-4">
+              { }
               <ServiceTOC title={t('services.tocTitle')} items={tocItems} />
 
               {related.length > 0 && (
                 <>
-                  {/* Titre avec séparateurs dorés */}
+                  { }
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                     <span className="inline-block h-px flex-1 bg-gold/30" />
                     <span>{t('services.discoverAlso')}</span>
                     <span className="inline-block h-px flex-1 bg-gold/30" />
                   </div>
 
-                  {/* Cartes */}
+                  { }
                   <div className="space-y-4">
                     {related.slice(0, 1).map((r) => (
                       <Link
@@ -276,7 +281,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                         className="group block"
                       >
                         <div className="overflow-hidden rounded-xl border border-transparent bg-white shadow-sm transition-all duration-200 hover:border-navy/20 hover:shadow-md">
-                          {/* Image */}
+                          { }
                           <div className="relative h-28 w-full overflow-hidden">
                             <Image
                               src={r.image.split("?")[0]}
@@ -287,7 +292,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
                           </div>
-                          {/* Contenu */}
+                          { }
                           <div className="p-3.5">
                             <span className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-navy">
                               {t(`services.items.${r.slug}.tags`).split("\n")[0]}
@@ -306,7 +311,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </>
               )}
 
-              {/* Back link */}
+              { }
               <div className="pt-1 text-center">
                 <Link
                   href="/services"

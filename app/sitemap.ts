@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
-import { servicesData } from "@/lib/services";
-import { allFormations, formationCategories } from "@/lib/formations";
-import { posts } from "@/lib/posts";
+import { formationCategories } from "@/lib/formations";
+import {
+  getPublicFormations,
+  getPublicPosts,
+  getPublicServices,
+} from "@/lib/admin/public";
 
 const BASE_URL = "https://www.lewaconsultingroup.com";
 const LOCALES = ["fr", "en"] as const;
@@ -14,7 +17,7 @@ type PageDef = {
   priority: number;
 };
 
-/** Génère l'entrée de chaque page pour les deux locales, avec hreflang. */
+
 function localized(defs: PageDef[]): MetadataRoute.Sitemap {
   return defs.flatMap((d) => {
     const path = d.path === "/" ? "" : d.path;
@@ -34,9 +37,15 @@ function localized(defs: PageDef[]): MetadataRoute.Sitemap {
   });
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Pages statiques (les pages catégories de formations sont générées plus bas,
-  // depuis formationCategories, pour éviter les doublons)
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [services, formations, posts] = await Promise.all([
+    getPublicServices(),
+    getPublicFormations(),
+    getPublicPosts(),
+  ]);
+
+
+
   const staticPages: PageDef[] = [
     { path: "/", changeFrequency: "monthly", priority: 1 },
     { path: "/services", changeFrequency: "monthly", priority: 0.9 },
@@ -46,28 +55,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/mentions-legales", changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  // Pages services dynamiques (6 domaines)
-  const servicePages: PageDef[] = servicesData.map((s) => ({
+
+  const servicePages: PageDef[] = services.map((s) => ({
     path: `/services/${s.slug}`,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  // Pages formations dynamiques (toutes les formations)
-  const formationPages: PageDef[] = allFormations.map((f) => ({
+
+  const formationPages: PageDef[] = formations.map((f) => ({
     path: `/formations/${f.slug}`,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
-  // Catégories de formations (routes dérivées des slugs de catégorie)
+
   const formationCategoryPages: PageDef[] = formationCategories.map((c) => ({
     path: `/formations/${c.slug}`,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  // Pages actualités dynamiques
+
   const postPages: PageDef[] = posts.map((p) => ({
     path: `/actualites/${p.slug}`,
     changeFrequency: "monthly",

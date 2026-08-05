@@ -1,0 +1,28 @@
+name: check-csp-admin
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: check-csp-admin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  csp:
+    name: Pas de style inline dans la zone admin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Le script n'utilise que des modules Node natifs (aucune dépendance) :
+      # pas besoin de npm ci, le check s'exécute directement.
+      - name: Vérifier l'absence de styles inline (CSP à nonce)
+        run: node scripts/check-csp-admin.mjs

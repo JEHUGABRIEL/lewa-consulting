@@ -6,7 +6,10 @@ import FAQSection from "@/components/FAQSection";
 import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
-import { comptaFinance } from "@/lib/formations";
+import {
+  getPublicFormations,
+  getPublicFormationsByCategory,
+} from "@/lib/admin/public";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
@@ -52,6 +55,10 @@ export default async function ComptabiliteFinancePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const [rows, allFormations] = await Promise.all([
+    getPublicFormationsByCategory("compta"),
+    getPublicFormations(),
+  ]);
   return (
     <main>
       <PageHeader
@@ -78,11 +85,11 @@ export default async function ComptabiliteFinancePage({
             {t('formations.catComptaSectionTitle')}
           </h2>
           <p className="mt-2 text-sm text-muted max-w-lg">
-            {t('formations.catComptaCount', { count: comptaFinance.length })}
+            {t('formations.catComptaCount', { count: rows.length })}
           </p>
         </div>
 
-        <FormationCards rows={comptaFinance} />
+        <FormationCards rows={rows} allFormations={allFormations} />
 
 
         <FAQJsonLd

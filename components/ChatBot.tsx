@@ -9,7 +9,7 @@ type Message = {
   text: string;
 };
 
-// ---- Composant ChatBot ----
+
 
 export default function ChatBot() {
   const t = useTranslations();
@@ -23,36 +23,46 @@ export default function ChatBot() {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Message d'accueil au premier dépliage (déclenché par le clic, pas par un effet)
-  const toggleChat = () => {
-    if (!open) {
-      if (!welcomeShown) {
-        setWelcomeShown(true);
-        setMessages([
-          {
-            role: "bot",
-            text: t('chatbot.greeting'),
-          },
-        ]);
-      }
-      setOpen(true);
-      setTimeout(() => inputRef.current?.focus(), 300);
-    } else {
-      setOpen(false);
+
+  const openChat = () => {
+    if (!welcomeShown) {
+      setWelcomeShown(true);
+      setMessages([
+        {
+          role: "bot",
+          text: t('chatbot.greeting'),
+        },
+      ]);
     }
+    setOpen(true);
+    setTimeout(() => inputRef.current?.focus(), 300);
   };
 
-  // Scroll en bas à chaque nouveau message ou changement de statut typing
+  const closeChat = () => {
+    setOpen(false);
+  };
+
+
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // Nettoyage du timer au démontage
+
   useEffect(() => {
     return () => {
       if (typingTimer.current) clearTimeout(typingTimer.current);
     };
   }, []);
+
+  // Ferme le chat avec la touche Échap
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeChat();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   const botReply = useCallback((text: string) => {
     setIsTyping(true);
@@ -79,9 +89,17 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Bouton flottant */}
+      {/* Backdrop : un clic en dehors du formulaire ferme le chat */}
+      {open && (
+        <div
+          className="fixed inset-0 z-40"
+          aria-hidden="true"
+          onClick={closeChat}
+        />
+      )}
+
       <button
-        onClick={toggleChat}
+        onClick={() => (open ? closeChat() : openChat())}
         className={`fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
           open ? "bg-navy-deep rotate-45" : "bg-gold-bright"
         }`}
@@ -99,7 +117,7 @@ export default function ChatBot() {
         )}
       </button>
 
-      {/* Fenêtre de chat */}
+      { }
       <div
         role="dialog"
         aria-modal="true"
@@ -108,7 +126,7 @@ export default function ChatBot() {
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
       >
-        {/* Header */}
+        { }
         <div className="flex shrink-0 items-center justify-between bg-gradient-to-r from-navy to-navy-deep px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-bright text-navy text-sm font-bold">
@@ -121,7 +139,7 @@ export default function ChatBot() {
           </div>
         </div>
 
-        {/* Messages */}
+        { }
         <div ref={listRef} className="flex h-80 min-h-0 flex-col gap-3 overflow-y-auto px-5 py-4" role="log" aria-live="polite" aria-label={t('chatbot.title')}>
           {messages.length === 0 && (
             <div className="flex items-center justify-center h-full">
@@ -145,7 +163,7 @@ export default function ChatBot() {
             </div>
           ))}
 
-          {/* Indicateur de saisie */}
+          { }
           {isTyping && (
             <div className="flex justify-start" aria-hidden="true">
               <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-border bg-paper px-4 py-3">
@@ -157,7 +175,7 @@ export default function ChatBot() {
           )}
         </div>
 
-        {/* Quick replies — visibles tant que l'utilisateur n'a pas tapé */}
+        { }
         {!userTyped && (
           <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
             {knowledge.map((k) => (
@@ -172,7 +190,7 @@ export default function ChatBot() {
           </div>
         )}
 
-        {/* Input */}
+        { }
         <form onSubmit={handleSend} className="flex shrink-0 items-center gap-2 border-t border-border px-4 py-3">
           <input
             ref={inputRef}

@@ -1,10 +1,10 @@
-/** Témoignages clients affichés sur la page d'accueil */
+
 
 export type Testimonial = {
   name: string;
-  /** Photo de la personne (dossier public/temoignages) */
+
   image: string;
-  /** Texte alternatif */
+
   imageAlt: string;
 };
 

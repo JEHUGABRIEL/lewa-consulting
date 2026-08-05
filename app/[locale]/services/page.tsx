@@ -7,7 +7,7 @@ import BlurImage from "@/components/BlurImage";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
-import { servicesData } from "@/lib/services";
+import { getPublicServices } from "@/lib/admin/public";
 import FAQJsonLd from "@/components/FAQJsonLd";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -111,6 +111,7 @@ export default async function ServicesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const services = await getPublicServices();
   return (
     <main>
       <PageHeader
@@ -133,11 +134,11 @@ export default async function ServicesPage({
 
       <Container className="py-14 sm:py-16">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
-          {servicesData.map((s) => (
+          {services.map((s) => (
             <Link key={s.slug} href={`/services/${s.slug}`}>
               <Reveal as="div">
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                  {/* Image en haut avec blur-up */}
+                  { }
                   <div className="relative h-36 w-full overflow-hidden rounded-t-xl">
                     <BlurImage
                       src={s.image}
@@ -145,18 +146,18 @@ export default async function ServicesPage({
                       className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                    {/* Icone par-dessus l'image */}
+                    { }
                     <span className="absolute bottom-3 left-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 text-navy shadow-sm backdrop-blur-sm transition-colors duration-200 group-hover:bg-gold group-hover:text-navy">
                       {expertiseIcon(s.icon)}
                     </span>
                   </div>
 
-                  {/* Contenu */}
+                  { }
                   <div className="flex flex-1 flex-col p-5 lg:p-7 pt-4 lg:pt-5">
                     <h2 className="font-display text-xl text-navy transition-colors duration-200 group-hover:text-red">{t(`services.items.${s.slug}.title`)}</h2>
                     <p className="mt-1 text-xs leading-relaxed text-ink/70">{t(`services.items.${s.slug}.desc`)}</p>
 
-                    {/* Tags */}
+                    { }
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {t(`services.items.${s.slug}.tags`).split("\n").map((tag) => (
                         <span key={tag} className="inline-flex items-center rounded-full bg-navy/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-navy/60">
@@ -165,7 +166,7 @@ export default async function ServicesPage({
                       ))}
                     </div>
 
-                    {/* Points */}
+                    { }
                     <ul className="mt-4 space-y-1.5 text-sm text-ink/80 border-t border-border pt-4 flex-1">
                       {t(`services.items.${s.slug}.points`).split("\n").slice(0, 3).map((p) => (
                         <li key={p} className="flex gap-2.5">
@@ -175,7 +176,7 @@ export default async function ServicesPage({
                       ))}
                     </ul>
 
-                    {/* CTA */}
+                    { }
                     <div className="mt-4 flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold">
                       <span>{t('common.learnMore')}</span>
                       <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
@@ -197,7 +198,7 @@ export default async function ServicesPage({
           </Link>
         </div>
 
-        {/* FAQ Services */}
+        { }
         <FAQJsonLd
           items={[
             { q: t('services.faqQ1'), r: t('services.faqR1') },

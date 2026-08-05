@@ -54,6 +54,30 @@ table {
   border-collapse: collapse;
 }
 
+/* Scrollbar fine pour les zones défilables de l'admin (tableaux, corps de modales) */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(12, 35, 64, 0.25) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(12, 35, 64, 0.2);
+  border-radius: 9999px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(12, 35, 64, 0.35);
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 /* ===============================
    Animations & micro-interactions
    =============================== */

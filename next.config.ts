@@ -4,21 +4,25 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  // Masque l'indicateur DevTools de Next.js en dev : son portail `<nextjs-portal>`
+  // ajoutait une bande blanche sous le footer du dashboard admin (et générait des
+  // violations CSP style-src). Les erreurs de compilation/runtime restent affichées.
+  devIndicators: false,
   turbopack: {
     root: process.cwd(),
   },
   experimental: {
-    // Cache client du router pour les navigations : les pages déjà visitées
-    // se rechargent instantanément lors des retours / navigations répétées.
-    // (Le rendu est désormais statique par locale : /fr, /en → cache CDN.)
+
+
+
     staleTimes: {
       dynamic: 60,
     },
   },
   images: {
-    // Loader custom : génère les URLs Cloudinary (CDN) directement,
-    // évitant l'optimiseur serveur /_next/image qui timeout (500)
-    // dans certains environnements. Voir lib/image-loader.ts.
+
+
+
     loader: "custom",
     loaderFile: "./lib/image-loader.ts",
     remotePatterns: [

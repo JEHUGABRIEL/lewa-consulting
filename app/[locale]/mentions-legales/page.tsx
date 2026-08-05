@@ -51,7 +51,7 @@ export default async function MentionsLegalesPage({
 
       <Container className="py-14 sm:py-16">
         <div className="mx-auto max-w-3xl space-y-10">
-          {/* Éditeur du site */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.companyTitle')}</h2>
             <div className="mt-4 space-y-2 text-sm leading-relaxed text-ink/75">
@@ -82,7 +82,7 @@ export default async function MentionsLegalesPage({
             </div>
           </section>
 
-          {/* Directeur de publication */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.directorTitle')}</h2>
             <p className="mt-4 text-sm leading-relaxed text-ink/75">
@@ -90,7 +90,7 @@ export default async function MentionsLegalesPage({
             </p>
           </section>
 
-          {/* Hébergement */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.hostTitle')}</h2>
             <p
@@ -99,7 +99,7 @@ export default async function MentionsLegalesPage({
             />
           </section>
 
-          {/* Propriété intellectuelle */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.intellectualTitle2')}</h2>
             <div className="mt-4 space-y-2 text-sm leading-relaxed text-ink/75">
@@ -108,7 +108,7 @@ export default async function MentionsLegalesPage({
             </div>
           </section>
 
-          {/* Responsabilité */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.liabilityTitle2')}</h2>
             <div className="mt-4 space-y-2 text-sm leading-relaxed text-ink/75">
@@ -117,13 +117,13 @@ export default async function MentionsLegalesPage({
             </div>
           </section>
 
-          {/* Liens hypertextes */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.linksTitle')}</h2>
             <p className="mt-4 text-sm leading-relaxed text-ink/75">{t('legal.linksText')}</p>
           </section>
 
-          {/* Protection des données */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.privacyTitle2')}</h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink/75">
@@ -156,7 +156,7 @@ export default async function MentionsLegalesPage({
             </div>
           </section>
 
-          {/* Contact */}
+          { }
           <section>
             <h2 className="font-display text-xl text-navy">{t('legal.contactTitle')}</h2>
             <p className="mt-4 text-sm leading-relaxed text-ink/75">{t('legal.contactText')}</p>
@@ -192,12 +192,12 @@ export default async function MentionsLegalesPage({
             </ul>
           </section>
 
-          {/* Date de mise à jour */}
+          { }
           <div className="pt-6 text-xs text-muted">
             <p>{t('legal.lastUpdate')}</p>
           </div>
 
-          {/* Retour */}
+          { }
           <div>
             <Link
               href="/"

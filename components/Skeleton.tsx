@@ -1,4 +1,4 @@
-/** Composants skeleton réutilisables pour les états de chargement */
+
 
 export function SkeletonBox({ className = "" }: { className?: string }) {
   return (

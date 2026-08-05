@@ -31,17 +31,23 @@ const plexMono = IBM_Plex_Mono({
 
 const BASE_URL = "https://www.lewaconsultingroup.com";
 
-/**
- * Rendu statique : génère les deux locales (/fr, /en) au build,
- * ce qui permet un cache CDN complet (plus de rendu à la demande).
- */
+
+
+
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// Aucune locale hors liste n'est rendue à la demande : les pages valides
-// sont 100 % statiques (cache CDN), les slugs/locales inconnus → 404.
-export const dynamicParams = false;
+
+
+
+export const dynamicParams = true;
+
+
+
+
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -54,7 +60,7 @@ export async function generateMetadata({
   const t = await getTranslations("Metadata");
   const tLegal = await getTranslations("legal");
 
-  // Image de partage (photo de la devanture Cloudinary — recadrée 1200×630, ratio recommandé par les réseaux sociaux).
+
   const ogImage = {
     url: "https://res.cloudinary.com/dwmrzp61c/image/upload/w_1200,h_630,c_fill,f_auto,q_auto/images/devanture_cabinet/devanture.png",
     width: 1200,
@@ -113,7 +119,7 @@ export default async function LocaleLayout({
 }>) {
   const { locale } = await params;
 
-  // Locale invalide (ex. /zz) → 404 au lieu d'une erreur de traduction.
+
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
@@ -124,7 +130,7 @@ export default async function LocaleLayout({
   const tCommon = await getTranslations("common");
   const tLegal = await getTranslations("legal");
 
-  // Balisage Schema.org (JSON-LD) pour enrichir les résultats Google.
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["ProfessionalService", "LocalBusiness"],
@@ -173,14 +179,14 @@ export default async function LocaleLayout({
       lang={locale}
       className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} h-full antialiased`}
     >
-      {/* Preconnect vers le CDN d'images : démarre la connexion TCP/TLS en
-          parallèle du chargement de la page → images visibles plus tôt. */}
+      {
+}
       <link rel="preconnect" href="https://res.cloudinary.com" />
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            // Échappement pour éviter tout breakout `</script>`.
+
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />

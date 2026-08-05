@@ -1,11 +1,11 @@
-/** Données des partenaires / organisations qui font confiance au cabinet */
+
 
 export type Partner = {
   name: string;
   tagline: string;
-  /** Logo Cloudinary ou image de l'organisation */
+
   image: string;
-  /** Texte alternatif */
+
   imageAlt: string;
 };
 

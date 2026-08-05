@@ -1,37 +1,37 @@
 #!/usr/bin/env node
-/**
- * Vérifie la qualité des fichiers de traduction messages/fr.json et messages/en.json.
- *
- * Usage :
- *   npm run check:i18n
- *
- * Quatre contrôles :
- *   1. PARITÉ — les deux fichiers définissent exactement les mêmes clés.
- *   2. CLÉS INUTILISÉES — clés définies dans les messages mais jamais
- *      référencées dans le code (app/, components/, lib/, src/).
- *   3. CLÉS MANQUANTES — clés utilisées dans le code mais absentes des messages.
- *   4. RÉSOLUTION services.items.* — pour chaque slug de lib/services.ts, les
- *      champs attendus (title, short, desc, imageAlt, tags, details, points)
- *      doivent exister et être non vides dans les deux locales.
- *      Détecte un domaine ajouté sans traduction, un champ manquant ou vide,
- *      ou un cache de traduction périmé (serveur dev qui sert d'anciens messages).
- *
- * L'analyse de couverture prend en charge :
- *   - les appels statiques : t('a.b'), t("a.b"), t.raw('a.b')
- *   - les clés dynamiques (template literals) : t(`nav.${l.key}`),
- *     t(`formations.items.${slug}.name`), t(`cta.${prefix}Title`)…
- *     → expansion à partir des données réelles (slugs, nav keys, préfixes CTA)
- *   - les tableaux de clés passés à t() : t(heroTitleKeys[i])
- *   - les namespaces : getTranslations("Metadata") / getTranslations("common")
- *     (y compris le shadowing quand un fichier déclare deux fois `t` —
- *     une fois avec namespace pour generateMetadata, une fois sans pour la page)
- *   - les motifs non résolubles (ex: testimonials.quote${idx}) → wildcard :
- *     toutes les clés dont le préfixe statique correspond sont considérées
- *     utilisées (précaution : ne pas bloquer la CI sur un faux positif).
- *
- * - Sortie 0 : tous les contrôles passent.
- * - Sortie 1 : divergence de parité, clés inutilisées ou clés manquantes.
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import { readFile } from "node:fs/promises";
 import { readFileSync, readdirSync } from "node:fs";
@@ -42,7 +42,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FILES = ["messages/fr.json", "messages/en.json"];
 const CODE_DIRS = ["app", "components", "lib", "src"];
 
-/** Champs attendus par la page détail /services/[slug] pour chaque domaine. */
+
 const SERVICE_ITEM_FIELDS = [
   "title",
   "short",
@@ -53,7 +53,7 @@ const SERVICE_ITEM_FIELDS = [
   "points",
 ];
 
-/** Aplatit un objet imbriqué en un ensemble de chemins de clés "a.b.c". */
+
 function flatten(obj, prefix = "", out = new Set()) {
   for (const [key, value] of Object.entries(obj)) {
     const full = prefix ? `${prefix}.${key}` : key;
@@ -80,9 +80,9 @@ function printKeyList(keys, indent = "  ") {
   for (const key of keys) console.error(`${indent}• ${key}`);
 }
 
-// ---------------- Analyse de couverture code ↔ messages ----------------
 
-/** Liste récursive des fichiers .ts/.tsx sous un répertoire. */
+
+
 function walk(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (
@@ -99,7 +99,7 @@ function walk(dir, out = []) {
   return out;
 }
 
-/** Extrait les slugs d'un tableau typé nommé (ex: comptaFinance: FormationRow[] = [...]). */
+
 function extractSlugs(src, arrayName) {
   const re = new RegExp(
     `${arrayName}\\s*:\\s*[A-Za-z]+\\[\\]\\s*=\\s*\\[([\\s\\S]*?)\\];`,
@@ -109,20 +109,47 @@ function extractSlugs(src, arrayName) {
   return [...m[1].matchAll(/slug:\s*"([^"]+)"/g)].map((x) => x[1]);
 }
 
-/** Extrait les valeurs de pageKeyMap dans CTASection.tsx (préfixes CTA). */
+
 function extractCtaPrefixes(src) {
   const m = src.match(/const pageKeyMap[\s\S]*?= \{\s*([\s\S]*?)\s*\};/);
   if (!m) return [];
   return [...m[1].matchAll(/: "([^"]+)"/g)].map((x) => x[1]).filter(Boolean);
 }
 
-/**
- * Extrait les clés i18n réellement utilisées par les templates `nav.${v.field}`.
- * Pour chaque template, on remonte au `.map((v => ...)` le plus proche qui
- * introduit la variable `v`, puis on lit les valeurs `key:` de son tableau.
- * (Évite les faux positifs comme expertiseItems dont les clés ne servent pas
- * au préfixe nav.* — elles sont utilisées via services.items.${slug}.*.)
- */
+
+// lib/admin/public.ts construit les clés de témoignages par index à l'exécution
+// (t[`name${i}`], t[`quote${i}`], t[`role${i}`], t[`org${i}`] sur l'objet
+// `msgs.testimonials`). Ces accès sont dynamiques : le contrôle statique ne les
+// voit pas. On les considère utilisés tant que le pattern est présent dans le
+// code ET que les index correspondants existent dans les messages.
+function extractTestimonialIndexedKeys(src, flattenedKeys) {
+  const fields = new Set();
+  const re = /t\[`(name|quote|role|org)\$\{i\}`\]/g;
+  let m;
+  while ((m = re.exec(src)) !== null) fields.add(m[1]);
+  if (fields.size === 0) return [];
+
+  let maxIndex = -1;
+  for (const key of flattenedKeys) {
+    const mm = key.match(/^testimonials\.name(\d+)$/);
+    if (mm) maxIndex = Math.max(maxIndex, Number(mm[1]));
+  }
+  if (maxIndex < 0) return [];
+
+  const keys = [];
+  for (let i = 0; i <= maxIndex; i++) {
+    for (const field of fields) keys.push(`testimonials.${field}${i}`);
+  }
+  return keys;
+}
+
+
+
+
+
+
+
+
 function extractNavKeys(src) {
   const keys = new Set();
   const processed = new Set();
@@ -131,7 +158,7 @@ function extractNavKeys(src) {
   while ((m = templateRe.exec(src))) {
     const v = m[1];
     const before = src.slice(0, m.index);
-    // (v) => ... — la parenthèse fermante est obligatoire dans le pattern.
+
     const mapRe = new RegExp(`(\\w+)\\.map\\(\\s*\\(${v}\\)\\s*=>`, "g");
     let mm;
     let arrayName = null;
@@ -149,7 +176,7 @@ function extractNavKeys(src) {
   return [...keys];
 }
 
-/** Jeux de valeurs pour l'expansion des clés dynamiques. */
+
 function buildValueSets() {
   const read = (p) => readFileSync(path.join(ROOT, p), "utf8");
   const formationsSrc = read("lib/formations.ts");
@@ -172,10 +199,10 @@ function buildValueSets() {
   };
 }
 
-/**
- * Expansion d'une clé dynamique (template literal avec ${...}).
- * Retourne la liste des clés réelles, ou null si non résoluble.
- */
+
+
+
+
 function expandDynamic(template, sets) {
   const placeholders = (template.match(/\$\{[^}]+\}/g) || []).length;
   if (placeholders !== 1) return null;
@@ -186,30 +213,30 @@ function expandDynamic(template, sets) {
   else if (prefix.startsWith("formations.items.")) values = sets.formationSlugs;
   else if (prefix.startsWith("services.items.")) values = sets.serviceSlugs;
   else if (prefix.startsWith("posts.")) values = sets.postSlugs;
-  // Jeu de valeurs vide → on ne peut pas résoudre (évite de marquer
-  // toutes les clés du préfixe comme inutilisées ; on retombe sur le wildcard).
+
+
   if (!values || values.length === 0) return null;
   return values.map((v) => template.replace(/\$\{[^}]+\}/g, v));
 }
 
-/**
- * Analyse un fichier : retourne { refs, wildcard }.
- * - refs : clés référencées (statiques + expansions + tableaux)
- * - wildcard : préfixes couverts par un motif dynamique non résolu
- *   (les clés sous ces préfixes sont considérées comme potentiellement utilisées)
- */
+
+
+
+
+
+
 function analyzeFile(src, sets, namespaces) {
   const lines = src.split("\n");
   const refs = new Set();
   const wildcard = new Set();
   let ns = "";
 
-  // Le namespace est optionnel : getTranslations() → racine,
-  // getTranslations("Metadata") → préfixe Metadata.
+
+
   const declRe =
     /\bconst\s+t\s*=\s*(?:await\s+)?(?:use|get)Translations\(\s*(?:"([^"]*)")?\s*\)/;
-  // t(...) et tr(...) — `tr` reçoit `t` en prop dans les carrousels (testimonials).
-  // [,)] tolère les appels multi-arguments : t('a.b', { count }) → capture 'a.b'.
+
+
   const callRe = /\b(?:t|tr)(?:\.raw)?\(\s*([`'"])(.*?)\1\s*[,)]/g;
   const literalRe = /(['"])([a-zA-Z][\w-]*(\.[a-zA-Z0-9][\w-]*)+)\1/g;
 
@@ -227,8 +254,8 @@ function analyzeFile(src, sets, namespaces) {
           expanded.forEach((k) => refs.add(ns + k));
         } else {
           const prefix = raw.slice(0, raw.indexOf("${"));
-          // Un préfixe vide (template commençant par ${…}) rendrait le
-          // wildcard "" et masquerait TOUTES les clés → on l'ignore.
+
+
           if (prefix) wildcard.add(ns + prefix.replace(/\.$/, ""));
         }
       } else {
@@ -237,8 +264,8 @@ function analyzeFile(src, sets, namespaces) {
     }
   }
 
-  // Literaux en forme de clé (ex: 'formations.catComptaTitle',
-  // tableaux heroTitleKeys = ['hero.slide1Title', …])
+
+
   if (/\b(?:use|get)Translations\(/.test(src)) {
     literalRe.lastIndex = 0;
     let m;
@@ -254,7 +281,7 @@ function analyzeFile(src, sets, namespaces) {
 async function main() {
   const loaded = await Promise.all(FILES.map(loadMessages));
 
-  // Erreur de lecture / JSON invalide → bloquant
+
   const parseErrors = loaded.filter((l) => l.error);
   if (parseErrors.length > 0) {
     console.error("✗ Échec de lecture ou de parsing :");
@@ -271,7 +298,7 @@ async function main() {
   const [fr, en] = loaded.map((l) => flatten(l.data));
   let exitCode = 0;
 
-  // ---- 1. Parité fr/en ----
+
   const missingInEn = [...fr].filter((key) => !en.has(key)).sort();
   const missingInFr = [...en].filter((key) => !fr.has(key)).sort();
 
@@ -290,15 +317,21 @@ async function main() {
     exitCode = 1;
   }
 
-  // ---- 2 & 3. Couverture code ↔ messages ----
+
   const sets = buildValueSets();
-  // Garde-fou : si une extraction de données échoue silencieusement (tableau
-  // renommé, type différent…), on le signale au lieu de produire des faux positifs.
+
+
   for (const [name, values] of Object.entries(sets)) {
     if (values.length === 0) {
       console.error(`⚠ Jeu de valeurs vide pour « ${name} » — vérifiez l'extraction (tableau renommé ? type différent ?).`);
     }
   }
+  const dynamicKeys = new Set(
+    extractTestimonialIndexedKeys(
+      readFileSync(path.join(ROOT, "lib", "admin", "public.ts"), "utf8"),
+      fr,
+    ),
+  );
   const namespaces = new Set(Object.keys(loaded[0].data));
   const files = CODE_DIRS.flatMap((d) => walk(path.join(ROOT, d)));
 
@@ -312,14 +345,15 @@ async function main() {
   }
 
   const wildcardArr = [...wildcard];
-  // Wildcard : préfixe statique d'un motif dynamique non résolu.
-  // `testimonials.quote${idx}` → préfixe "testimonials.quote" couvre
-  // testimonials.quote0/1/2 ; `cta.${prefix}Title` → "cta." couvre tout cta.*.
+
+
+
   const coveredByWildcard = (k) =>
     wildcardArr.some((w) => k === w || k.startsWith(w));
 
   const unused = [...fr]
     .filter((k) => !referenced.has(k) && !coveredByWildcard(k))
+    .filter((k) => !dynamicKeys.has(k))
     .sort();
   const missing = [...referenced].filter((k) => !fr.has(k)).sort();
 
@@ -348,9 +382,9 @@ async function main() {
     console.log("✓ Couverture : aucune clé manquante.");
   }
 
-  // ---- 4. Résolution des clés dynamiques services.items.* ----
-  // ⚠ SERVICE_ITEM_FIELDS est partagé avec src/i18n/request.ts :
-  // mettez à jour les deux listes en même temps.
+
+
+
   const resolutionErrors = [];
   for (const slug of sets.serviceSlugs) {
     for (const field of SERVICE_ITEM_FIELDS) {
@@ -366,8 +400,8 @@ async function main() {
 
   console.log("");
   if (sets.serviceSlugs.length === 0) {
-    // Extraction des slugs échouée silencieusement : ne jamais afficher
-    // « OK » sans avoir rien vérifié — on fait échouer la CI à la place.
+
+
     console.error(
       "✗ Résolution services.items.* — aucun slug extrait de lib/services.ts (tableau renommé ? type différent ?).",
     );

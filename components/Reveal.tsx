@@ -2,20 +2,20 @@
 
 import { useRef, useEffect, type ReactNode, type ElementType } from "react";
 
-/**
- * Animated reveal au scroll — progressive enhancement.
- *
- * ⚠ Principe : le contenu est TOUJOURS visible dans le HTML servi par le
- * serveur (aucun `opacity: 0` au premier rendu). L'animation ne s'applique
- * qu'aux éléments qui sont HORS de l'écran au moment de l'hydratation :
- *  - élément dans le viewport → on ajoute `visible` immédiatement (pas de
- *    masquage, pas de clignotement, pas d'attente du JS) ;
- *  - élément hors-écran → on ajoute `.reveal-anim` (masqué) puis on observe
- *    pour le faire apparaître à l'arrivée au scroll.
- *
- * Résultat : sur connexion lente, on ne voit jamais « juste les
- * arrière-plans » — le texte et les images sont affichés dès le HTML.
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function Reveal({
   children,
   className = "",
@@ -33,12 +33,12 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    // Applique un délai personnalisé si fourni
+
     if (delay != null) {
       el.style.transitionDelay = `${delay}ms`;
     }
 
-    // Déjà visible au chargement → rien à cacher, on marque simplement visible
+
     const rect = el.getBoundingClientRect();
     const inViewport =
       rect.top < window.innerHeight && rect.bottom > 0;
@@ -48,7 +48,7 @@ export default function Reveal({
       return;
     }
 
-    // Hors-écran → animation à l'arrivée au scroll
+
     el.classList.add("reveal-anim");
 
     const observer = new IntersectionObserver(

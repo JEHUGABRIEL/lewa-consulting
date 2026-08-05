@@ -5,11 +5,13 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Mark from "./Mark";
+import RotatingWords from "./RotatingWords";
+import { useScrollLock } from "@/lib/scrollLock";
 import { servicesData } from "@/lib/services";
 import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 import { formationCategories, comptaFinance, bureautiqueDev, featuredFormations } from "@/lib/formations";
 
-// Lookup rapide image par slug de service
+
 const serviceImageMap = new Map<string, string>(
   servicesData.map((s) => [s.slug, s.image]),
 );
@@ -19,11 +21,11 @@ const categoryFormations: Record<string, { slug: string; price: string; image: s
   bureautique: bureautiqueDev.map((f) => ({ slug: f.slug, price: f.price, image: f.image })),
 };
 
-// Clé i18n du libellé d'une catégorie de formations
+
 const categoryTitleKey = (id: string) =>
   id === "compta" ? "formations.catComptaTitle" : "formations.catBureautiqueTitle";
 
-// ---- Clés de traduction pour le mega-menu ----
+
 
 const expertiseItems = [
   { slug: "audit-et-assurance", key: "auditEtAssurance", icon: "audit" },
@@ -51,7 +53,7 @@ const resourcesItems = [
   { key: "ourFormations", href: "/formations/comptabilite-finance", icon: "formations" },
   { key: "faq", href: "/contact", icon: "faq" },
   { key: "contactExpert", href: "/contact", icon: "contact" },
-  // href WhatsApp surchargé au rendu via toWhatsAppHref(t('common.phone')) — valeur ici = simple placeholder
+
   { key: "whatsapp", href: "https://wa.me/23672696700", icon: "whatsapp", external: true },
 ];
 
@@ -100,7 +102,7 @@ const expertiseIcon = (icon: string, size?: string) => {
           <polyline points="9 15 11 17 15 13" />
         </svg>
       );
-    // Icons secteurs (small)
+
     case "globe":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -169,7 +171,7 @@ const expertiseIcon = (icon: string, size?: string) => {
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
       );
-    // Icons ressources (small)
+
     case "articles":
       return (
         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -219,7 +221,7 @@ const expertiseIcon = (icon: string, size?: string) => {
   }
 };
 
-// ---- Composant accordéon pour le menu mobile ----
+
 
 function MobileAccordion({
   label,
@@ -310,6 +312,7 @@ const links: NavLink[] = [
       })),
     ],
   },
+  { href: "/actualites", key: "actualites" },
   { href: "/a-propos", key: "about" },
 ];
 
@@ -330,9 +333,9 @@ export default function Header() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Changer de langue : navigue vers la même page préfixée par la nouvelle
-  // locale (/fr/… ⇄ /en/…). `usePathname`/`useRouter` viennent de
-  // @/i18n/navigation → le pathname est sans préfixe, la locale est injectée.
+
+
+
   const switchLocale = (lang: string) => {
     router.replace(pathname, { locale: lang as "fr" | "en" });
   };
@@ -344,30 +347,26 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Nettoyer le timer au démontage
+
   useEffect(() => {
     return () => {
       if (dropdownTimer.current) clearTimeout(dropdownTimer.current);
     };
   }, []);
 
-  // Bloquer le scroll quand le menu mobile est ouvert
-  // + gérer le focus : déplacer vers le drawer à l'ouverture, restaurer le bouton menu à la fermeture
+
+
+  useScrollLock(open);
+
+
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-      const menuButton = menuButtonRef.current;
-      // Focus direct sur le bouton fermer (premier élément tabbable) — pas de timer
-      closeButtonRef.current?.focus();
-      return () => {
-        document.body.style.overflow = "";
-        menuButton?.focus();
-      };
-    }
-    document.body.style.overflow = "";
+    if (!open) return;
+    closeButtonRef.current?.focus();
+    const menuButton = menuButtonRef.current;
+    return () => menuButton?.focus();
   }, [open]);
 
-  // Piéger le focus dans le drawer (Tab) tant qu'il est ouvert
+
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -381,7 +380,7 @@ export default function Header() {
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
       if (!drawer.contains(document.activeElement)) {
-        // Focus échappé du drawer (cas limite) → on le ramène au premier élément
+
         e.preventDefault();
         first.focus();
       } else if (e.shiftKey && document.activeElement === first) {
@@ -396,7 +395,7 @@ export default function Header() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Fermer le menu mobile avec la touche Échap
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -406,7 +405,7 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  // Fermer le dropdown au clic en dehors
+
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       const inFormations = formationsRef.current?.contains(e.target as Node);
@@ -421,7 +420,7 @@ export default function Header() {
     }
   }, [hoveredDropdown]);
 
-  // Helper pour savoir si un lien (ou un de ses sous-liens) est actif
+
   const isActive = (l: NavLink): boolean => {
     if (l.href === "/") return pathname === "/";
     if (l.submenu) {
@@ -432,7 +431,7 @@ export default function Header() {
     return pathname.startsWith(l.href);
   };
 
-  // Fermer le drawer mobile et réinitialiser les accordéons
+
   const closeDrawer = () => {
     setOpen(false);
     setMobileAccordion(null);
@@ -454,19 +453,22 @@ export default function Header() {
       >
         <Link href="/" className="flex items-center gap-3 group">
           <Mark className="h-9 w-auto shrink-0 transition-transform duration-300 group-hover:scale-105" priority />
-          <span className="font-display leading-tight">
+          <span className="font-display leading-none">
             <span
               className={`block font-semibold text-navy transition-all duration-300 ${
                 scrolled ? "text-sm" : "text-base sm:text-lg"
               }`}
             >
-              {/* « COSI » masqué sur mobile (seul « LEWA » reste à côté du logo) */}
-              <span className="hidden sm:inline">COSI </span>LEWA
+              COSI LEWA
             </span>
+            <RotatingWords
+              words={["consulting", "groupe"]}
+              className="mt-0.5 block text-[8px] font-medium tracking-[0.25em] text-gold sm:text-[9px]"
+            />
           </span>
         </Link>
 
-        {/* Navigation desktop */}
+        { }
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => {
             const active = isActive(l);
@@ -496,7 +498,7 @@ export default function Header() {
                     }`}
                   >
                     {t(`nav.${l.key}`)}
-                    {/* Chevron */}
+                    { }
                     <svg
                       className={`h-3 w-3 transition-transform duration-200 ${
                         hoveredDropdown === l.href ? "rotate-180" : ""
@@ -515,11 +517,11 @@ export default function Header() {
                     )}
                   </Link>
 
-                  {/* Dropdown — Notre expertise : méga-menu riche */}
+                  { }
                   {hoveredDropdown === l.href && l.key === "expertise" && (
                     <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2 animate-slide-down">
                       <div className="w-[880px] overflow-hidden rounded-xl bg-paper shadow-lg">
-                        {/* Section services */}
+                        { }
                         <div className="p-6 pb-3">
                           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                             <span className="inline-block h-px w-4 bg-gold/50" />
@@ -569,9 +571,9 @@ export default function Header() {
                           ))}
                         </div>
 
-                        {/* Section secteurs + ressources */}
+                        { }
                         <div className="grid grid-cols-2 gap-px bg-border mt-3 mx-6 rounded-lg overflow-hidden">
-                          {/* Secteurs */}
+                          { }
                           <div className="bg-navy/[0.02] p-5">
                             <p className="mb-1 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
                               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -601,7 +603,7 @@ export default function Header() {
                             </div>
                           </div>
 
-                          {/* Ressources */}
+                          { }
                           <div className="bg-paper p-5">
                             <p className="mb-3 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
                               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -633,7 +635,7 @@ export default function Header() {
                           </div>
                         </div>
 
-                        {/* Lien tout voir */}
+                        { }
                         <div className="border-t border-border px-6 py-3">
                           <Link
                             href="/services"
@@ -648,11 +650,11 @@ export default function Header() {
                     </div>
                   )}
 
-                  {/* Dropdown — Formations : mega menu avec sidebar */}
+                  { }
                   {hoveredDropdown === l.href && l.key === "formations" && (
                     <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2 animate-slide-down">
                       <div className="flex max-h-[calc(100vh-6rem)] w-[720px] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-xl bg-paper shadow-lg">
-                        {/* Sidebar — catégories */}
+                        { }
                         <div className="w-44 shrink-0 border-r border-border bg-navy/[0.02]">
                           <div className="px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-muted">
                             {t('nav.categories')}
@@ -685,7 +687,7 @@ export default function Header() {
 
                         </div>
 
-                        {/* Panneau — formations de la catégorie survolée */}
+                        { }
                         <div className="min-w-0 flex-1 p-4">
                           <div className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
                             {hoveredCategory
@@ -722,7 +724,7 @@ export default function Header() {
 
                         </div>
 
-                        {/* Colonne — formations vedettes */}
+                        { }
                         <div className="w-52 shrink-0 border-l border-border bg-gradient-to-b from-gold/[0.03] to-transparent">
                           <div className="flex items-center gap-1.5 px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-gold">
                             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -780,7 +782,7 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Sélecteur de langue desktop */}
+        { }
         <div className="hidden items-center gap-3 md:flex">
           <select
             value={locale}
@@ -792,7 +794,7 @@ export default function Header() {
             <option value="en">EN</option>
           </select>
 
-          {/* Lien Contact — juste après le sélecteur de langue */}
+          { }
           <Link
             href="/contact"
             className={`inline-flex items-center rounded-full border-2 px-4 py-1.5 text-sm font-semibold transition-all duration-200 ${
@@ -805,9 +807,9 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Actions mobiles — langue + hamburger */}
+        { }
         <div className="flex items-center gap-2 md:hidden">
-          {/* Sélecteur de langue mobile (rapide, à côté du hamburger) */}
+          { }
           <div className="relative">
             <select
               value={locale}
@@ -818,7 +820,7 @@ export default function Header() {
               <option value="fr">FR</option>
               <option value="en">EN</option>
             </select>
-            {/* Chevron décoratif (le select natif masque le sien) */}
+            { }
             <svg
               className="pointer-events-none absolute right-2.5 top-1/2 h-3 w-3 -translate-y-1/2 text-navy/50"
               viewBox="0 0 12 12"
@@ -861,10 +863,10 @@ export default function Header() {
       </div>
     </header>
 
-      {/* Menu mobile — overlay + drawer placés HORS du <header> :
-          le backdrop-filter appliqué au header dès qu'on scrolle créerait
-          un containing block qui casserait le position:fixed du drawer
-          (son contenu devenait alors visible au swipe). */}
+      {
+
+
+}
       {open && (
         <div
           className="fixed inset-0 z-[60] bg-navy/50 backdrop-blur-sm md:hidden animate-fade-in"
@@ -884,7 +886,7 @@ export default function Header() {
         aria-modal="true"
         aria-label={t('nav.mainNav')}
       >
-        {/* Drawer header — liseré doré + marque */}
+        { }
         <div className="relative flex shrink-0 items-center justify-between border-b border-border px-5 py-4">
           <span
             className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent"
@@ -894,6 +896,10 @@ export default function Header() {
             <Mark className="h-8 w-auto shrink-0" />
             <div>
               <span className="block font-display text-sm font-semibold text-navy">COSI LEWA</span>
+              <RotatingWords
+                words={["consulting", "groupe"]}
+                className="mt-0.5 block text-[8px] font-medium tracking-[0.25em] text-gold"
+              />
             </div>
           </Link>
           <button
@@ -909,10 +915,10 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Scrollable navigation */}
+        { }
         <div className="flex-1 overflow-y-auto">
           <nav className="space-y-1 px-4 py-4">
-            {/* Accueil */}
+            { }
             <Link
               href="/"
               onClick={closeDrawer}
@@ -930,7 +936,7 @@ export default function Header() {
               <span>{t('nav.home')}</span>
             </Link>
 
-            {/* Notre expertise */}
+            { }
             <MobileAccordion
               label={t('nav.expertise')}
               icon={
@@ -964,7 +970,7 @@ export default function Header() {
                   </svg>
                 </Link>
               ))}
-              {/* Lien tout voir */}
+              { }
               <Link
                 href="/services"
                 onClick={closeDrawer}
@@ -975,7 +981,7 @@ export default function Header() {
               </Link>
             </MobileAccordion>
 
-            {/* Formations */}
+            { }
             <MobileAccordion
               label={t('nav.formations')}
               icon={
@@ -1012,7 +1018,7 @@ export default function Header() {
                   </Link>
                 );
               })}
-              {/* Lien tout voir */}
+              { }
               <Link
                 href="/formations/comptabilite-finance"
                 onClick={closeDrawer}
@@ -1023,7 +1029,27 @@ export default function Header() {
               </Link>
             </MobileAccordion>
 
-            {/* À propos */}
+            { }
+            <Link
+              href="/actualites"
+              onClick={closeDrawer}
+              aria-current={pathname.startsWith("/actualites") ? "page" : undefined}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                pathname.startsWith("/actualites")
+                  ? "bg-navy text-paper"
+                  : "text-ink/80 hover:bg-navy/[0.04] hover:text-navy"
+              }`}
+            >
+              <svg className="h-5 w-5 shrink-0 text-current opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span>{t('nav.actualites')}</span>
+            </Link>
+
+            { }
             <Link
               href="/a-propos"
               onClick={closeDrawer}
@@ -1042,7 +1068,7 @@ export default function Header() {
               <span>{t('nav.about')}</span>
             </Link>
 
-            {/* Contact — CTA */}
+            { }
             <Link
               href="/contact"
               onClick={closeDrawer}
@@ -1062,9 +1088,9 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* Drawer footer — coordonnées */}
+        { }
         <div className="shrink-0 border-t border-border bg-paper px-5 py-4">
-          {/* Coordonnées */}
+          { }
           <div className="space-y-2.5">
             <a
               href={toTelHref(t('common.phone'))}

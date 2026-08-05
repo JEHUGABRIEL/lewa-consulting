@@ -1,4 +1,4 @@
-/** Données et utilitaires du chatbot */
+
 
 export type QuickReply = {
   label: string;

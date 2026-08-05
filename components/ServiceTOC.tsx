@@ -7,12 +7,12 @@ type TocItem = {
   label: string;
 };
 
-/**
- * Sommaire ancré avec scroll-spy.
- * Suit la section active via IntersectionObserver et met à jour
- * la liste en direct pendant le défilement. Les ancres reposent sur
- * le scroll fluide global (html { scroll-behavior: smooth }).
- */
+
+
+
+
+
+
 export default function ServiceTOC({
   title,
   items,
@@ -35,7 +35,7 @@ export default function ServiceTOC({
           if (entry.isIntersecting) setActiveId(entry.target.id);
         }
       },
-      // La section "active" est celle qui occupe le tiers central de l'écran
+
       { rootMargin: "-15% 0px -70% 0px", threshold: 0 },
     );
 

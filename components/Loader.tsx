@@ -1,8 +1,8 @@
-/**
- * Indicateur de chargement non-bloquant : une fine barre de progression
- * en haut de l'écran. Remplaçait un écran navy plein écran qui masquait
- * tout le contenu pendant les transitions de route.
- */
+
+
+
+
+
 export default function Loader({ label }: { label: string }) {
   return (
     <div

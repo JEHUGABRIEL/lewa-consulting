@@ -17,7 +17,7 @@ export default function FAQSection({
 }: {
   title: string;
   items: FAQItem[];
-  /** Image d'illustration optionnelle */
+
   image?: string;
   imageAlt?: string;
 }) {

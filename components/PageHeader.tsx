@@ -9,19 +9,19 @@ export default function PageHeader({
   backgrounds,
   backgroundImage,
 }: {
-  /**
-   * Contenu texte par slide. La longueur doit correspondre
-   * au nombre de backgrounds pour un slider cohérent.
-   */
+  
+
+
+
   texts: { title: string; lead?: string }[];
-  /** Tableau de fonds pour le slider (prioritaire sur backgroundImage) */
+
   backgrounds?: string[];
-  /** Fond unique (rétrocompatibilité) */
+
   backgroundImage?: string;
 }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Détermine les slides : backgrounds > backgroundImage > aucun
+
   const slides = backgrounds && backgrounds.length > 0
     ? backgrounds
     : backgroundImage
@@ -29,7 +29,7 @@ export default function PageHeader({
       : [];
   const hasSlides = slides.length > 0;
 
-  // Texte du slide actif (fallback sur le premier texte)
+
   const active = texts[currentSlide] ?? texts[0] ?? { title: "" };
 
   return (
@@ -38,7 +38,7 @@ export default function PageHeader({
         hasSlides ? "" : "bg-gradient-to-b from-white to-paper"
       }`}
     >
-      {/* Slider ou fond unique */}
+      { }
       {hasSlides && (
         <HeroSlider
           slides={slides}
@@ -52,7 +52,7 @@ export default function PageHeader({
           hasSlides ? "py-[7.5rem] sm:py-[10.5rem]" : "py-[6.75rem] sm:py-[9rem]"
         }`}
       >
-        {/* Décor en haut à gauche */}
+        { }
         {!hasSlides && (
           <div className="pointer-events-none absolute left-0 top-0 h-32 w-32 select-none opacity-[0.03]" aria-hidden="true">
             <svg viewBox="0 0 48 48" className="h-full w-full">
@@ -72,7 +72,7 @@ export default function PageHeader({
 
           {active.lead && (
             <>
-              {/* Sépareur décoratif */}
+              { }
               <div className="mt-6 w-16 bg-gold-bright/50 animate-draw-line delay-200" style={{ height: "1px" }} />
               <p
                 className={`mt-5 max-w-2xl leading-relaxed animate-slide-up delay-300 ${

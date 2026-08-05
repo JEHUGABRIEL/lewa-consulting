@@ -32,11 +32,11 @@ export default function PostIllustration({
   alt,
 }: {
   category: string;
-  /** URL d'une image réelle pour remplacer l'illustration SVG */
+
   src?: string;
   alt?: string;
 }) {
-  // Si une vraie image est fournie, l'afficher directement
+
   if (src) {
     return (
       <Image
@@ -51,14 +51,14 @@ export default function PostIllustration({
     );
   }
 
-  // Fallback : illustration SVG décorative par catégorie
+
   const ill = illustrations[category] ?? defaultIll;
 
   return (
     <div
       className={`relative flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br ${ill.gradient}`}
     >
-      {/* Motif décoratif */}
+      { }
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.06]"
         viewBox="0 0 200 120"
@@ -72,7 +72,7 @@ export default function PostIllustration({
         <circle cx="60" cy="90" r="20" fill="currentColor" />
       </svg>
 
-      {/* Icône principale */}
+      { }
       <span
         className={`relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${ill.bgFrom} ${ill.bgTo} text-paper shadow-sm`}
       >

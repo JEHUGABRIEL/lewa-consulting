@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 
-// Abonnement no-op : la valeur "isClient" ne change pas après hydration
+
 const subscribeToNothing = () => () => {};
 
 type HeroSlide = {
@@ -10,15 +10,15 @@ type HeroSlide = {
   alt?: string;
 };
 
-/**
- * HeroSlider — diaporama de fonds animés pour les sections hero.
- *
- * - Crossfade entre les slides via transition d'opacité
- * - Auto-play avec intervalle configurable (défaut : 5 s)
- * - Pause au survol
- * - Indicateurs de navigation (dots) cliquables
- * - L'overlay navy est appliqué par-dessus tous les slides
- */
+
+
+
+
+
+
+
+
+
 export default function HeroSlider({
   slides,
   interval = 5000,
@@ -36,7 +36,7 @@ export default function HeroSlider({
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Évite l'hydratation mismatch (premier rendu serveur = slide 0)
+
   const isClient = useSyncExternalStore(
     subscribeToNothing,
     () => true,
@@ -45,7 +45,7 @@ export default function HeroSlider({
 
   const total = slides.length;
 
-  // Notifie le parent du slide actif
+
   useEffect(() => {
     if (onSlideChange) onSlideChange(current);
   }, [current, onSlideChange]);
@@ -54,7 +54,7 @@ export default function HeroSlider({
     setCurrent((prev) => (prev + 1) % total);
   }, [total]);
 
-  // Auto-play
+
   useEffect(() => {
     if (total <= 1 || paused) {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -68,7 +68,7 @@ export default function HeroSlider({
 
   if (total === 0) return null;
 
-  // Normalise les slides en objets { src, alt }
+
   const items: HeroSlide[] = slides.map((s) =>
     typeof s === "string" ? { src: s } : s,
   );
@@ -79,12 +79,12 @@ export default function HeroSlider({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Preload de la 1ʳᵉ slide (LCP) : fonds CSS non optimisés par next/image */}
+      { }
       {items[0] && (
         <link rel="preload" as="image" href={items[0].src} fetchPriority="high" />
       )}
 
-      {/* Slides empilés — seul le slide actif est visible */}
+      { }
       {items.map((slide, i) => (
         <div
           key={i}
@@ -99,7 +99,7 @@ export default function HeroSlider({
         />
       ))}
 
-      {/* Overlay navy pour lisibilité */}
+      { }
       {overlay && (
         <div className="absolute inset-0 z-[2] bg-gradient-to-b from-navy-deep/85 via-navy/75 to-navy/65" />
       )}

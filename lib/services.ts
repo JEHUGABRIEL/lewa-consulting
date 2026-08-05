@@ -1,4 +1,4 @@
-/** Données partagées des domaines d'expertise pour les pages individuelles /services/[slug] */
+
 
 export type ServiceItem = {
   slug: string;
@@ -43,11 +43,11 @@ export function getServiceBySlug(slug: string): ServiceItem | undefined {
   return servicesData.find((s) => s.slug === slug);
 }
 
-/**
- * Formations liées à chaque domaine d'expertise (slugs de lib/formations.ts).
- * Utilisé sur la page détail /services/[slug] pour proposer des liens internes
- * vers les formations pertinentes.
- */
+
+
+
+
+
 export const serviceFormations: Record<string, string[]> = {
   "audit-et-assurance": ["mission-d-audit", "comptabilite-d-entreprise"],
   "expertise-comptable-finance": [

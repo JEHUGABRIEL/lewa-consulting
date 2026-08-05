@@ -6,7 +6,7 @@ import Container from "./Container";
 import Reveal from "./Reveal";
 import { toTelHref } from "@/lib/phone";
 
-type PageKey = "home" | "services" | "formations" | "aPropos" | "contact";
+type PageKey = "home" | "services" | "formations" | "aPropos" | "contact" | "blog";
 
 const pageKeyMap: Record<PageKey, string> = {
   home: "",
@@ -14,6 +14,7 @@ const pageKeyMap: Record<PageKey, string> = {
   formations: "formations",
   aPropos: "aPropos",
   contact: "contact",
+  blog: "blog",
 };
 
 export default function CTASection({ page }: { page: PageKey }) {
@@ -25,12 +26,15 @@ export default function CTASection({ page }: { page: PageKey }) {
   const secondaryLabel = prefix ? t(`cta.${prefix}Secondary`) : t('cta.services');
 
   const primaryHref = page === "contact" ? toTelHref(t('common.phone')) : "/contact";
-  const secondaryHref = page === "formations" ? "/services" : "/formations/comptabilite-finance";
+  const secondaryHref =
+    page === "formations" || page === "blog"
+      ? "/services"
+      : "/formations/comptabilite-finance";
 
   return (
     <Container className="my-10">
       <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-navy-deep">
-        {/* Décor géométrique */}
+        { }
         <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
           <svg className="h-full w-full opacity-[0.04]" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polygon points="100,500 200,420 300,500 200,580" fill="#C99A2E" />

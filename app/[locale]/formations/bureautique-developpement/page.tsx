@@ -6,7 +6,10 @@ import FAQSection from "@/components/FAQSection";
 import FAQJsonLd from "@/components/FAQJsonLd";
 import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
-import { bureautiqueDev } from "@/lib/formations";
+import {
+  getPublicFormations,
+  getPublicFormationsByCategory,
+} from "@/lib/admin/public";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
@@ -52,6 +55,10 @@ export default async function BureautiqueDeveloppementPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const [rows, allFormations] = await Promise.all([
+    getPublicFormationsByCategory("bureautique"),
+    getPublicFormations(),
+  ]);
   return (
     <main>
       <PageHeader
@@ -78,11 +85,11 @@ export default async function BureautiqueDeveloppementPage({
             {t('formations.catBureautiqueSectionTitle')}
           </h2>
           <p className="mt-2 text-sm text-muted max-w-lg">
-            {t('formations.catBureautiqueCount', { count: bureautiqueDev.length })}
+            {t('formations.catBureautiqueCount', { count: rows.length })}
           </p>
         </div>
 
-        <FormationCards rows={bureautiqueDev} />
+        <FormationCards rows={rows} allFormations={allFormations} />
 
 
         <FAQJsonLd

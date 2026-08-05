@@ -4,8 +4,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
 import PostIllustration from "@/components/PostIllustration";
+import CTASection from "@/components/CTASection";
 import { getHeroBackgrounds } from "@/lib/heroBackgrounds";
-import { posts } from "@/lib/posts";
+import { getPublicPosts } from "@/lib/admin/public";
 
 export async function generateMetadata({
   params,
@@ -50,6 +51,7 @@ export default async function ActualitesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const posts = await getPublicPosts();
 
   return (
     <main>
@@ -72,56 +74,60 @@ export default async function ActualitesPage({
       />
 
       <Container className="py-14 sm:py-16">
-        {/* Tous les articles */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        { }
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/actualites/${post.slug}`}
-              className="group flex h-full flex-col rounded-xl bg-white p-5 shadow-sm hover-lift lg:p-7"
+              className="group flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift"
             >
-              {/* Illustration */}
-              <div className="mb-3 h-40 w-full overflow-hidden rounded-lg">
+              { }
+              <div className="relative h-44 w-full overflow-hidden sm:h-52">
                 <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
               </div>
 
-              {/* Category badge */}
-              <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
-                {t(`posts.${post.slug}.category`)}
-              </span>
-
-              {/* Date */}
-              <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
-
-              {/* Title */}
-              <h2 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
-                {t(`posts.${post.slug}.title`)}
-              </h2>
-
-              {/* Excerpt */}
-              <p className="mt-2 text-xs leading-relaxed text-muted flex-1">
-                {t(`posts.${post.slug}.excerpt`)}
-              </p>
-
-              {/* Read more */}
-              <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                <span>{t('common.readMore')}</span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  &rarr;
+              { }
+              <div className="flex flex-1 flex-col p-5 lg:p-6">
+                { }
+                <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
+                  {t(`posts.${post.slug}.category`)}
                 </span>
+
+                { }
+                {t(`posts.${post.slug}.date`) && (
+                  <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
+                )}
+
+                { }
+                <h2 className="mt-1.5 font-display text-base font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
+                  {t(`posts.${post.slug}.title`)}
+                </h2>
+
+                { }
+                <p className="mt-2 text-xs leading-relaxed text-muted flex-1">
+                  {t(`posts.${post.slug}.excerpt`)}
+                </p>
+
+                { }
+                <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
+                  <span>{t('common.readMore')}</span>
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                    &rarr;
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* Compteur total */}
-        <p className="mt-8 text-xs text-muted">
-          {t('blog.articleCount', { count: posts.length })}
-        </p>
+      </Container>
 
-        {/* À lire aussi — articles recommandés (ordre différent pour varier) */}
-        {posts.length > 1 && (
-          <section className="mt-14 pt-10">
+      { }
+      {posts.length > 1 && (
+        <section className="border-y border-navy/[0.08] bg-gradient-to-b from-navy/[0.06] to-navy/[0.02]">
+          <Container className="py-12 sm:py-16">
             <h2 className="font-display text-xl text-navy">
               {t('blog.alsoRead')}
             </h2>
@@ -129,38 +135,45 @@ export default async function ActualitesPage({
               {t('blog.alsoReadSubtitle')}
             </p>
 
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[...posts].reverse().slice(0, 3).map((post) => (
                 <Link
                   key={post.slug}
                   href={`/actualites/${post.slug}`}
-                  className="group flex h-full flex-col rounded-xl bg-white p-5 shadow-sm hover-lift lg:p-7"
+                  className="group flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift"
                 >
-                  <div className="mb-3 h-24 w-full overflow-hidden rounded-lg">
+                  <div className="relative h-28 w-full overflow-hidden sm:h-32">
                     <PostIllustration category={post.category} src={post.image} alt={t(`posts.${post.slug}.imageAlt`)} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
                   </div>
-                  <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
-                    {t(`posts.${post.slug}.category`)}
-                  </span>
-                  <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
-                  <h3 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
-                    {t(`posts.${post.slug}.title`)}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted flex-1 line-clamp-2">
-                    {t(`posts.${post.slug}.excerpt`)}
-                  </p>
-                  <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
-                    <span>{t('blog.readShort')}</span>
-                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                      &rarr;
+                  <div className="flex flex-1 flex-col p-4">
+                    <span className="inline-flex items-center self-start rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy">
+                      {t(`posts.${post.slug}.category`)}
                     </span>
+                    {t(`posts.${post.slug}.date`) && (
+                      <p className="mt-1.5 text-[11px] text-muted">{t(`posts.${post.slug}.date`)}</p>
+                    )}
+                    <h3 className="mt-1.5 font-display text-sm font-semibold text-navy leading-snug transition-colors duration-200 group-hover:text-red">
+                      {t(`posts.${post.slug}.title`)}
+                    </h3>
+                    <p className="mt-2 text-xs leading-relaxed text-muted flex-1 line-clamp-2">
+                      {t(`posts.${post.slug}.excerpt`)}
+                    </p>
+                    <div className="mt-4 flex items-center gap-1.5 border-t border-border pt-3 text-xs font-medium text-navy transition-colors duration-200 group-hover:text-red">
+                      <span>{t('blog.readShort')}</span>
+                      <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                        &rarr;
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
             </div>
-          </section>
-        )}
-      </Container>
+          </Container>
+        </section>
+      )}
+
+      <CTASection page="blog" />
     </main>
   );
 }

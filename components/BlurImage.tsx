@@ -10,20 +10,20 @@ type BlurImageProps = {
   className?: string;
   width?: number;
   height?: number;
-  /** Charge immédiatement (image LCP / au-dessus de la ligne de flottaison) */
+
   eager?: boolean;
 };
 
-/**
- * Génère une miniature floutée Cloudinary via les query params.
- * Exemple : https://res.cloudinary.com/<cloud>/image/upload/<public_id>
- *   → miniature : …/<public_id>?w=20&q=20&e=blur:1000
- *
- * NB : la forme « chemin » (…/w_20,q_20,e_blur:1000/<public_id>) renvoie un
- * HTTP 400 quand le dossier du public_id ressemble à un paramètre de
- * transformation (ex. « qui_sommes_nous/ ») — la forme query params est
- * robuste pour tous les public_id.
- */
+
+
+
+
+
+
+
+
+
+
 function makeCloudinaryBlurUrl(src: string): string | null {
   if (!src.includes("res.cloudinary.com") || !src.includes("/image/upload/")) {
     return null;
@@ -46,7 +46,7 @@ export default function BlurImage({
   const imgRef = useRef<HTMLDivElement>(null);
   const blurUrl = placeholderSrc ?? makeCloudinaryBlurUrl(src);
 
-  // Intersection Observer pour ne charger que quand visible (sauf eager/LCP)
+
   useEffect(() => {
     if (eager) return;
 
@@ -60,7 +60,7 @@ export default function BlurImage({
           observer.unobserve(el);
         }
       },
-      { rootMargin: "200px" }, // commence à charger 200px avant
+      { rootMargin: "200px" },  
     );
 
     observer.observe(el);
@@ -73,7 +73,7 @@ export default function BlurImage({
       className={`relative overflow-hidden ${className}`}
       style={{ width, height }}
     >
-      {/* Placeholder flouté (toujours présent jusqu'au chargement) */}
+      { }
       {blurUrl && (
         <div
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
@@ -88,7 +88,7 @@ export default function BlurImage({
         />
       )}
 
-      {/* Image réelle (fade in après chargement) */}
+      { }
       {inView && (
         <Image
           src={src.split("?")[0]}

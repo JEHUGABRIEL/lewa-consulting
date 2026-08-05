@@ -146,7 +146,7 @@ export default async function ContactPage({
           </Reveal>
         </div>
 
-        {/* FAQ Contact */}
+        { }
         <FAQJsonLd
           items={[
             { q: t('contact.faqQ1'), r: t('contact.faqR1') },

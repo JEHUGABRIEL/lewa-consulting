@@ -7,6 +7,7 @@ import Reveal from "./Reveal";
 import LevelBadge from "./LevelBadge";
 import LevelLegend from "./LevelLegend";
 import BlurImage from "./BlurImage";
+import EnrollmentModal from "./EnrollmentModal";
 import type { FormationRow, Level } from "@/lib/formations";
 
 type Category = {
@@ -32,16 +33,18 @@ export default function FormationsFilter({
   const defaultCat = categories.some((c) => c.id === initialActive) ? initialActive : "all";
   const [activeCat, setActiveCat] = useState(defaultCat);
   const [activeLevel, setActiveLevel] = useState<string>("all");
+  const [enrollment, setEnrollment] = useState<{ open: boolean; slug: string }>({ open: false, slug: "" });
+  const openEnrollment = (slug: string) => setEnrollment({ open: true, slug });
 
   const allRows = categories.flatMap((c) => c.rows);
 
-  // Filtrer par catégorie
+
   const catFiltered =
     activeCat === "all"
       ? allRows
       : categories.find((c) => c.id === activeCat)?.rows ?? [];
 
-  // Filtrer par niveau
+
   const displayed =
     activeLevel === "all"
       ? catFiltered
@@ -58,7 +61,7 @@ export default function FormationsFilter({
 
   return (
     <div>
-      {/* Filtres par catégorie */}
+      { }
       <div className="flex flex-wrap items-center gap-2">
         <span className="mr-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
           {t('formations.category') || "Catégorie"}
@@ -84,7 +87,7 @@ export default function FormationsFilter({
         ))}
       </div>
 
-      {/* Filtres par niveau */}
+      { }
       <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border pt-3">
         <span className="mr-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
           {t('formations.level') || "Niveau"}
@@ -118,14 +121,19 @@ export default function FormationsFilter({
         ))}
       </div>
 
-      {/* Cards grid */}
+      { }
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {displayed.map((r, i) => (
           <Reveal key={r.slug} as="div" delay={i * 60}>
-            <Link href={`/formations/${r.slug}`}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
-                {/* Image en haut */}
-                <div className="relative h-32 w-full overflow-hidden">
+            <div className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm hover-lift">
+              { }
+              <Link
+                href={`/formations/${r.slug}`}
+                className="absolute inset-0 z-10 rounded-xl"
+                aria-label={t(`formations.items.${r.slug}.name`)}
+              />
+              { }
+              <div className="relative h-32 w-full overflow-hidden">
                   <BlurImage
                     src={r.image}
                     alt={t(`formations.items.${r.slug}.imageAlt`)}
@@ -138,7 +146,7 @@ export default function FormationsFilter({
                     </div>
                   )}
                 </div>
-                {/* Contenu */}
+                { }
                 <div className="flex flex-1 flex-col p-4 lg:p-5">
                   <span className="inline-block h-1 w-8 shrink-0 rounded-full bg-gradient-to-r from-gold to-gold-bright" />
 
@@ -161,18 +169,31 @@ export default function FormationsFilter({
                     <span className="inline-block rounded-full bg-gold/10 px-3 py-1 font-mono text-xs font-semibold text-navy tabular tracking-wide">
                       {r.price} FCFA
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold">
+                    <button
+                      type="button"
+                      onClick={() => openEnrollment(r.slug)}
+                      className="relative z-20 inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-gold"
+                    >
                       {t('formations.btnInscrire')} &rarr;
-                    </span>
+                    </button>
                   </div>
                 </div>
               </div>
-            </Link>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
       </div>
 
-      {/* Results count */}
+      <EnrollmentModal
+        open={enrollment.open}
+        onClose={() => setEnrollment({ open: false, slug: "" })}
+        formations={allRows.map((r) => ({
+          slug: r.slug,
+          name: t(`formations.items.${r.slug}.name`),
+        }))}
+        initialSlug={enrollment.slug}
+      />
+
+      { }
       <p className="mt-6 text-center text-xs text-muted">
         {t('formations.resultsCount', { count: displayed.length })}
         {activeCat !== "all" &&

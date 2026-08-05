@@ -1,15 +1,15 @@
-/** Balisage Schema.org FAQPage (JSON-LD) pour enrichir les résultats Google. */
+
 
 export type FAQJsonLdItem = {
   q: string;
   r: string;
 };
 
-/**
- * Injecte un `<script type="application/ld+json">` de type FAQPage.
- * Le contenu doit correspondre à une FAQ réellement visible sur la page
- * (règle Google) — on passe les mêmes clés i18n que la section FAQ rendue.
- */
+
+
+
+
+
 export default function FAQJsonLd({ items }: { items: FAQJsonLdItem[] }) {
   if (items.length === 0) return null;
 
@@ -30,7 +30,7 @@ export default function FAQJsonLd({ items }: { items: FAQJsonLdItem[] }) {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        // Échappement pour éviter tout breakout `</script>`.
+
         __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
       }}
     />

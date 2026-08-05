@@ -1,0 +1,38 @@
+name: check-admin-e2e
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: check-admin-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: Parcours admin (login, dashboard, logout)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Le test démarre lui-même le serveur Next.js (next dev, port éphémère)
+      # et n'utilise que des modules Node natifs.
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Tester le parcours admin
+        run: node scripts/check-admin-e2e.mjs
+        env:
+          # Secrets optionnels — fixtures de test (admin/admin123) transmises au
+          # serveur de test par le script (le code du site n'a aucun identifiant
+          # par défaut : ADMIN_USERNAME / ADMIN_PASSWORD / ADMIN_SESSION_SECRET
+          # sont requis via l'environnement).
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME || 'admin' }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD || 'admin123' }}

@@ -51,7 +51,7 @@ export default async function AboutPage({
       />
 
       <Container className="py-14 sm:py-16">
-        {/* Direction générale */}
+        { }
         <section className="mt-2 sm:mt-4">
           <Reveal as="div">
             <div className="text-center">
@@ -68,7 +68,7 @@ export default async function AboutPage({
 
           <Reveal as="div" delay={100}>
             <div className="relative mx-auto mt-8 max-w-4xl overflow-hidden rounded-2xl bg-white p-8 shadow-sm sm:p-10">
-              {/* Décor géométrique discret */}
+              { }
               <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
                 <svg className="absolute -right-10 -top-10 h-44 w-44 opacity-[0.05]" viewBox="0 0 200 200" fill="none">
                   <circle cx="100" cy="100" r="80" stroke="#C99A2E" strokeWidth="1" />
@@ -80,7 +80,7 @@ export default async function AboutPage({
               </div>
 
               <div className="relative grid gap-8 sm:grid-cols-[300px_1fr] sm:items-start">
-                {/* Photo du directeur */}
+                { }
                 <div className="relative mx-auto w-full max-w-[300px] overflow-hidden rounded-xl shadow-sm sm:mx-0">
                   <BlurImage
                     src="https://res.cloudinary.com/dwmrzp61c/image/upload/qui_sommes_nous/directeur.png"
@@ -92,7 +92,7 @@ export default async function AboutPage({
                 </div>
 
                 <div>
-                  {/* Bandeau nom */}
+                  { }
                   <div className="border-b border-border pb-6">
                     <p className="text-xs font-semibold uppercase tracking-wider text-muted">
                       {t('about.directionLead')}
@@ -102,7 +102,7 @@ export default async function AboutPage({
                     </h3>
                   </div>
 
-                  {/* Bio */}
+                  { }
                   <div className="mt-6 space-y-4 text-sm leading-relaxed text-ink/75">
                     <p>{t('about.directorBio1')}</p>
                     <p className="border-l-2 border-gold/40 pl-4 text-ink/85">
@@ -110,7 +110,7 @@ export default async function AboutPage({
                     </p>
                   </div>
 
-                  {/* Badge rôle + LinkedIn sous la bio */}
+                  { }
                   <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-6">
                     <span className="inline-flex shrink-0 items-center rounded-full bg-gold/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:text-xs">
                       {t('about.directorRole')}

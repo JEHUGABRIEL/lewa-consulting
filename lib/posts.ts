@@ -1,21 +1,23 @@
-/** Articles / actualités du Cabinet COSI Lewa-Consulting Group */
+
 
 export type PostCategoryKey = "formations" | "audit" | "evenement";
 
 export type Post = {
   slug: string;
-  /** Clé de catégorie stable (utilisée pour l'illustration et le filtrage FR/EN) */
+
   category: PostCategoryKey;
-  /** Image associée à l'article */
+
   image: string;
+  updatedAt?: string;
+  isNew?: boolean;
 };
 
-/**
- * Données structurelles des articles.
- * Tous les textes (titre, résumé, date, catégorie, contenu, alt) sont
- * traduits via les fichiers messages/fr.json et messages/en.json,
- * clés `posts.<slug>.*`.
- */
+
+
+
+
+
+
 export const posts: Post[] = [
   {
     slug: "session-comptabilite-bancaire-2026",

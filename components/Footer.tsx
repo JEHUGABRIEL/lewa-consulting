@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Mark from "./Mark";
+import RotatingWords from "./RotatingWords";
 import { toTelHref, toWhatsAppHref } from "@/lib/phone";
 
 export default function Footer() {
@@ -33,20 +34,24 @@ export default function Footer() {
   return (
     <footer className="mt-auto bg-navy-deep text-paper/80">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-8 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-4">
-        {/* Colonne 1 — Marque */}
+        { }
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
-            {/* Logo sur fond navy : cadre blanc arrondi pour le rendre lisible */}
-            <span className="flex h-10 w-auto shrink-0 items-center rounded-xl bg-white p-1.5 shadow-sm">
-              <Mark className="h-7 w-auto" />
+            { }
+            <span className="flex h-10 w-auto shrink-0 items-center">
+              <Mark className="h-8 w-auto" />
             </span>
             <div>
               <span className="block font-display text-base leading-tight text-paper">
                 COSI LEWA
               </span>
+              <RotatingWords
+                words={["consulting", "groupe"]}
+                className="mt-0.5 block text-[9px] font-medium tracking-[0.25em] text-gold-bright/80"
+              />
             </div>
           </div>
-          {/* Réseaux sociaux stylisés */}
+          { }
           <div className="mt-5 flex items-center gap-3">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-paper/40">
               {t('footer.followUs')}
@@ -101,7 +106,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
+          { }
           <div className="mt-6 border-t border-paper/10 pt-5">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-gold-bright/70">
               {t('footer.newsletter')}
@@ -160,7 +165,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Colonne 2 — Navigation */}
+        { }
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('contact.navigation')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
@@ -169,10 +174,13 @@ export default function Footer() {
             <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.formations')}</Link></li>
             <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catComptaTitle')}</Link></li>
             <li><Link href="/formations/bureautique-developpement" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catBureautiqueTitle')}</Link></li>
+            <li><Link href="/actualites" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.actualites')}</Link></li>
+            <li><Link href="/a-propos" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.about')}</Link></li>
+            <li><Link href="/contact" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.contact')}</Link></li>
           </ul>
         </div>
 
-        {/* Colonne 3 — Services */}
+        { }
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('footer.services')}</p>
           <ul className="mt-4 space-y-2.5 text-sm">
@@ -182,7 +190,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Colonne 4 — Contact */}
+        { }
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-gold-bright">{t('contact.phone')}</p>
           <ul className="mt-4 space-y-3 text-sm">
@@ -215,13 +223,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Barre inférieure */}
+      { }
       <div className="border-t border-paper/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-paper/40 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <p>
               &copy; {new Date().getFullYear()}{" "}
               <span className="text-paper/60">COSI LEWA</span>
+              <span className="text-[10px] tracking-[0.05em] text-paper/40">&thinsp;consulting</span>
             </p>
             <span className="hidden sm:inline text-paper/20">|</span>
             <p>{t('footer.rightsReserved')}</p>

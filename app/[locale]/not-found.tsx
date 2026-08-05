@@ -4,15 +4,15 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/Container";
 
-/**
- * Page 404 locale (rendue dans le layout [locale], donc sous le
- * NextIntlClientProvider).
- *
- * ⚠ Composant CLIENT volontairement : une version serveur qui appellerait
- * `getTranslations` sans `setRequestLocale` ferait retomber next-intl sur
- * `headers()` → rendu dynamique de toutes les routes. `useTranslations`
- * (côté client, via le provider) ne touche pas au serveur.
- */
+
+
+
+
+
+
+
+
+
 export default function NotFound() {
   const t = useTranslations("notFound");
 
