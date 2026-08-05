@@ -37,3 +37,6 @@ data/admin-otp-rate.json
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Supabase (cache local CLI)
+supabase/.temp/
