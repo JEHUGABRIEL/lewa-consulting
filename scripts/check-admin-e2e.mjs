@@ -79,7 +79,9 @@ const fail = (label, detail) => {
 
 
 async function req(pathname, { method = "GET", body, cookie } = {}) {
-  const headers = { "x-forwarded-for": CLIENT_IP };
+  // En-tête Origin exigé par la protection CSRF du proxy (/api/admin/*) :
+  // le fetch Node ne l'envoie pas par défaut, contrairement à un navigateur.
+  const headers = { "x-forwarded-for": CLIENT_IP, origin: BASE };
   if (cookie) headers["cookie"] = `lewa_admin_session=${cookie}`;
   if (body) headers["content-type"] = "application/json";
   return fetch(`${BASE}${pathname}`, {
