@@ -365,13 +365,6 @@ export function CrudSection({
       </div>
       { }
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-muted/70">
-          {filtered.length === 0
-            ? `Aucun élément (${items.length} au total)`
-            : `${start + 1}–${end} sur ${filtered.length} élément${
-                filtered.length > 1 ? "s" : ""
-              }${items.length !== filtered.length ? ` (${items.length} au total)` : ""}`}
-        </p>
         {pageCount > 1 && (
           <nav className="flex items-center gap-1" aria-label={`Pagination — ${title}`}>
             <PageBtn
@@ -1266,11 +1259,6 @@ export function EnrollmentsSection({
         )}
       </div>
 
-      { }
-      <p className="mt-3 text-xs text-muted/70">
-        {filtered.length} demande{filtered.length > 1 ? "s" : ""}
-        {pendingCount > 0 ? ` · ${pendingCount} en attente` : ""}
-      </p>
 
       { }
       <ConfirmDialog
@@ -1627,13 +1615,35 @@ export function ActivitySection({
   return (
     <div>
       { }
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="font-display text-2xl font-semibold text-navy">Journal d&apos;activité</h2>
-          <p className="mt-1 max-w-2xl text-sm text-muted">
-            Retrouvez ici l&apos;historique de tout ce qui se passe dans votre espace : connexions,
-            ajouts, modifications et suppressions. Seules les 200 dernières actions sont conservées.
-          </p>
+      <div>
+        <h2 className="font-display text-2xl font-semibold text-navy">Journal d&apos;activité</h2>
+        <p className="mt-1 max-w-2xl text-sm text-muted">
+          Retrouvez ici l&apos;historique de tout ce qui se passe dans votre espace : connexions,
+          ajouts, modifications et suppressions. Seules les 200 dernières actions sont conservées.
+        </p>
+      </div>
+
+      { }
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap gap-2">
+          {ACTIVITY_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              type="button"
+              onClick={() => {
+                setFilter(f.value);
+                setPage(1);
+              }}
+              aria-pressed={filter === f.value}
+              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                filter === f.value
+                  ? "border-navy bg-navy text-paper shadow-sm"
+                  : "border-border bg-white text-navy/60 hover:border-navy/40 hover:text-navy"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
         {events.length > 0 && (
           <Button
@@ -1645,28 +1655,6 @@ export function ActivitySection({
             Réinitialiser
           </Button>
         )}
-      </div>
-
-      { }
-      <div className="mt-5 flex flex-wrap gap-2">
-        {ACTIVITY_FILTERS.map((f) => (
-          <button
-            key={f.value}
-            type="button"
-            onClick={() => {
-              setFilter(f.value);
-              setPage(1);
-            }}
-            aria-pressed={filter === f.value}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
-              filter === f.value
-                ? "border-navy bg-navy text-paper shadow-sm"
-                : "border-border bg-white text-navy/60 hover:border-navy/40 hover:text-navy"
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
       </div>
 
       { }
@@ -1747,11 +1735,6 @@ export function ActivitySection({
 
       { }
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-muted/70">
-          {sorted.length === 0
-            ? "Aucun événement"
-            : `${start + 1}–${Math.min(start + ACTIVITY_PAGE_SIZE, sorted.length)} sur ${sorted.length} événement${sorted.length > 1 ? "s" : ""}`}
-        </p>
         {pageCount > 1 && (
           <nav className="flex items-center gap-1" aria-label="Pagination — activité">
             <PageBtn
@@ -1896,17 +1879,9 @@ export function Overview({
         ))}
       </div>
 
-      {store.updatedAt && (
-        <p className="mt-6 text-xs text-muted/70">
-          Dernière mise à jour du contenu :{" "}
-          <span className="font-medium text-navy/70">
-            {new Date(store.updatedAt).toLocaleString("fr-FR")}
-          </span>
-        </p>
-      )}
 
       { }
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border bg-white p-5 shadow-sm">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-navy">
             Administrateurs
@@ -2143,31 +2118,31 @@ export function UsersSection({
   return (
     <div>
       { }
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 className="font-display text-2xl font-semibold text-navy">Utilisateurs</h2>
-          <p className="mt-1 max-w-2xl text-sm text-muted">
-            Gérez les comptes administrateurs du cabinet : activez ou désactivez
-            un accès, supprimez un compte et suivez les invitations en attente.
-          </p>
-        </div>
-        <Button onClick={() => setInviteOpen(true)} className="shrink-0">
-          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M19 8v6" />
-            <path d="M22 11h-6" />
-          </svg>
-          Inviter un admin
-        </Button>
+      <div>
+        <h2 className="font-display text-2xl font-semibold text-navy">Utilisateurs</h2>
+        <p className="mt-1 max-w-2xl text-sm text-muted">
+          Gérez les comptes administrateurs du cabinet : activez ou désactivez
+          un accès, supprimez un compte et suivez les invitations en attente.
+        </p>
       </div>
 
       { }
       {invites.length > 0 && (
         <div className="mt-8">
-          <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-navy">
-            Invitations en attente
-          </h3>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-navy">
+              Invitations en attente
+            </h3>
+            <Button onClick={() => setInviteOpen(true)} className="shrink-0">
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M19 8v6" />
+                <path d="M22 11h-6" />
+              </svg>
+              Inviter un admin
+            </Button>
+          </div>
           <div className="mt-3 overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
             <div className="scrollbar-thin overflow-x-auto">
               <table className="w-full min-w-[580px] text-left text-sm">

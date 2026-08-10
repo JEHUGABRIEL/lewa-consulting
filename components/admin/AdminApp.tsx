@@ -220,13 +220,13 @@ export default function AdminApp() {
       { }
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-navy/50 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-navy/50 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-navy-deep text-paper/80 transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-navy-deep text-paper/80 transition-transform duration-300 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Navigation admin"
@@ -280,9 +280,9 @@ export default function AdminApp() {
       </aside>
 
       { }
-      <div className="flex min-h-screen w-full flex-col md:pl-64">
+      <div className="flex min-h-screen w-full flex-col lg:pl-64">
         { }
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-paper/95 px-4 py-3 backdrop-blur md:hidden">
+        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-paper/95 px-4 py-3 backdrop-blur lg:hidden">
           <button
             onClick={() => setSidebarOpen(true)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-navy transition hover:border-navy/30"
@@ -446,7 +446,7 @@ export default function AdminApp() {
           )}
         </main>
 
-        <footer className="border-t border-border px-4 py-4 text-center text-[11px] text-muted/60 md:pl-64">
+        <footer className="border-t border-border px-4 py-4 text-center text-[11px] text-muted/60 lg:pl-64">
           Espace d&apos;administration — COSI LEWA Consulting
         </footer>
       </div>
