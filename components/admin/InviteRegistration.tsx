@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Mark from "@/components/Mark";
 import { Button, Spinner } from "./ui";
 
@@ -11,6 +12,7 @@ const inputCls =
   "w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm text-ink outline-none transition focus:border-navy/50 focus:ring-2 focus:ring-navy/10";
 
 export default function InviteRegistration({ token }: { token: string }) {
+  const router = useRouter();
   const [step, setStep] = useState<Step>("loading");
   const [invalidMsg, setInvalidMsg] = useState("");
   const [error, setError] = useState("");
@@ -49,7 +51,7 @@ export default function InviteRegistration({ token }: { token: string }) {
             error?: string;
           } | null;
           if (vres.ok) {
-            window.location.href = "/admin";
+            router.push("/admin");
             return;
           }
           setError(vdata?.error ?? "Vérification impossible.");
@@ -122,7 +124,7 @@ export default function InviteRegistration({ token }: { token: string }) {
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, router]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -182,7 +184,7 @@ export default function InviteRegistration({ token }: { token: string }) {
       });
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
       if (res.ok) {
-        window.location.href = "/admin";
+        router.push("/admin");
         return;
       }
       setError(data?.error ?? "Code incorrect.");
