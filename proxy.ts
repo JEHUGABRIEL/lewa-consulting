@@ -352,7 +352,28 @@ export default async function proxy(request: NextRequest) {
   }
 
 
-  return applyBaselineSecurityHeaders(intlMiddleware(request));
+  const intlResponse = intlMiddleware(request);
+
+  // next-intl émet ses redirections de locale (ex: /services -> /fr/services)
+  // en 307 (Temporary Redirect) par défaut. Pour Google, un 307 signifie que
+  // l'ancienne URL reste potentiellement valide et n'est pas remplacée par la
+  // destination : Search Console ne consolide jamais l'ancienne URL vers la
+  // nouvelle, et la validation de correction ("Page avec redirection") reste
+  // bloquée en "en cours" ou échoue. On repasse donc ces redirections en 308
+  // (Permanent Redirect, préserve la méthode HTTP) tout en conservant les
+  // en-têtes posés par next-intl (cookie de langue, Link alternates).
+  const location = intlResponse.headers.get("location");
+  if (intlResponse.status === 307 && location) {
+    const permanentResponse = NextResponse.redirect(location, 308);
+    intlResponse.headers.forEach((value, key) => {
+      if (key.toLowerCase() !== "location") {
+        permanentResponse.headers.set(key, value);
+      }
+    });
+    return applyBaselineSecurityHeaders(permanentResponse);
+  }
+
+  return applyBaselineSecurityHeaders(intlResponse);
 }
 
 export const config = {
