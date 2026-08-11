@@ -192,7 +192,7 @@ export default async function ServicesPage({
           <p className="text-ink/70">
             {t('services.servicesPageSeeDetail')}
           </p>
-          <Link href="/formations/comptabilite-finance" className="group font-medium text-navy transition hover:text-red">
+          <Link href="/formations" className="group font-medium text-navy transition hover:text-red">
             <span>{t('services.servicesPagePricing')}</span>
             <span className="block h-px max-w-0 bg-red transition-all duration-300 group-hover:max-w-full" />
           </Link>

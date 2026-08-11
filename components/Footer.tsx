@@ -171,7 +171,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.home')}</Link></li>
             <li><Link href="/services" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.expertise')}</Link></li>
-            <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.formations')}</Link></li>
+            <li><Link href="/formations" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.formations')}</Link></li>
             <li><Link href="/formations/comptabilite-finance" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catComptaTitle')}</Link></li>
             <li><Link href="/formations/bureautique-developpement" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('formations.catBureautiqueTitle')}</Link></li>
             <li><Link href="/actualites" className="flex items-center gap-2 transition hover:text-gold-bright group"><span className="inline-block h-1 w-1 shrink-0 rounded-full bg-paper/20 transition group-hover:bg-gold-bright" />{t('nav.actualites')}</Link></li>
@@ -186,7 +186,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/services/audit-et-assurance" className="transition hover:text-gold-bright">{t('services.items.audit-et-assurance.title')}</Link></li>
             <li><Link href="/services/expertise-comptable-finance" className="transition hover:text-gold-bright">{t('services.items.expertise-comptable-finance.title')}</Link></li>
-            <li><Link href="/formations/comptabilite-finance" className="transition hover:text-gold-bright">{t('nav.formations')}</Link></li>
+            <li><Link href="/formations" className="transition hover:text-gold-bright">{t('nav.formations')}</Link></li>
           </ul>
         </div>
 

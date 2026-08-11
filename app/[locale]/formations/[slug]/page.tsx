@@ -16,8 +16,6 @@ import {
   getPublicFormations,
   getPublicFormationsByCategory,
 } from "@/lib/admin/public";
-import { formationCategories } from "@/lib/formations";
-
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export async function generateStaticParams() {
@@ -75,8 +73,6 @@ export default async function FormationDetailPage({ params }: Props) {
   const categoryTitle = (id: string) =>
     id === "compta" ? "formations.catComptaTitle" : "formations.catBureautiqueTitle";
   const categoryLabel = t(categoryTitle(formation.category));
-  const categorySlug =
-    formationCategories.find((c) => c.id === formation.category)?.slug ?? "";
 
   const [allFormations, related] = await Promise.all([
     getPublicFormations(),
@@ -97,7 +93,7 @@ export default async function FormationDetailPage({ params }: Props) {
           <Reveal as="div">
             { }
             <Link
-              href={`/formations/${categorySlug}`}
+              href="/formations"
               className="group mb-6 inline-flex items-center gap-1.5 text-sm text-white/60 transition hover:text-white"
             >
               <svg
@@ -265,7 +261,7 @@ export default async function FormationDetailPage({ params }: Props) {
               { }
               <div className="pt-1 text-center">
                 <Link
-                  href={`/formations/${categorySlug}`}
+                  href="/formations"
                   className="group inline-flex items-center gap-1.5 text-xs text-muted transition hover:text-navy"
                 >
                   <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

@@ -7,6 +7,7 @@
     "servicesDescription": "Discover the six areas of expertise of COSI Lewa-Consulting Group: audit, accounting expertise, governance consulting, training, business support and professional events in Bangui.",
     "actualites": "News",
     "actualitesDescription": "News from COSI Lewa-Consulting Group: training sessions, audit missions, professional events and firm updates in Bangui.",
+    "formations": "Training",
     "formationsDescription": "Practical professional training from COSI Lewa-Consulting Group in Bangui: accounting, finance, office automation and professional development. Flexible sessions for all levels.",
     "contact": "Contact",
     "contactDescription": "Contact COSI Lewa-Consulting Group in Bangui: phone, email, WhatsApp and contact form. Quick response within 24 business hours.",
@@ -261,6 +262,14 @@
     "level": "Level",
     "allLevels": "All levels",
     "resultsCount": "{count} result(s)",
+    "indexTitle": "All our training programs",
+    "indexLead": "Accounting, finance, office automation and professional development — practical modules led by professionals, with certificate and attestation included.",
+    "indexTitle2": "Filter by category or level",
+    "indexLead2": "Choose the module that fits your profile from our training in accounting & finance and office automation & professional development.",
+    "indexTitle3": "Certificate, attestation, CV",
+    "indexLead3": "Each training ends with a certificate of participation and a professional CV to showcase your skills.",
+    "indexSectionTitle": "Training catalog",
+    "indexSectionLead": "Browse all our training programs and filter by category or level to find the one that suits you.",
     "items": {
       "comptabilite-bancaire": {
         "name": "Bank accounting",

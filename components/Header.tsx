@@ -50,7 +50,7 @@ const sectorsItems = [
 const resourcesItems = [
   { key: "articles", href: "/actualites", icon: "articles" },
   { key: "guides", href: "/actualites", icon: "guides" },
-  { key: "ourFormations", href: "/formations/comptabilite-finance", icon: "formations" },
+  { key: "ourFormations", href: "/formations", icon: "formations" },
   { key: "faq", href: "/contact", icon: "faq" },
   { key: "contactExpert", href: "/contact", icon: "contact" },
 
@@ -303,7 +303,7 @@ const links: NavLink[] = [
     submenu: expertiseItems.map((s) => ({ href: `/services/${s.slug}`, label: "" })),
   },
   {
-    href: "/formations/comptabilite-finance",
+    href: "/formations",
     key: "formations",
     submenu: [
       ...formationCategories.map((c) => ({
@@ -1020,7 +1020,7 @@ export default function Header() {
               })}
               { }
               <Link
-                href="/formations/comptabilite-finance"
+                href="/formations"
                 onClick={closeDrawer}
                 className="group flex items-center gap-1.5 px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-gold transition hover:text-gold-bright"
               >

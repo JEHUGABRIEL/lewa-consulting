@@ -29,7 +29,7 @@ export default function CTASection({ page }: { page: PageKey }) {
   const secondaryHref =
     page === "formations" || page === "blog"
       ? "/services"
-      : "/formations/comptabilite-finance";
+      : "/formations";
 
   return (
     <Container className="my-10">

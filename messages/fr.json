@@ -7,6 +7,7 @@
     "servicesDescription": "Découvrez les six domaines d'expertise du Cabinet COSI Lewa-Consulting Group : audit, expertise comptable, conseil en gouvernance, formation, accompagnement des entreprises et événements professionnels à Bangui.",
     "actualites": "Actualités",
     "actualitesDescription": "Actualités du Cabinet COSI Lewa-Consulting Group : sessions de formation, missions d'audit, événements professionnels et nouvelles du cabinet à Bangui.",
+    "formations": "Formations",
     "formationsDescription": "Formations professionnelles pratiques du Cabinet COSI Lewa-Consulting Group à Bangui : comptabilité, finance, bureautique et développement professionnel. Sessions flexibles pour tous les niveaux.",
     "contact": "Contact",
     "contactDescription": "Contactez le Cabinet COSI Lewa-Consulting Group à Bangui : téléphone, email, WhatsApp et formulaire de contact. Une réponse rapide sous 24h ouvrées.",
@@ -261,6 +262,14 @@
     "level": "Niveau",
     "allLevels": "Tous",
     "resultsCount": "{count} résultat(s)",
+    "indexTitle": "Toutes nos formations",
+    "indexLead": "Comptabilité, finance, bureautique et développement professionnel — des modules pratiques animés par des professionnels, avec certificat et attestation à la clé.",
+    "indexTitle2": "Filtrez par catégorie ou par niveau",
+    "indexLead2": "Choisissez le module adapté à votre profil parmi nos formations en comptabilité & finance et en bureautique & développement professionnel.",
+    "indexTitle3": "Certificat, attestation, CV",
+    "indexLead3": "Chaque formation conclue par un certificat de participation et un CV professionnel pour valoriser vos acquis.",
+    "indexSectionTitle": "Catalogue des formations",
+    "indexSectionLead": "Retrouvez toutes nos formations et filtrez par catégorie ou par niveau pour trouver celle qui vous correspond.",
     "items": {
       "comptabilite-bancaire": {
         "name": "Comptabilité bancaire",

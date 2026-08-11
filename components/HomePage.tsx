@@ -715,7 +715,7 @@ export default function HomePage({
               </p>
             </div>
             <Link
-              href="/formations/comptabilite-finance"
+              href="/formations"
               className="group hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-navy transition hover:text-red animate-slide-up delay-200"
             >
               <span>{t('formations.seeAll')}</span>
@@ -804,7 +804,7 @@ export default function HomePage({
           { }
           <div className="mt-8 text-center sm:hidden animate-fade-in">
             <Link
-              href="/formations/comptabilite-finance"
+              href="/formations"
               className="group inline-flex items-center gap-1.5 text-sm font-medium text-navy transition hover:text-red"
             >
               <span>{t('formations.seeAll')}</span>
