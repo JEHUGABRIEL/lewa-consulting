@@ -20,15 +20,54 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Aligné sur le runtime de développement (Node 24) et sur l'exigence
+          # de next 16 (>=20.9). Node 20 est déprécié sur les runners GitHub.
+          node-version: 24
+          cache: npm
 
       # Le test démarre lui-même le serveur Next.js (next dev, port éphémère)
       # et n'utilise que des modules Node natifs.
       - name: Installer les dépendances
         run: npm ci
 
+      # Le test écrit des données de test dans data/admin-store.json. On sauvegarde
+      # ce store avant la première tentative pour restaurer un état propre entre
+      # les tentatives (le test est stateful : relancer sur un store sale fausserait
+      # les assertions).
+      - name: Sauvegarder le store
+        run: |
+          if [ -f data/admin-store.json ]; then
+            cp data/admin-store.json /tmp/admin-store.bak
+            echo "store sauvegardé ($(wc -c < data/admin-store.json) octets)"
+          else
+            echo "pas de store présent"
+          fi
+
+      # Le serveur next dev compile les routes à la demande (Turbopack) : sur
+      # un runner chargé, la compilation initiale peut dépasser le budget d'une
+      # tentative isolée. On relance une fois en cas d'échec (échecs flaky),
+      # en restaurant le store entre les tentatives.
       - name: Tester le parcours admin
-        run: node scripts/check-admin-e2e.mjs
+        run: |
+          set +e
+          for attempt in 1 2; do
+            echo "── Tentative $attempt/2 du parcours admin ──"
+            node scripts/check-admin-e2e.mjs
+            code=$?
+            if [ $code -eq 0 ]; then
+              exit 0
+            fi
+            echo "::warning::Tentative $attempt échouée (code $code) — restauration du store puis relance…"
+            # Store sauvegardé (présent au checkout) → restauration ; sinon le
+            # store est généré par seed à la première exécution → on le supprime
+            # pour que le serveur le recrée proprement.
+            if [ -f /tmp/admin-store.bak ]; then
+              cp /tmp/admin-store.bak data/admin-store.json
+            elif [ -f data/admin-store.json ]; then
+              rm -f data/admin-store.json
+            fi
+          done
+          exit 1
         env:
           # Secrets optionnels — fixtures de test (admin/admin123) transmises au
           # serveur de test par le script (le code du site n'a aucun identifiant

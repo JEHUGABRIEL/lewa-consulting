@@ -103,13 +103,15 @@ function sessionCookie(res) {
 }
 
 
-async function waitForServer(timeoutMs = 180_000) {
+async function waitForServer(timeoutMs = 300_000) {
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     try {
       const res = await fetch(`${BASE}/admin/login`, {
         redirect: "manual",
-        signal: AbortSignal.timeout(5_000),
+        // 15s par tentative : la première compilation à la demande (Turbopack)
+        // de la route /admin/login peut prendre plus de 5s sur un runner chargé.
+        signal: AbortSignal.timeout(15_000),
       });
       if (res.status === 200) return;
     } catch {
@@ -138,7 +140,7 @@ async function waitForServer(timeoutMs = 180_000) {
 
 
 
-async function pollPublicPage(pathname, predicate, timeoutMs = 15_000) {
+async function pollPublicPage(pathname, predicate, timeoutMs = 60_000) {
   let last = { status: 0, text: "" };
   let deadline = 0;
   for (let attempt = 0; ; attempt++) {
