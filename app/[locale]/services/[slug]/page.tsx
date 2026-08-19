@@ -72,6 +72,41 @@ export default async function ServiceDetailPage({ params }: Props) {
   const service = await getPublicServiceBySlug(slug);
   if (!service) notFound();
 
+  const title = t(`services.items.${service.slug}.title`);
+  const description = t(`services.items.${service.slug}.desc`);
+  const canonical = `https://www.lewaconsultingroup.com/${locale}/services/${service.slug}`;
+
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: title,
+    description,
+    serviceType: title,
+    url: canonical,
+    areaServed: { "@type": "Country", name: "Centrafrique" },
+    provider: {
+      "@type": "ProfessionalService",
+      name: t("legal.companyName"),
+      telephone: t("common.phone"),
+      email: t("common.email"),
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bangui",
+        addressCountry: "CF",
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: t("nav.home"), item: `https://www.lewaconsultingroup.com/${locale}` },
+      { "@type": "ListItem", position: 2, name: t("common.ourServices"), item: `https://www.lewaconsultingroup.com/${locale}/services` },
+      { "@type": "ListItem", position: 3, name: title, item: canonical },
+    ],
+  };
+
   const related = (await getPublicServices()).filter((s) => s.slug !== service.slug);
 
 
@@ -99,6 +134,14 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
       { }
       <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
@@ -117,11 +160,11 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </div>
 
                 <h1 className="font-display text-3xl leading-tight text-white sm:text-4xl">
-                  {t(`services.items.${service.slug}.title`)}
+                  {title}
                 </h1>
 
                 <p className="mt-3 text-sm leading-relaxed text-white/70 max-w-xl">
-                  {t(`services.items.${service.slug}.desc`)}
+                  {description}
                 </p>
               </div>
 

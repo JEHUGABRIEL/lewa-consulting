@@ -86,8 +86,49 @@ export default async function ArticlePage({ params }: Props) {
     : posts.filter((p) => p.slug !== post.slug).slice(0, 4);
   const heroBgs = getHeroBackgrounds("formations");
 
+  const postTitle = t(`posts.${post.slug}.title`);
+  const canonical = `https://www.lewaconsultingroup.com/${locale}/actualites/${post.slug}`;
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: postTitle,
+    description: t(`posts.${post.slug}.excerpt`),
+    image: post.image.split("?")[0],
+    url: canonical,
+    inLanguage: locale,
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+    author: { "@type": "Organization", name: t("legal.companyName") },
+    publisher: {
+      "@type": "Organization",
+      name: t("legal.companyName"),
+      logo: {
+        "@type": "ImageObject",
+        url: "https://res.cloudinary.com/dwmrzp61c/image/upload/images/favicon_lewa.png",
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: t("nav.home"), item: `https://www.lewaconsultingroup.com/${locale}` },
+      { "@type": "ListItem", position: 2, name: t("nav.actualites"), item: `https://www.lewaconsultingroup.com/${locale}/actualites` },
+      { "@type": "ListItem", position: 3, name: postTitle, item: canonical },
+    ],
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
       { }
       <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
@@ -104,7 +145,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
 
             <h1 className="mt-4 font-display text-3xl leading-tight text-white sm:text-4xl">
-              {t(`posts.${post.slug}.title`)}
+              {postTitle}
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">

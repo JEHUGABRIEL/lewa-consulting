@@ -83,8 +83,52 @@ export default async function FormationDetailPage({ params }: Props) {
 
   const heroBgs = getHeroBackgrounds("formations");
 
+  const formationName = t(`formations.items.${formation.slug}.name`);
+  const canonical = `https://www.lewaconsultingroup.com/${locale}/formations/${formation.slug}`;
+
+  const courseJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: formationName,
+    description: t(`formations.items.${formation.slug}.desc`),
+    url: canonical,
+    provider: {
+      "@type": "Organization",
+      name: t("legal.companyName"),
+      sameAs: "https://www.lewaconsultingroup.com",
+    },
+    ...(formation.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: formation.price.replace(/\s/g, ""),
+            priceCurrency: "XAF",
+            category: formation.level,
+          },
+        }
+      : {}),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: t("nav.home"), item: `https://www.lewaconsultingroup.com/${locale}` },
+      { "@type": "ListItem", position: 2, name: t("common.allFormations"), item: `https://www.lewaconsultingroup.com/${locale}/formations` },
+      { "@type": "ListItem", position: 3, name: formationName, item: canonical },
+    ],
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
       { }
       <section className="relative overflow-hidden">
         <HeroSlider slides={heroBgs} interval={5000} />
@@ -121,7 +165,7 @@ export default async function FormationDetailPage({ params }: Props) {
                 </div>
 
                 <h1 className="font-display text-3xl leading-tight text-white sm:text-4xl">
-                  {t(`formations.items.${formation.slug}.name`)}
+                  {formationName}
                 </h1>
 
                 {(() => {
@@ -139,7 +183,7 @@ export default async function FormationDetailPage({ params }: Props) {
             { }
             <EnrollButton
               formationSlug={formation.slug}
-              formationName={t(`formations.items.${formation.slug}.name`)}
+              formationName={formationName}
               alternatives={allFormations
                 .filter((f) => f.slug !== formation.slug)
                 .map((r) => ({
